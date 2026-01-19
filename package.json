@@ -1,0 +1,25 @@
+{
+  "name": "iraqacademy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test-flow.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seif2627/IraqAcademy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/seif2627/IraqAcademy/issues"
+  },
+  "homepage": "https://github.com/seif2627/IraqAcademy#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.90.1",
+    "puppeteer": "^24.35.0"
+  }
+}

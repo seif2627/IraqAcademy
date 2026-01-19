@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/tailwind.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
     :root {
       --ia-accent: #10b981;
       --ia-accent-hover: #059669;
@@ -14,7 +13,6 @@
     html, body {
       overflow-x: hidden;
       width: 100%;
-      font-family: 'Cairo', sans-serif;
     }
     .text-accent { color: var(--ia-accent); }
     .bg-accent { background-color: var(--ia-accent); }
@@ -28,17 +26,17 @@
       <div class="flex flex-col lg:flex-row items-center gap-12">
         <div class="lg:w-1/2">
           <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-            <span data-i18n="home_hero_title_1">عزز مستقبلك مع</span> <span class="text-accent">IraqAcademy</span>
+            <span data-i18n="home_hero_title_1">Empower Your Future with</span> <span class="text-accent">IraqAcademy</span>
           </h1>
           <p class="text-lg text-slate-600 mb-8 max-w-xl" data-i18n="home_hero_subtitle">
-            احصل على تعليم عالمي المستوى من أي مكان. انضم إلى آلاف الطلاب الذين يتعلمون من أفضل الأساتذة في العراق.
+            Get world-class education from anywhere. Join thousands of students learning from the best teachers in Iraq.
           </p>
           <div class="flex flex-wrap gap-4">
             <a href="../index.html#/courses" target="_top" class="bg-accent bg-accent-hover text-white px-8 py-3 rounded-lg font-bold shadow-lg transition-all hover:-translate-y-1" data-i18n="home_explore_btn">
-              استكشف الدورات
+              Explore Courses
             </a>
             <a href="../index.html#/signup" target="_top" class="bg-white border-2 border-slate-200 text-slate-700 px-8 py-3 rounded-lg font-bold hover:border-accent hover:text-accent transition-all" data-i18n="home_join_btn">
-              انضم مجاناً
+              Join for Free
             </a>
           </div>
         </div>
@@ -46,7 +44,7 @@
           <div class="relative">
             <div class="absolute -top-10 -left-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl"></div>
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800" alt="طلاب يتعلمون" class="rounded-2xl shadow-2xl relative z-10">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800" alt="Students learning" class="rounded-2xl shadow-2xl relative z-10">
           </div>
         </div>
       </div>
@@ -57,7 +55,7 @@
   <section class="py-20">
     <div class="container mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold mb-4" data-i18n="home_features_title">لماذا تختار IraqAcademy؟</h2>
+        <h2 class="text-3xl font-bold mb-4" data-i18n="home_features_title">Why Choose IraqAcademy?</h2>
         <div class="w-20 h-1 bg-accent mx-auto"></div>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
@@ -65,22 +63,22 @@
           <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-6">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
           </div>
-          <h3 class="text-xl font-bold mb-3" data-i18n="home_feature_1_title">أفضل الأساتذة</h3>
-          <p class="text-slate-600" data-i18n="home_feature_1_desc">تعلم من مدرسين ذوي خبرة وخبراء في مجالاتهم المختلفة.</p>
+          <h3 class="text-xl font-bold mb-3" data-i18n="home_feature_1_title">Expert Teachers</h3>
+          <p class="text-slate-600" data-i18n="home_feature_1_desc">Learn from experienced educators who are experts in their fields.</p>
         </div>
         <div class="p-8 border border-slate-100 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-6">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
           </div>
-          <h3 class="text-xl font-bold mb-3" data-i18n="home_feature_2_title">دروس تفاعلية</h3>
-          <p class="text-slate-600" data-i18n="home_feature_2_desc">تفاعل مع محتوى فيديو عالي الجودة وتمارين تفاعلية في الوقت الفعلي.</p>
+          <h3 class="text-xl font-bold mb-3" data-i18n="home_feature_2_title">Interactive Lessons</h3>
+          <p class="text-slate-600" data-i18n="home_feature_2_desc">Engage with high-quality video content and real-time interactive exercises.</p>
         </div>
         <div class="p-8 border border-slate-100 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-6">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           </div>
-          <h3 class="text-xl font-bold mb-3" data-i18n="home_feature_3_title">نمو موثق</h3>
-          <p class="text-slate-600" data-i18n="home_feature_3_desc">تتبع تقدمك واحصل على شهادات تعزز فرصك المهنية.</p>
+          <h3 class="text-xl font-bold mb-3" data-i18n="home_feature_3_title">Certified Growth</h3>
+          <p class="text-slate-600" data-i18n="home_feature_3_desc">Track your progress and earn certificates to boost your career.</p>
         </div>
       </div>
     </div>
@@ -89,12 +87,12 @@
   <!-- CTA Section -->
   <section class="py-20 bg-accent text-white">
     <div class="container mx-auto px-6 text-center">
-      <h2 class="text-4xl font-bold mb-6" data-i18n="home_cta_title">هل أنت مستعد لبدء التعلم؟</h2>
+      <h2 class="text-4xl font-bold mb-6" data-i18n="home_cta_title">Ready to Start Learning?</h2>
       <p class="text-xl mb-10 opacity-90 max-w-2xl mx-auto" data-i18n="home_cta_subtitle">
-        أنشئ حساباً اليوم واحصل على إمكانية الوصول إلى مكتبتنا من الدورات المجانية.
+        Create an account today and get access to our library of free courses.
       </p>
       <a href="../index.html#/signup" target="_top" class="bg-white text-accent px-10 py-4 rounded-xl font-extrabold text-lg shadow-xl hover:bg-slate-50 transition-all inline-block" data-i18n="home_cta_btn">
-        سجل الآن
+        Register Now
       </a>
     </div>
   </section>

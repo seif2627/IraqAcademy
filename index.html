@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IraqAcademy – بوابة التعليم</title>
+  <title>IraqAcademy – Education Portal</title>
   <link rel="stylesheet" href="assets/tailwind.css" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="shell">
@@ -22,12 +23,12 @@
             <span class="brand-text">IraqAcademy</span>
           </a>
 
-          <div class="nav-links" role="navigation" aria-label="الأقسام">
-            <button type="button" class="nav-link" data-page="home" data-i18n="nav_home">الرئيسية</button>
-            <button type="button" class="nav-link" data-page="courses" data-i18n="nav_courses">الدورات</button>
-            <button type="button" class="nav-link" data-page="students" data-i18n="nav_students">الطلاب</button>
-            <button type="button" class="nav-link" data-page="teachers" data-i18n="nav_teachers">الأساتذة</button>
-            <button type="button" class="nav-link" data-page="help" data-i18n="nav_help">المساعدة</button>
+          <div class="nav-links" role="navigation" aria-label="Sections">
+            <button type="button" class="nav-link" data-page="home" data-i18n="nav_home">Home</button>
+            <button type="button" class="nav-link" data-page="courses" data-i18n="nav_courses">Courses</button>
+            <button type="button" class="nav-link" data-page="students" data-i18n="nav_students">Students</button>
+            <button type="button" class="nav-link" data-page="teachers" data-i18n="nav_teachers">Teachers</button>
+            <button type="button" class="nav-link" data-page="help" data-i18n="nav_help">Help</button>
           </div>
 
           <div class="nav-center">
@@ -41,7 +42,7 @@
               <input
                 type="search"
                 class="nav-search-input"
-                placeholder="ابحث عن دورات، أساتذة..."
+                placeholder="Search courses, teachers..."
                 aria-label="Search"
                 data-i18n-placeholder="search_placeholder"
               />
@@ -49,26 +50,17 @@
           </div>
 
           <div class="nav-auth">
-            <button type="button" id="cartBtn" class="btn-cart" aria-label="View Cart">
-              <span class="cart-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L22 6H6"></path>
-                </svg>
-              </span>
-              <span id="cartCount" class="cart-count">0</span>
-            </button>
-            <button type="button" id="langToggle" class="btn-lang" aria-label="Switch Language">
+            <button type="button" id="langToggle" class="btn-lang" aria-label="Switch Language" style="display: none;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-lang">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="2" y1="12" x2="22" y2="12"></line>
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
               </svg>
-              <span id="langLabel">English</span>
+              <span id="langLabel">العربية</span>
             </button>
-            <a href="#/login" class="btn-login" data-i18n="login">تسجيل الدخول</a>
-            <a href="#/signup" class="btn-signup" data-i18n="signup">إنشاء حساب</a>
+            <a href="#/login" class="btn-login" data-i18n="login">Login</a>
+            <a href="#/signup" class="btn-signup" data-i18n="signup">Sign Up</a>
+            <button id="logoutBtn" class="btn-login" style="display: none;">Logout</button>
           </div>
         </nav>
       </div>
@@ -78,11 +70,12 @@
     </main>
     <footer class="shell-footer">
       <div class="shell-footer-inner">
-        <div data-i18n="footer_copyright">&copy; 2026 IraqAcademy. جميع الحقوق محفوظة.</div>
-        <div data-i18n="footer_tagline">التميز التعليمي للجميع</div>
+        <div data-i18n="footer_copyright">&copy; 2026 IraqAcademy. All rights reserved.</div>
+        <div data-i18n="footer_tagline">Educational Excellence for All</div>
       </div>
     </footer>
   </div>
+  <script src="assets/supabase.js"></script>
   <script src="assets/app.js?v=20260118"></script>
 </body>
 </html>
