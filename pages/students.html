@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+    :root {
+      --ia-accent: #10b981;
+      --ia-accent-hover: #059669;
+    }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      font-family: 'Cairo', sans-serif;
+    }
+    .text-accent { color: var(--ia-accent); }
+    .bg-accent { background-color: var(--ia-accent); }
+    .bg-accent-hover:hover { background-color: var(--ia-accent-hover); }
+  </style>
+</head>
+<body class="bg-white text-slate-900 font-sans p-8" dir="rtl">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-12">
+      <div>
+        <h1 class="text-4xl font-bold mb-2" data-i18n="students_title">دليل الطلاب</h1>
+        <p class="text-slate-600 text-lg" data-i18n="students_subtitle">إدارة وعرض جميع الطلاب المسجلين.</p>
+      </div>
+      <button class="bg-accent bg-accent-hover text-white px-6 py-2 rounded-lg font-bold transition-all shadow-lg" data-i18n="students_add_btn">
+        إضافة طالب جديد
+      </button>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+      <table class="w-full text-right border-collapse">
+        <thead class="bg-slate-50 border-bottom border-slate-200">
+          <tr>
+            <th class="px-6 py-4 text-sm font-bold text-slate-700" data-i18n="students_th_student">الطالب</th>
+            <th class="px-6 py-4 text-sm font-bold text-slate-700" data-i18n="students_th_email">البريد الإلكتروني</th>
+            <th class="px-6 py-4 text-sm font-bold text-slate-700" data-i18n="students_th_courses">الدورات المسجلة</th>
+            <th class="px-6 py-4 text-sm font-bold text-slate-700" data-i18n="students_th_status">الحالة</th>
+            <th class="px-6 py-4 text-sm font-bold text-slate-700" data-i18n="students_th_actions">الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <!-- Student 1 -->
+          <tr class="hover:bg-slate-50/50 transition-colors">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <img src="https://i.pravatar.cc/150?u=10" class="w-10 h-10 rounded-full">
+                <span class="font-bold">علي محمد</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-slate-600">ali.m@example.com</td>
+            <td class="px-6 py-4">
+              <div class="flex gap-1">
+                <span class="bg-slate-100 px-2 py-1 rounded text-xs font-medium">الرياضيات</span>
+                <span class="bg-slate-100 px-2 py-1 rounded text-xs font-medium">الفيزياء</span>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold" data-i18n="student_status_active">نشط</span>
+            </td>
+            <td class="px-6 py-4">
+              <button class="text-slate-400 hover:text-accent transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              </button>
+            </td>
+          </tr>
+          <!-- Student 2 -->
+          <tr class="hover:bg-slate-50/50 transition-colors">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <img src="https://i.pravatar.cc/150?u=11" class="w-10 h-10 rounded-full">
+                <span class="font-bold">فاطمة الزهراء</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-slate-600">fatima.z@example.com</td>
+            <td class="px-6 py-4">
+              <div class="flex gap-1">
+                <span class="bg-slate-100 px-2 py-1 rounded text-xs font-medium">تطوير الويب</span>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold" data-i18n="student_status_active">نشط</span>
+            </td>
+            <td class="px-6 py-4">
+              <button class="text-slate-400 hover:text-accent transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              </button>
+            </td>
+          </tr>
+          <!-- Student 3 -->
+          <tr class="hover:bg-slate-50/50 transition-colors">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <img src="https://i.pravatar.cc/150?u=12" class="w-10 h-10 rounded-full">
+                <span class="font-bold">مصطفى خالد</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-slate-600">mustafa.k@example.com</td>
+            <td class="px-6 py-4">
+              <div class="flex gap-1">
+                <span class="bg-slate-100 px-2 py-1 rounded text-xs font-medium">الإنجليزية</span>
+                <span class="bg-slate-100 px-2 py-1 rounded text-xs font-medium">التفاضل والتكامل</span>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold" data-i18n="student_status_inactive">غير نشط</span>
+            </td>
+            <td class="px-6 py-4">
+              <button class="text-slate-400 hover:text-accent transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
