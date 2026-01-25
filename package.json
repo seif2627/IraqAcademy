@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/seif2627/IraqAcademy#readme",
   "dependencies": {
-    "@supabase/supabase-js": "^2.90.1",
     "puppeteer": "^24.35.0"
   }
 }

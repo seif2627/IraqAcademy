@@ -19,7 +19,7 @@
   </style>
 </head>
 <body class="bg-white text-slate-900 font-sans p-8" dir="rtl">
-  <div class="max-w-7xl mx-auto">
+  <div id="studentsContent" class="max-w-7xl mx-auto">
     <div class="flex items-center justify-between mb-12">
       <div>
         <h1 class="text-4xl font-bold mb-2" data-i18n="students_title">دليل الطلاب</h1>
@@ -117,5 +117,37 @@
       </table>
     </div>
   </div>
+  <div id="studentsAccessDenied" class="hidden max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+    <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent mx-auto mb-6">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+    </div>
+    <h2 class="text-2xl font-bold mb-3">هذه الصفحة مخصصة للمشرفين فقط</h2>
+    <p class="text-slate-600 mb-6">إذا كنت مشرفًا أو مالكًا، سجّل الدخول بحسابك للوصول إلى قائمة الطلاب.</p>
+    <a href="../index.html#/login" target="_top" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">تسجيل الدخول</a>
+  </div>
+  <script>
+    const client = window.top?.authClient || window.authClient;
+    const content = document.getElementById('studentsContent');
+    const denied = document.getElementById('studentsAccessDenied');
+
+    const showDenied = () => {
+      if (content) content.classList.add('hidden');
+      if (denied) denied.classList.remove('hidden');
+    };
+
+    const checkAccess = async () => {
+      if (!client) {
+        showDenied();
+        return;
+      }
+      const { data: { session } } = await client.auth.getSession();
+      const role = session?.user?.user_metadata?.role || 'student';
+      if (role !== 'admin' && role !== 'owner') {
+        showDenied();
+      }
+    };
+
+    checkAccess();
+  </script>
 </body>
 </html>
