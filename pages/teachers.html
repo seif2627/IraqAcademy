@@ -425,7 +425,26 @@
       if (teacherImages[index]) {
         img.src = teacherImages[index];
       }
+      img.className = "w-full h-full rounded-full object-cover border-4 border-slate-50";
+      const card = img.closest('.bg-white');
+      const name = card?.querySelector('h3')?.textContent?.trim();
+      if (name) img.alt = name;
     });
+
+    const grid = document.querySelector('.teachers-grid');
+    if (grid) {
+      const walker = document.createTreeWalker(grid, NodeFilter.SHOW_TEXT);
+      const garbage = [];
+      while (walker.nextNode()) {
+        const text = walker.currentNode.nodeValue || '';
+        const trimmed = text.trim();
+        if (!trimmed) continue;
+        if (trimmed.includes('data:image') || trimmed.includes('base64') || trimmed.includes('object-cover') || trimmed.includes('rounded-full') || trimmed.includes('border-4')) {
+          garbage.push(walker.currentNode);
+        }
+      }
+      garbage.forEach((node) => node.parentNode?.removeChild(node));
+    }
   </script>
 </body>
 </html>
