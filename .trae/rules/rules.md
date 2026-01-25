@@ -14,6 +14,17 @@ MAIN RULE: ALWAYS PUSH TO GITHUB AFTER FINISHING ANY CHANGES
 - Convex للواجهة الخلفية عند الحاجة.  
 - تحديثات المشروع تُدفع دائمًا إلى GitHub.  
 
+## إعداد Convex  
+- المشروع مرتبط مسبقًا عبر Convex CLI.  
+- الاسم: IraqAcademy  
+- المعرّف: iraqacademy  
+- الفريق: saif-alrifaie  
+- في حال إعادة الربط استخدم: npx convex dev --configure=existing --team saif-alrifaie --project iraqacademy  
+- لا تنشئ مشروع Convex جديد.  
+- لا تغيّر إعدادات لوحة التحكم.  
+- لا تبحث عن مفاتيح أو أسرار.  
+- يمكن التعديل بحرية على: /convex/schema.ts والـ queries والـ mutations والـ actions.
+
 ## الصفحات الأساسية  
 1. **تسجيل الدخول / إنشاء الحساب**  
    - بريد إلكتروني وكلمة مرور مع تحديد نوع الحساب.  
