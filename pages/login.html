@@ -82,6 +82,18 @@
       <div id="errorMessage" class="text-red-500 text-sm text-center hidden"></div>
     </form>
 
+    <div class="mt-6">
+      <div class="flex items-center gap-3 text-slate-400 text-xs">
+        <div class="flex-1 h-px bg-slate-200"></div>
+        <span>أو</span>
+        <div class="flex-1 h-px bg-slate-200"></div>
+      </div>
+      <div class="mt-4 grid gap-3">
+        <button id="googleLogin" class="w-full border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all">الدخول عبر Google</button>
+        <button id="facebookLogin" class="w-full border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all">الدخول عبر Facebook</button>
+      </div>
+    </div>
+
     <div class="mt-8 text-center">
       <p class="text-slate-600 text-sm">
         ليس لديك حساب؟
@@ -90,10 +102,14 @@
     </div>
   </div>
 
+  <script type="module" src="../assets/convex.js"></script>
   <script src="../assets/auth.js"></script>
+  <script src="../assets/store.js"></script>
   <script>
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
+    const googleLogin = document.getElementById('googleLogin');
+    const facebookLogin = document.getElementById('facebookLogin');
 
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -111,11 +127,21 @@
         errorMessage.textContent = error.message;
         errorMessage.classList.remove('hidden');
       } else {
-        // Successful login
+        if (window.top?.iaStore) {
+          await window.top.iaStore.syncUser(data?.user || data?.session?.user);
+        }
         window.top.location.hash = '#/home';
         window.top.location.reload();
       }
     });
+
+    const showSocialNotice = () => {
+      errorMessage.textContent = 'تسجيل الدخول عبر Google أو Facebook يحتاج ربط خدمة خارجية مجانية.';
+      errorMessage.classList.remove('hidden');
+    };
+
+    googleLogin.addEventListener('click', showSocialNotice);
+    facebookLogin.addEventListener('click', showSocialNotice);
   </script>
 </body>
 </html>
