@@ -47,5 +47,16 @@ export default defineSchema({
     phone: v.string(),
     notes: v.string(),
     updatedAt: v.number()
+  }).index("by_userId", ["userId"]),
+  profiles: defineTable({
+    userId: v.string(),
+    fullName: v.string(),
+    phone: v.string(),
+    address: v.string(),
+    city: v.string(),
+    governorate: v.string(),
+    idNumber: v.string(),
+    birthDate: v.string(),
+    updatedAt: v.number()
   }).index("by_userId", ["userId"])
 });

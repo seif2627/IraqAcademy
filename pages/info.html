@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --ia-accent: #10b981;
+      --ia-accent-hover: #059669;
+    }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    .text-accent { color: var(--ia-accent); }
+    .bg-accent { background-color: var(--ia-accent); }
+    .bg-accent-hover:hover { background-color: var(--ia-accent-hover); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen p-8" dir="rtl">
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-10 text-center">
+      <h1 class="text-3xl font-bold mb-2">معلومات الحساب</h1>
+      <p class="text-slate-600">يرجى إكمال بياناتك القانونية قبل متابعة استخدام المنصة.</p>
+    </div>
+
+    <div id="verifyBanner" class="hidden mb-4 border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 rounded-xl">
+      يرجى تأكيد بريدك الإلكتروني أولاً. تم إرسال رسالة تحقق إلى بريدك.
+      <button id="resendVerification" class="mr-2 text-amber-800 font-bold hover:underline">إعادة الإرسال</button>
+    </div>
+
+    <form id="infoForm" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">البريد الإلكتروني</label>
+        <input id="email" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50" readonly>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">الاسم الكامل</label>
+          <input id="fullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">رقم الهاتف</label>
+          <input id="phone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رقم الهاتف">
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">المحافظة</label>
+          <input id="governorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المحافظة">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">المدينة / المنطقة</label>
+          <input id="city" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المدينة أو المنطقة">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">العنوان الكامل</label>
+        <input id="address" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="العنوان الكامل">
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">رقم الهوية الوطنية</label>
+          <input id="idNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رقم الهوية">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">تاريخ الميلاد</label>
+          <input id="birthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+        </div>
+      </div>
+      <button id="saveBtn" class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">حفظ البيانات</button>
+      <div id="formNotice" class="text-sm text-center text-slate-600"></div>
+    </form>
+  </div>
+
+  <script type="module" src="../assets/convex.js"></script>
+  <script type="module" src="../assets/firebase.js"></script>
+  <script src="../assets/auth.js"></script>
+  <script src="../assets/store.js"></script>
+  <script>
+    const store = window.top?.iaStore || window.iaStore;
+    const form = document.getElementById('infoForm');
+    const notice = document.getElementById('formNotice');
+    const saveBtn = document.getElementById('saveBtn');
+    const verifyBanner = document.getElementById('verifyBanner');
+    const resendBtn = document.getElementById('resendVerification');
+
+    const fields = {
+      email: document.getElementById('email'),
+      fullName: document.getElementById('fullName'),
+      phone: document.getElementById('phone'),
+      governorate: document.getElementById('governorate'),
+      city: document.getElementById('city'),
+      address: document.getElementById('address'),
+      idNumber: document.getElementById('idNumber'),
+      birthDate: document.getElementById('birthDate')
+    };
+
+    const getFirebaseUser = () => window.firebaseAuth?.auth?.currentUser || null;
+
+    const updateVerificationState = () => {
+      const user = getFirebaseUser();
+      if (user && !user.emailVerified) {
+        verifyBanner.classList.remove('hidden');
+        saveBtn.disabled = true;
+        saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      } else {
+        verifyBanner.classList.add('hidden');
+        saveBtn.disabled = false;
+        saveBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+    };
+
+    resendBtn.addEventListener('click', async () => {
+      const user = getFirebaseUser();
+      if (user) {
+        await window.firebaseAuth.sendEmailVerification(user);
+        notice.textContent = 'تم إرسال رسالة التحقق مرة أخرى.';
+      }
+    });
+
+    const loadProfile = async () => {
+      const session = await (window.top?.authClient || window.authClient)?.auth?.getSession?.();
+      const email = session?.data?.session?.user?.email || getFirebaseUser()?.email || '';
+      fields.email.value = email;
+      const profile = await store.getProfile();
+      if (profile) {
+        fields.fullName.value = profile.fullName || '';
+        fields.phone.value = profile.phone || '';
+        fields.governorate.value = profile.governorate || '';
+        fields.city.value = profile.city || '';
+        fields.address.value = profile.address || '';
+        fields.idNumber.value = profile.idNumber || '';
+        fields.birthDate.value = profile.birthDate || '';
+      }
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      notice.textContent = '';
+      if (saveBtn.disabled) {
+        notice.textContent = 'يرجى تأكيد بريدك الإلكتروني أولاً.';
+        return;
+      }
+      await store.saveProfile({
+        fullName: fields.fullName.value.trim(),
+        phone: fields.phone.value.trim(),
+        governorate: fields.governorate.value.trim(),
+        city: fields.city.value.trim(),
+        address: fields.address.value.trim(),
+        idNumber: fields.idNumber.value.trim(),
+        birthDate: fields.birthDate.value.trim()
+      });
+      notice.textContent = 'تم حفظ البيانات بنجاح.';
+      window.top.location.hash = '#/home';
+      window.top.location.reload();
+    });
+
+    if (window.firebaseAuth?.onAuthStateChanged) {
+      window.firebaseAuth.onAuthStateChanged(window.firebaseAuth.auth, () => {
+        updateVerificationState();
+        loadProfile();
+      });
+    } else {
+      updateVerificationState();
+      loadProfile();
+    }
+  </script>
+</body>
+</html>

@@ -386,15 +386,14 @@
     const formatCurrency = (value) => new Intl.NumberFormat('ar-AE', { style: 'currency', currency: 'AED' }).format(value);
 
     const buildCard = (course) => `
-      <div class="group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+      <div class="group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col min-h-[340px]">
         <div class="relative h-48 bg-emerald-50 flex items-center justify-center">
           <div class="text-3xl font-bold text-emerald-700">${course.title}</div>
           <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-accent">${course.badge}</div>
         </div>
-        <div class="p-6">
-          <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">${course.title}</h3>
-          <p class="text-slate-600 text-sm mb-4 line-clamp-2">${course.level} - ${course.teacher}</p>
-          <div class="flex items-center justify-between pt-4 border-t border-slate-50">
+        <div class="p-6 flex-1 flex flex-col">
+          <h3 class="text-xl font-bold mb-4 group-hover:text-accent transition-colors">${course.level} - ${course.teacher}</h3>
+          <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-50">
             <div class="text-slate-700 font-bold">${formatCurrency(course.price)}</div>
             <button data-course="${course.courseId}" class="add-to-cart bg-accent text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-600 transition-all">إضافة للسلة</button>
           </div>

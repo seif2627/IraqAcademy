@@ -34,18 +34,6 @@
 
     <form id="signupForm" class="space-y-4">
       <div>
-        <label for="name" class="block text-sm font-medium text-slate-700 mb-1">الاسم الكامل</label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          placeholder="أحمد محمد"
-          class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all hover:border-accent/50"
-          required
-        >
-      </div>
-
-      <div>
         <label for="email" class="block text-sm font-medium text-slate-700 mb-1">البريد الإلكتروني</label>
         <input 
           type="email" 
@@ -69,6 +57,17 @@
         >
       </div>
 
+      <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+        <div class="font-bold mb-2 text-slate-700">قوة كلمة المرور</div>
+        <ul class="space-y-1">
+          <li id="rule-length">٨ أحرف على الأقل</li>
+          <li id="rule-upper">حرف كبير واحد على الأقل</li>
+          <li id="rule-lower">حرف صغير واحد على الأقل</li>
+          <li id="rule-number">رقم واحد على الأقل</li>
+          <li id="rule-special">رمز خاص واحد على الأقل</li>
+        </ul>
+      </div>
+
       <div>
         <label for="confirm-password" class="block text-sm font-medium text-slate-700 mb-1">تأكيد كلمة المرور</label>
         <input 
@@ -79,18 +78,6 @@
           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all hover:border-accent/50"
           required
         >
-      </div>
-
-      <div class="flex items-start">
-        <input 
-          type="checkbox" 
-          id="terms" 
-          class="mt-1 w-4 h-4 text-accent border-slate-300 rounded focus:ring-accent"
-          required
-        >
-        <label for="terms" class="ml-2 block text-sm text-slate-600">
-          أوافق على <a href="#" class="text-accent hover:underline">شروط الخدمة</a> و<a href="#" class="text-accent hover:underline">سياسة الخصوصية</a>
-        </label>
       </div>
 
       <button 
@@ -122,7 +109,7 @@
     <div class="mt-8 pt-6 border-t border-slate-100 text-center">
       <p class="text-slate-600">
         لديك حساب بالفعل؟
-        <a href="#/login" class="text-accent font-semibold hover:underline">سجّل الدخول</a>
+        <a href="../index.html#/login" target="_top" class="text-accent font-semibold hover:underline">سجّل الدخول</a>
       </p>
     </div>
   </div>
@@ -137,13 +124,46 @@
     const successMessage = document.getElementById('successMessage');
     const googleSignup = document.getElementById('googleSignup');
     const facebookSignup = document.getElementById('facebookSignup');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const rules = {
+      length: document.getElementById('rule-length'),
+      upper: document.getElementById('rule-upper'),
+      lower: document.getElementById('rule-lower'),
+      number: document.getElementById('rule-number'),
+      special: document.getElementById('rule-special')
+    };
+
+    const checkRule = (element, ok) => {
+      element.style.color = ok ? 'var(--ia-accent)' : '#64748b';
+      element.style.fontWeight = ok ? '700' : '400';
+    };
+
+    const isStrongPassword = (value) => {
+      const checks = {
+        length: value.length >= 8,
+        upper: /[A-Z]/.test(value),
+        lower: /[a-z]/.test(value),
+        number: /[0-9]/.test(value),
+        special: /[^A-Za-z0-9]/.test(value)
+      };
+      checkRule(rules.length, checks.length);
+      checkRule(rules.upper, checks.upper);
+      checkRule(rules.lower, checks.lower);
+      checkRule(rules.number, checks.number);
+      checkRule(rules.special, checks.special);
+      return Object.values(checks).every(Boolean);
+    };
+
+    passwordInput.addEventListener('input', () => {
+      isStrongPassword(passwordInput.value);
+    });
 
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorMessage.classList.add('hidden');
       successMessage.classList.add('hidden');
 
-      const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirm-password').value;
@@ -153,27 +173,45 @@
         errorMessage.classList.remove('hidden');
         return;
       }
-
-      const { data, error } = await window.authClient.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: name,
-            role: 'student'
-          }
-        }
-      });
-
-      if (error) {
-        errorMessage.textContent = error.message;
+      if (!isStrongPassword(password)) {
+        errorMessage.textContent = "يرجى استخدام كلمة مرور قوية تطابق الشروط.";
         errorMessage.classList.remove('hidden');
-      } else {
-        successMessage.classList.remove('hidden');
-        signupForm.reset();
-        if (window.top?.iaStore) {
-          await window.top.iaStore.syncUser(data?.user);
+        return;
+      }
+
+      const firebaseAuth = window.firebaseAuth;
+      if (!firebaseAuth) {
+        errorMessage.textContent = 'إعداد Firebase غير مكتمل.';
+        errorMessage.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        const { user } = await firebaseAuth.createUserWithEmailAndPassword(firebaseAuth.auth, email, password);
+        await firebaseAuth.sendEmailVerification(user);
+        const { data, error } = await window.authClient.auth.signInWithProvider({
+          provider: 'firebase',
+          profile: {
+            id: user.uid,
+            email: user.email,
+            full_name: user.displayName || ''
+          }
+        });
+        if (error) {
+          errorMessage.textContent = error.message;
+          errorMessage.classList.remove('hidden');
+          return;
         }
+        if (window.top?.iaStore) {
+          await window.top.iaStore.syncUser(data?.user || data?.session?.user);
+        }
+        successMessage.textContent = 'تم إنشاء الحساب. تم إرسال رسالة تحقق إلى بريدك.';
+        successMessage.classList.remove('hidden');
+        window.top.location.hash = '#/info';
+        window.top.location.reload();
+      } catch (error) {
+        errorMessage.textContent = 'تعذر إنشاء الحساب. تحقق من البريد أو كلمة المرور.';
+        errorMessage.classList.remove('hidden');
       }
     });
 
@@ -185,28 +223,33 @@
         errorMessage.classList.remove('hidden');
         return;
       }
-      const provider = providerName === 'google' ? firebaseAuth.googleProvider : firebaseAuth.facebookProvider;
-      const { user } = await firebaseAuth.signInWithPopup(firebaseAuth.auth, provider);
-      const { data, error } = await window.authClient.auth.signInWithProvider({
-        provider: providerName,
-        profile: {
-          id: user.uid,
-          email: user.email,
-          full_name: user.displayName
+      try {
+        const provider = providerName === 'google' ? firebaseAuth.googleProvider : firebaseAuth.facebookProvider;
+        const { user } = await firebaseAuth.signInWithPopup(firebaseAuth.auth, provider);
+        const { data, error } = await window.authClient.auth.signInWithProvider({
+          provider: providerName,
+          profile: {
+            id: user.uid,
+            email: user.email,
+            full_name: user.displayName || ''
+          }
+        });
+        if (error) {
+          errorMessage.textContent = error.message;
+          errorMessage.classList.remove('hidden');
+          return;
         }
-      });
-      if (error) {
-        errorMessage.textContent = error.message;
+        if (window.top?.iaStore) {
+          await window.top.iaStore.syncUser(data?.user || data?.session?.user);
+        }
+        successMessage.textContent = 'تم إنشاء الحساب بنجاح عبر تسجيل الدخول الاجتماعي.';
+        successMessage.classList.remove('hidden');
+        window.top.location.hash = '#/info';
+        window.top.location.reload();
+      } catch (error) {
+        errorMessage.textContent = 'تعذر التسجيل الاجتماعي. تأكد من إعدادات Facebook/Google.';
         errorMessage.classList.remove('hidden');
-        return;
       }
-      if (window.top?.iaStore) {
-        await window.top.iaStore.syncUser(data?.user || data?.session?.user);
-      }
-      successMessage.textContent = 'تم إنشاء الحساب بنجاح عبر تسجيل الدخول الاجتماعي.';
-      successMessage.classList.remove('hidden');
-      window.top.location.hash = '#/home';
-      window.top.location.reload();
     };
 
     googleSignup.addEventListener('click', () => signUpWithProvider('google'));

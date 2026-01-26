@@ -97,7 +97,7 @@
     <div class="mt-8 text-center">
       <p class="text-slate-600 text-sm">
         ليس لديك حساب؟
-        <a href="#/signup" class="text-accent font-bold hover:underline">أنشئ حسابًا مجانًا</a>
+        <a href="../index.html#/signup" target="_top" class="text-accent font-bold hover:underline">أنشئ حسابًا مجانًا</a>
       </p>
     </div>
   </div>
@@ -112,6 +112,19 @@
     const googleLogin = document.getElementById('googleLogin');
     const facebookLogin = document.getElementById('facebookLogin');
 
+    const goAfterLogin = async () => {
+      if (window.top?.iaStore?.getProfile) {
+        const profile = await window.top.iaStore.getProfile();
+        if (!profile) {
+          window.top.location.hash = '#/info';
+          window.top.location.reload();
+          return;
+        }
+      }
+      window.top.location.hash = '#/home';
+      window.top.location.reload();
+    };
+
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorMessage.classList.add('hidden');
@@ -119,20 +132,40 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
-      const { data, error } = await window.authClient.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        errorMessage.textContent = error.message;
+      const firebaseAuth = window.firebaseAuth;
+      if (!firebaseAuth) {
+        errorMessage.textContent = 'إعداد Firebase غير مكتمل.';
         errorMessage.classList.remove('hidden');
-      } else {
+        return;
+      }
+      try {
+        const { user } = await firebaseAuth.signInWithEmailAndPassword(firebaseAuth.auth, email, password);
+        if (!user.emailVerified) {
+          await firebaseAuth.sendEmailVerification(user);
+          errorMessage.textContent = 'تم إرسال رسالة تأكيد البريد الإلكتروني. يرجى التحقق أولاً.';
+          errorMessage.classList.remove('hidden');
+          return;
+        }
+        const { data, error } = await window.authClient.auth.signInWithProvider({
+          provider: 'firebase',
+          profile: {
+            id: user.uid,
+            email: user.email,
+            full_name: user.displayName || ''
+          }
+        });
+        if (error) {
+          errorMessage.textContent = error.message;
+          errorMessage.classList.remove('hidden');
+          return;
+        }
         if (window.top?.iaStore) {
           await window.top.iaStore.syncUser(data?.user || data?.session?.user);
         }
-        window.top.location.hash = '#/home';
-        window.top.location.reload();
+        await goAfterLogin();
+      } catch (error) {
+        errorMessage.textContent = 'فشل تسجيل الدخول. تحقق من البيانات أو إعدادات Firebase.';
+        errorMessage.classList.remove('hidden');
       }
     });
 
@@ -144,26 +177,30 @@
         errorMessage.classList.remove('hidden');
         return;
       }
-      const provider = providerName === 'google' ? firebaseAuth.googleProvider : firebaseAuth.facebookProvider;
-      const { user } = await firebaseAuth.signInWithPopup(firebaseAuth.auth, provider);
-      const { data, error } = await window.authClient.auth.signInWithProvider({
-        provider: providerName,
-        profile: {
-          id: user.uid,
-          email: user.email,
-          full_name: user.displayName
+      try {
+        const provider = providerName === 'google' ? firebaseAuth.googleProvider : firebaseAuth.facebookProvider;
+        const { user } = await firebaseAuth.signInWithPopup(firebaseAuth.auth, provider);
+        const { data, error } = await window.authClient.auth.signInWithProvider({
+          provider: providerName,
+          profile: {
+            id: user.uid,
+            email: user.email,
+            full_name: user.displayName || ''
+          }
+        });
+        if (error) {
+          errorMessage.textContent = error.message;
+          errorMessage.classList.remove('hidden');
+          return;
         }
-      });
-      if (error) {
-        errorMessage.textContent = error.message;
+        if (window.top?.iaStore) {
+          await window.top.iaStore.syncUser(data?.user || data?.session?.user);
+        }
+        await goAfterLogin();
+      } catch (error) {
+        errorMessage.textContent = 'تعذر تسجيل الدخول الاجتماعي. تأكد من إعدادات Facebook/Google.';
         errorMessage.classList.remove('hidden');
-        return;
       }
-      if (window.top?.iaStore) {
-        await window.top.iaStore.syncUser(data?.user || data?.session?.user);
-      }
-      window.top.location.hash = '#/home';
-      window.top.location.reload();
     };
 
     googleLogin.addEventListener('click', () => signInWithProvider('google'));

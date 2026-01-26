@@ -1,6 +1,7 @@
 const CART_KEY = "ia_cart";
 const PAYMENT_KEY = "ia_payment";
 const ORDERS_KEY = "ia_orders";
+const PROFILE_KEY = "ia_profile";
 
 const safeParse = (value, fallback) => {
   try {
@@ -163,6 +164,53 @@ const getPaymentProfile = async () => {
   return await getPaymentProfileLocal(userId);
 };
 
+const getProfileLocal = async (userId) => {
+  const profiles = readLocal(PROFILE_KEY, {});
+  return profiles[userId] || null;
+};
+
+const saveProfile = async (profile) => {
+  const userId = await getUserId();
+  const data = {
+    fullName: profile.fullName || "",
+    phone: profile.phone || "",
+    address: profile.address || "",
+    city: profile.city || "",
+    governorate: profile.governorate || "",
+    idNumber: profile.idNumber || "",
+    birthDate: profile.birthDate || ""
+  };
+  const convex = getConvex();
+  if (convex) {
+    try {
+      await convex.mutation("profiles:set", { userId, ...data });
+      return data;
+    } catch (error) {
+      const profiles = readLocal(PROFILE_KEY, {});
+      profiles[userId] = data;
+      writeLocal(PROFILE_KEY, profiles);
+      return data;
+    }
+  }
+  const profiles = readLocal(PROFILE_KEY, {});
+  profiles[userId] = data;
+  writeLocal(PROFILE_KEY, profiles);
+  return data;
+};
+
+const getProfile = async () => {
+  const userId = await getUserId();
+  const convex = getConvex();
+  if (convex) {
+    try {
+      return await convex.query("profiles:get", { userId });
+    } catch (error) {
+      return await getProfileLocal(userId);
+    }
+  }
+  return await getProfileLocal(userId);
+};
+
 const saveOrderLocal = async (userId, order) => {
   const orders = readLocal(ORDERS_KEY, {});
   orders[userId] = orders[userId] || [];
@@ -235,6 +283,8 @@ window.iaStore = {
   clearCart,
   savePaymentProfile,
   getPaymentProfile,
+  saveProfile,
+  getProfile,
   checkout,
   syncUser
 };
