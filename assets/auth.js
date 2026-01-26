@@ -37,7 +37,7 @@ const buildAuthClient = () => ({
             const users = loadUsers();
             const existing = users.find((user) => user.email === email);
             if (existing) {
-                return { data: null, error: { message: 'البريد الإلكتروني مستخدم مسبقًا.' } };
+                return { data: null, error: { message: 'Email already in use.' } };
             }
             const role = email.toLowerCase() === OWNER_EMAIL ? 'owner' : normalizeRole(options?.data?.role);
             const user = {
@@ -57,7 +57,7 @@ const buildAuthClient = () => ({
             const users = loadUsers();
             const user = users.find((item) => item.email === email);
             if (!user || user.password !== password) {
-                return { data: null, error: { message: 'بيانات الدخول غير صحيحة.' } };
+                return { data: null, error: { message: 'Invalid login credentials.' } };
             }
             const session = { user };
             saveSession(session);
@@ -117,10 +117,10 @@ try {
 
 if (!storageReady) {
     window.authClient = null;
-    window.authConfigError = 'التخزين المحلي غير متاح. تسجيل الدخول متوقف.';
+    window.authConfigError = 'Local storage unavailable. Login disabled.';
 } else {
     window.authClient = buildAuthClient();
-    window.authConfigError = CONVEX_URL ? '' : 'لم يتم إعداد Convex بعد.';
+    window.authConfigError = CONVEX_URL ? '' : 'Convex not configured yet.';
 }
 
 async function getCurrentUser() {

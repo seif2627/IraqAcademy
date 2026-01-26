@@ -58,5 +58,20 @@ export default defineSchema({
     idNumber: v.string(),
     birthDate: v.string(),
     updatedAt: v.number()
-  }).index("by_userId", ["userId"])
+  }).index("by_userId", ["userId"]),
+  teachers: defineTable({
+    name: v.string(),
+    subject: v.string(),
+    bio: v.string(),
+    gender: v.string(),
+    imageUrl: v.optional(v.string())
+  }),
+  courses: defineTable({
+    title: v.string(),
+    subtitle: v.string(),
+    category: v.string(),
+    type: v.string(),
+    status: v.string(),
+    imageUrl: v.optional(v.string())
+  })
 });
