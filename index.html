@@ -62,12 +62,17 @@
       <iframe id="pageFrame" title="Iraq Academy Content"></iframe>
     </main>
     <footer class="shell-footer">
-      <div class="shell-footer-inner flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500 text-center">
-        <span data-i18n="footer_copyright">© 2026 Iraq Academy. All rights reserved.</span>
-        <a href="/privacy" class="hover:text-emerald-600 transition-colors">Privacy Policy</a>
-        <a href="/terms" class="hover:text-emerald-600 transition-colors">Terms of Use</a>
-        <span class="hidden sm:inline text-slate-300">|</span>
-        <span data-i18n="footer_tagline">Premium Education for Everyone</span>
+      <div class="shell-footer-inner">
+        <div class="flex items-center gap-2">
+          <span class="text-emerald-600 font-bold text-xl">Iraq Academy</span>
+          <span class="text-slate-300">|</span>
+          <p>© 2026 All rights reserved.</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="/privacy" onclick="event.preventDefault(); window.navigateTo('privacy');" class="hover-text-accent transition-colors">Privacy Policy</a>
+          <a href="/terms" onclick="event.preventDefault(); window.navigateTo('terms');" class="hover-text-accent transition-colors">Terms of Service</a>
+          <a href="/help" onclick="event.preventDefault(); window.navigateTo('help');" class="hover-text-accent transition-colors">Support</a>
+        </div>
       </div>
     </footer>
   </div>
