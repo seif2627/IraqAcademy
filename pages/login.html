@@ -98,6 +98,33 @@
   <script type="module" src="../assets/convex.js"></script>
   <script src="../assets/auth.js"></script>
   <script>
+    const handleProviderLogin = async (provider) => {
+      const errorDiv = document.getElementById('errorMessage');
+      try {
+        errorDiv.classList.add('hidden');
+        // Mock provider login for now as we don't have real OAuth credentials configured
+        // In a real app, this would redirect to the provider
+        console.log(`Logging in with ${provider}...`);
+        
+        // Simulate a successful social login for demonstration
+        const mockProfile = {
+            email: 'demo@example.com',
+            name: 'Demo User',
+            role: 'student',
+            id: 'mock_provider_id_' + Date.now()
+        };
+        
+        await window.authClient.auth.signInWithProvider({ provider, profile: mockProfile });
+        window.parent.location.reload();
+      } catch (err) {
+        errorDiv.textContent = err.message || `Failed to login with ${provider}`;
+        errorDiv.classList.remove('hidden');
+      }
+    };
+
+    document.getElementById('googleLogin').addEventListener('click', () => handleProviderLogin('google'));
+    document.getElementById('microsoftLogin').addEventListener('click', () => handleProviderLogin('microsoft'));
+
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value;
