@@ -97,7 +97,7 @@
     <div class="mt-8 text-center">
       <p class="text-slate-600 text-sm">
         ليس لديك حساب؟
-        <a href="../index.html#/signup" target="_top" class="text-accent font-bold hover:underline">أنشئ حسابًا مجانًا</a>
+        <a href="/signup" target="_top" class="text-accent font-bold hover:underline">أنشئ حسابًا مجانًا</a>
       </p>
     </div>
   </div>
@@ -116,13 +116,11 @@
       if (window.top?.iaStore?.getProfile) {
         const profile = await window.top.iaStore.getProfile();
         if (!profile) {
-          window.top.location.hash = '#/info';
-          window.top.location.reload();
+          window.top.location.href = '/info';
           return;
         }
       }
-      window.top.location.hash = '#/home';
-      window.top.location.reload();
+      window.top.location.href = '/home';
     };
 
     loginForm.addEventListener('submit', async (e) => {

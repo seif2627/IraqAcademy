@@ -12,7 +12,7 @@
     <header class="shell-header">
       <div class="shell-nav">
         <nav class="shell-nav-inner" aria-label="Primary">
-          <a class="brand" href="#/home" aria-label="IraqAcademy">
+          <a class="brand" href="/home" aria-label="IraqAcademy">
             <span class="brand-mark" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
@@ -51,8 +51,8 @@
 
           <div class="nav-auth">
             <span id="roleBadge" class="btn-login" style="display: none;"></span>
-            <a href="#/login" class="btn-login" data-i18n="login">تسجيل الدخول</a>
-            <a href="#/signup" class="btn-signup" data-i18n="signup">إنشاء حساب</a>
+            <a href="/login" class="btn-login" data-i18n="login">تسجيل الدخول</a>
+            <a href="/signup" class="btn-signup" data-i18n="signup">إنشاء حساب</a>
             <button id="logoutBtn" class="btn-login" style="display: none;">تسجيل الخروج</button>
           </div>
         </nav>
@@ -62,9 +62,13 @@
       <iframe id="pageFrame" title="محتوى عراق أكاديمي"></iframe>
     </main>
     <footer class="shell-footer">
-      <div class="shell-footer-inner">
-        <div data-i18n="footer_copyright">© 2026 عراق أكاديمي. جميع الحقوق محفوظة.</div>
-        <div data-i18n="footer_tagline">تعليم متميز للجميع</div>
+      <div class="shell-footer-inner flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-6 text-sm text-slate-500">
+          <span data-i18n="footer_copyright">© 2026 عراق أكاديمي. جميع الحقوق محفوظة.</span>
+          <a href="/privacy" class="hover:text-emerald-600 transition-colors">سياسة الخصوصية</a>
+          <a href="/terms" class="hover:text-emerald-600 transition-colors">شروط الاستخدام</a>
+        </div>
+        <div data-i18n="footer_tagline" class="text-sm text-slate-500">تعليم متميز للجميع</div>
       </div>
     </footer>
   </div>

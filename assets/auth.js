@@ -139,7 +139,6 @@ async function signOut() {
     if (!window.authClient) return;
     const { error } = await window.authClient.auth.signOut();
     if (!error) {
-        window.location.hash = '#/login';
-        window.location.reload();
+        window.location.href = '/login';
     }
 }

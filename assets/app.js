@@ -6,7 +6,8 @@ var mapping = {
   help: "pages/help.html",
   login: "pages/login.html",
   signup: "pages/signup.html",
-  accounts: "pages/accounts.html"
+  accounts: "pages/accounts.html",
+  info: "pages/info.html"
 };
 
 var translations = {
@@ -115,33 +116,49 @@ function normalizePage(page) {
   return page;
 }
 
-function getPageFromHash() {
-  return normalizePage(location.hash.replace(/^#\/?/, ""));
+function getPageFromUrl() {
+  let page = location.pathname.substring(1);
+  if (!page || page === "index.html") {
+    page = location.hash.replace(/^#\/?/, "");
+  }
+  return normalizePage(page);
 }
 
 function loadIntoFrame(page) {
   page = normalizePage(page);
+  
   if (page === "students" && !canAccessStudents()) {
     page = "home";
   }
   if (page === "accounts" && !canAccessAccounts()) {
     page = "home";
   }
-  if (frame.getAttribute('data-loading') === '1') return;
-  frame.setAttribute('data-loading', '1');
-  frame.src = mapping[page];
-  frame.onload = function () {
-    frame.removeAttribute('data-loading');
-  };
-  setActiveNav(page);
+  
+  if (!mapping[page]) return;
+
+  // Update active state in nav
+  document.querySelectorAll(".nav-link").forEach(function (btn) {
+    if (btn.getAttribute("data-page") === page) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  if (frame) {
+    if (frame.getAttribute('data-loading') === '1') return;
+    frame.setAttribute('data-loading', '1');
+    frame.src = mapping[page];
+    frame.onload = function () {
+      frame.removeAttribute('data-loading');
+    };
+  }
 }
 
 function navigateTo(page) {
   page = normalizePage(page);
-  var targetHash = "#/" + page;
-  if (location.hash !== targetHash) {
-    location.hash = targetHash;
-    return;
+  if (location.pathname.substring(1) !== page) {
+    history.pushState(null, "", "/" + page);
   }
   loadIntoFrame(page);
 }
@@ -166,9 +183,9 @@ async function checkAuthState() {
         if (logoutBtn) {
             logoutBtn.style.display = 'block';
             logoutBtn.onclick = async () => {
-                await window.authClient.auth.signOut();
-                window.location.reload();
-            };
+            await window.authClient.auth.signOut();
+            navigateTo('login');
+        };
         }
     } else {
         window.currentUserRole = 'student';

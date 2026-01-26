@@ -153,8 +153,7 @@
         birthDate: fields.birthDate.value.trim()
       });
       notice.textContent = 'تم حفظ البيانات بنجاح.';
-      window.top.location.hash = '#/home';
-      window.top.location.reload();
+      window.top.location.href = '/home';
     });
 
     if (window.firebaseAuth?.onAuthStateChanged) {

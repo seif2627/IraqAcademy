@@ -109,7 +109,7 @@
     <div class="mt-8 pt-6 border-t border-slate-100 text-center">
       <p class="text-slate-600">
         لديك حساب بالفعل؟
-        <a href="../index.html#/login" target="_top" class="text-accent font-semibold hover:underline">سجّل الدخول</a>
+        <a href="/login" target="_top" class="text-accent font-semibold hover:underline">سجّل الدخول</a>
       </p>
     </div>
   </div>
@@ -244,8 +244,7 @@
         }
         successMessage.textContent = 'تم إنشاء الحساب بنجاح عبر تسجيل الدخول الاجتماعي.';
         successMessage.classList.remove('hidden');
-        window.top.location.hash = '#/info';
-        window.top.location.reload();
+        window.top.location.href = '/info';
       } catch (error) {
         errorMessage.textContent = 'تعذر التسجيل الاجتماعي. تأكد من إعدادات Facebook/Google.';
         errorMessage.classList.remove('hidden');
