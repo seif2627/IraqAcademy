@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,51 +18,51 @@
     .bg-accent-hover:hover { background-color: var(--ia-accent-hover); }
   </style>
 </head>
-<body class="bg-white text-slate-900 font-sans p-8" dir="rtl">
+<body class="bg-white text-slate-900 font-sans p-8" dir="ltr">
   <div id="accountsContent" class="max-w-6xl mx-auto">
     <div class="flex items-start justify-between mb-10 gap-6 flex-wrap">
       <div>
-        <h1 class="text-3xl font-bold mb-2">إدارة حسابات المشرفين والمدرسين</h1>
-        <p class="text-slate-600">إنشاء حسابات الإدارة والتدريس من حساب المالك فقط.</p>
+        <h1 class="text-3xl font-bold mb-2">Admin & Teacher Accounts</h1>
+        <p class="text-slate-600">Create admin and teacher accounts (Owner only).</p>
       </div>
       <div class="bg-emerald-50 text-emerald-700 px-4 py-3 rounded-xl text-sm">
-        سيتم إنشاء كلمات مرور مؤقتة وتظهر لك بعد الحفظ.
+        Temporary passwords will be generated and shown after saving.
       </div>
     </div>
 
     <div class="grid lg:grid-cols-3 gap-8">
       <div class="lg:col-span-1 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 class="text-xl font-bold mb-4">إنشاء حساب جديد</h2>
+        <h2 class="text-xl font-bold mb-4">Create New Account</h2>
         <form id="createAccountForm" class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">الاسم الكامل</label>
-            <input id="accountName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
+            <label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+            <input id="accountName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">البريد الإلكتروني</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
             <input id="accountEmail" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="name@example.com">
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">نوع الحساب</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Account Role</label>
             <select id="accountRole" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
-              <option value="admin">مشرف</option>
-              <option value="teacher">مدرس</option>
+              <option value="admin">Admin</option>
+              <option value="teacher">Teacher</option>
             </select>
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">كلمة المرور المؤقتة</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Temporary Password</label>
             <div class="flex gap-2">
-              <input id="accountPassword" class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="توليد كلمة مرور" readonly>
-              <button id="generatePassword" class="px-4 rounded-xl border border-slate-200 text-slate-600 hover:border-accent hover:text-accent transition-all" type="button">توليد</button>
+              <input id="accountPassword" class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Generate Password" readonly>
+              <button id="generatePassword" class="px-4 rounded-xl border border-slate-200 text-slate-600 hover:border-accent hover:text-accent transition-all" type="button">Generate</button>
             </div>
           </div>
-          <button class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">إنشاء الحساب</button>
+          <button class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Create Account</button>
           <div id="accountNotice" class="text-sm text-slate-600"></div>
         </form>
       </div>
 
       <div class="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 class="text-xl font-bold mb-4">قائمة الحسابات</h2>
+        <h2 class="text-xl font-bold mb-4">Accounts List</h2>
         <div id="accountsList" class="space-y-3"></div>
       </div>
     </div>
@@ -72,9 +72,9 @@
     <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent mx-auto mb-6">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
     </div>
-    <h2 class="text-2xl font-bold mb-3">هذه الصفحة مخصصة للمالك فقط</h2>
-    <p class="text-slate-600 mb-6">يرجى تسجيل الدخول بحساب المالك للوصول إلى إدارة الحسابات.</p>
-    <a href="/login" target="_top" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">تسجيل الدخول</a>
+    <h2 class="text-2xl font-bold mb-3">Owner Access Only</h2>
+    <p class="text-slate-600 mb-6">Please log in with an owner account to access account management.</p>
+    <a href="javascript:void(0)" onclick="window.parent.navigateTo('login')" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">Log In</a>
   </div>
 
   <script type="module" src="../assets/convex.js"></script>
@@ -122,7 +122,7 @@
 
     const renderAccounts = (users) => {
       if (!users.length) {
-        accountsList.innerHTML = '<div class="text-slate-500 text-sm">لا توجد حسابات بعد.</div>';
+        accountsList.innerHTML = '<div class="text-slate-500 text-sm">No accounts yet.</div>';
         return;
       }
       accountsList.innerHTML = users.map((user) => `
@@ -172,7 +172,7 @@
       const role = roleInput.value;
       const password = passwordInput.value.trim();
       if (!fullName || !email || !password) {
-        notice.textContent = 'يرجى تعبئة كل الحقول قبل الحفظ.';
+        notice.textContent = 'Please fill all fields.';
         return;
       }
       const { data, error } = await client.auth.signUp({
@@ -192,7 +192,7 @@
       if (window.top?.iaStore) {
         await window.top.iaStore.syncUser(data?.user);
       }
-      notice.textContent = `تم إنشاء الحساب. كلمة المرور المؤقتة: ${password}`;
+      notice.textContent = `Account created. Temp password: ${password}`;
       nameInput.value = '';
       emailInput.value = '';
       generatePassword();

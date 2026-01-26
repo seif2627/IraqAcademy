@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
     .focus-accent:focus { border-color: var(--ia-accent); ring-color: var(--ia-accent); }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex items-center justify-center p-6" dir="rtl">
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex items-center justify-center p-6" dir="ltr">
   <div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-100">
     <div class="text-center mb-8">
       <div class="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center text-white mx-auto mb-4 shadow-lg shadow-accent/20">
@@ -28,13 +28,13 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
         </svg>
       </div>
-      <h1 class="text-2xl font-bold">مرحبًا بعودتك</h1>
-      <p class="text-slate-500">سجّل الدخول إلى حساب عراق أكاديمي</p>
+      <h1 class="text-2xl font-bold" data-i18n="login_title">Welcome Back</h1>
+      <p class="text-slate-500" data-i18n="login_subtitle">Log in to access your courses</p>
     </div>
 
     <form id="loginForm" class="space-y-6">
       <div>
-        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">البريد الإلكتروني</label>
+        <label for="email" class="block text-sm font-medium text-slate-700 mb-1" data-i18n="login_email_label">Email Address</label>
         <input 
           type="email" 
           id="email" 
@@ -47,8 +47,8 @@
 
       <div>
         <div class="flex justify-between mb-1">
-          <label for="password" class="block text-sm font-medium text-slate-700">كلمة المرور</label>
-          <a href="#" class="text-sm font-medium text-accent hover:underline">نسيت كلمة المرور؟</a>
+          <label for="password" class="block text-sm font-medium text-slate-700" data-i18n="login_password_label">Password</label>
+          <a href="#" class="text-sm font-medium text-accent hover:underline">Forgot Password?</a>
         </div>
         <input 
           type="password" 
@@ -66,14 +66,15 @@
           id="remember" 
           class="w-4 h-4 text-accent border-slate-300 rounded focus:ring-accent"
         >
-        <label for="remember" class="ml-2 block text-sm text-slate-600">تذكرني</label>
+        <label for="remember" class="ml-2 block text-sm text-slate-600">Remember me</label>
       </div>
 
       <button 
         type="submit" 
         class="w-full bg-accent hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-accent/20 transition-all active:scale-95 flex items-center justify-center gap-2"
+        data-i18n="login_btn"
       >
-        <span>تسجيل الدخول</span>
+        <span>Log In</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
         </svg>
@@ -85,124 +86,40 @@
     <div class="mt-6">
       <div class="flex items-center gap-3 text-slate-400 text-xs">
         <div class="flex-1 h-px bg-slate-200"></div>
-        <span>أو</span>
+        <span>OR</span>
         <div class="flex-1 h-px bg-slate-200"></div>
       </div>
       <div class="mt-4 grid gap-3">
-        <button id="googleLogin" class="w-full border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all">الدخول عبر Google</button>
-        <button id="facebookLogin" class="w-full border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all">الدخول عبر Facebook</button>
+        <button id="googleLogin" class="w-full border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all">Continue with Google</button>
+        <button id="facebookLogin" class="w-full border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all">Continue with Facebook</button>
       </div>
     </div>
 
     <div class="mt-8 text-center">
       <p class="text-slate-600 text-sm">
-        ليس لديك حساب؟
-        <a href="/signup" target="_top" class="text-accent font-bold hover:underline">أنشئ حسابًا مجانًا</a>
+        <span data-i18n="login_no_account">Don't have an account?</span>
+        <a href="/signup" onclick="event.preventDefault(); window.parent.navigateTo('signup');" class="text-accent font-bold hover:underline" data-i18n="login_signup_link">Sign up now</a>
       </p>
     </div>
   </div>
-
   <script type="module" src="../assets/convex.js"></script>
-  <script type="module" src="../assets/firebase.js"></script>
   <script src="../assets/auth.js"></script>
-  <script src="../assets/store.js"></script>
   <script>
-    const loginForm = document.getElementById('loginForm');
-    const errorMessage = document.getElementById('errorMessage');
-    const googleLogin = document.getElementById('googleLogin');
-    const facebookLogin = document.getElementById('facebookLogin');
-
-    const goAfterLogin = async () => {
-      if (window.top?.iaStore?.getProfile) {
-        const profile = await window.top.iaStore.getProfile();
-        if (!profile) {
-          window.top.location.href = '/info';
-          return;
-        }
-      }
-      window.top.location.href = '/home';
-    };
-
-    loginForm.addEventListener('submit', async (e) => {
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      errorMessage.classList.add('hidden');
-
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-
-      const firebaseAuth = window.firebaseAuth;
-      if (!firebaseAuth) {
-        errorMessage.textContent = 'إعداد Firebase غير مكتمل.';
-        errorMessage.classList.remove('hidden');
-        return;
-      }
+      const errorDiv = document.getElementById('errorMessage');
+      
       try {
-        const { user } = await firebaseAuth.signInWithEmailAndPassword(firebaseAuth.auth, email, password);
-        if (!user.emailVerified) {
-          await firebaseAuth.sendEmailVerification(user);
-          errorMessage.textContent = 'تم إرسال رسالة تأكيد البريد الإلكتروني. يرجى التحقق أولاً.';
-          errorMessage.classList.remove('hidden');
-          return;
-        }
-        const { data, error } = await window.authClient.auth.signInWithProvider({
-          provider: 'firebase',
-          profile: {
-            id: user.uid,
-            email: user.email,
-            full_name: user.displayName || ''
-          }
-        });
-        if (error) {
-          errorMessage.textContent = error.message;
-          errorMessage.classList.remove('hidden');
-          return;
-        }
-        if (window.top?.iaStore) {
-          await window.top.iaStore.syncUser(data?.user || data?.session?.user);
-        }
-        await goAfterLogin();
-      } catch (error) {
-        errorMessage.textContent = 'فشل تسجيل الدخول. تحقق من البيانات أو إعدادات Firebase.';
-        errorMessage.classList.remove('hidden');
+        errorDiv.classList.add('hidden');
+        await window.authClient.auth.signIn({ email, password });
+        window.parent.location.reload(); // Reload parent to update auth state
+      } catch (err) {
+        errorDiv.textContent = err.message;
+        errorDiv.classList.remove('hidden');
       }
     });
-
-    const signInWithProvider = async (providerName) => {
-      errorMessage.classList.add('hidden');
-      const firebaseAuth = window.firebaseAuth;
-      if (!firebaseAuth) {
-        errorMessage.textContent = 'إعداد Firebase غير مكتمل.';
-        errorMessage.classList.remove('hidden');
-        return;
-      }
-      try {
-        const provider = providerName === 'google' ? firebaseAuth.googleProvider : firebaseAuth.facebookProvider;
-        const { user } = await firebaseAuth.signInWithPopup(firebaseAuth.auth, provider);
-        const { data, error } = await window.authClient.auth.signInWithProvider({
-          provider: providerName,
-          profile: {
-            id: user.uid,
-            email: user.email,
-            full_name: user.displayName || ''
-          }
-        });
-        if (error) {
-          errorMessage.textContent = error.message;
-          errorMessage.classList.remove('hidden');
-          return;
-        }
-        if (window.top?.iaStore) {
-          await window.top.iaStore.syncUser(data?.user || data?.session?.user);
-        }
-        await goAfterLogin();
-      } catch (error) {
-        errorMessage.textContent = 'تعذر تسجيل الدخول الاجتماعي. تأكد من إعدادات Facebook/Google.';
-        errorMessage.classList.remove('hidden');
-      }
-    };
-
-    googleLogin.addEventListener('click', () => signInWithProvider('google'));
-    facebookLogin.addEventListener('click', () => signInWithProvider('facebook'));
   </script>
 </body>
 </html>

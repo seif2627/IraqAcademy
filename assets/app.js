@@ -7,7 +7,9 @@ var mapping = {
   login: "pages/login.html",
   signup: "pages/signup.html",
   accounts: "pages/accounts.html",
-  info: "pages/info.html"
+  info: "pages/info.html",
+  privacy: "pages/privacy.html",
+  terms: "pages/terms.html"
 };
 
 var translations = {
@@ -205,10 +207,10 @@ function canAccessAccounts() {
 }
 
 function getRoleLabel(role) {
-  if (role === "owner") return "مالك";
-  if (role === "admin") return "مشرف";
-  if (role === "teacher") return "مدرس";
-  return "طالب";
+  if (role === "owner") return "Owner";
+  if (role === "admin") return "Admin";
+  if (role === "teacher") return "Teacher";
+  return "Student";
 }
 
 function updateNavAccess() {
@@ -224,14 +226,25 @@ function updateNavAccess() {
 
 // Event Listeners
 navButtons.forEach(function (btn) {
-  btn.addEventListener("click", function () {
+  btn.addEventListener("click", function (e) {
     var page = btn.getAttribute("data-page");
-    if (page) navigateTo(page);
+    if (!page) {
+      // Try to get page from href
+      var href = btn.getAttribute("href");
+      if (href) {
+        page = normalizePage(href.replace(/^\//, ""));
+      }
+    }
+    
+    if (page) {
+      e.preventDefault();
+      navigateTo(page);
+    }
   });
 });
 
-window.addEventListener("hashchange", function () {
-  loadIntoFrame(getPageFromHash());
+window.addEventListener("popstate", function () {
+  loadIntoFrame(getPageFromUrl());
 });
 
 // Initialize
@@ -242,13 +255,17 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     checkAuthState().then(() => {
       updateNavAccess();
-      var initial = normalizePage(getPageFromHash());
-      var targetHash = "#/" + initial;
-      if (location.hash !== targetHash) {
-          location.hash = targetHash;
-      } else {
-          loadIntoFrame(initial);
+      var initial = getPageFromUrl();
+      // Ensure we have a valid initial page, default to home if empty/root
+      if (!initial || initial === "") initial = "home";
+      
+      // Update URL if it was just /
+      if (location.pathname === "/" || location.pathname === "/index.html") {
+        history.replaceState(null, "", "/home");
       }
+      
+      loadIntoFrame(initial);
+      
       if (frame) {
         frame.style.visibility = 'visible';
       }
