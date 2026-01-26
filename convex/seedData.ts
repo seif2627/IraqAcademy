@@ -1,1196 +1,1484 @@
-
 export const seedTeachers = [
   {
-    "name": "أكاديمية القمم الطبية",
-    "subject": "مدرس الدراسة الطبية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Akadymya Alqmm Altbya",
+    "subject": "Teacher Studies Medical",
+    "photo": "/assets/extracted_teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "المهندسة التدريسية علا الصراف",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Ala Alsraf",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-2.jpg",
+    "bio": ""
   },
   {
-    "name": "اخلاص اكرم مهدي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Akhlas Akrm Mhdy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-3.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد حسين",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Mhmd Hsyn",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-4.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عبدالوهاب عبدالكريم",
-    "subject": "مدرس اللغة الفرنسية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Abdalwhab Abdalkrym",
+    "subject": "Teacher French",
+    "photo": "/assets/extracted_teachers/teacher-5.jpg",
+    "bio": ""
   },
   {
-    "name": "علي فلاح الخاقاني",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Aly Flah Alkhaqany",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-6.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ حيدر وليد",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Hydr Wlyd",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-7.jpg",
+    "bio": ""
   },
   {
-    "name": "حسين حمزة",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Hsyn Hmza",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-8.jpg",
+    "bio": ""
   },
   {
-    "name": "احمد فوزي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Ahmd Fwzy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-9.jpg",
+    "bio": ""
   },
   {
-    "name": "عصام الشمري",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Asam Alshmry",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-10.png",
+    "bio": ""
   },
   {
-    "name": "محمد حسن ( Mohammed Hassan)",
-    "subject": "مدرس الهندسة المدني",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Mhmd Hsn ( Mohammed Hassan)",
+    "subject": "Teacher Alhndsa Almdny",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "وليد السبع",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Wlyd Alsba",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-12.jpg",
+    "bio": ""
   },
   {
-    "name": "حيدر كاظم القريشي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Hydr Kazm Alqryshy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-13.jpg",
+    "bio": ""
   },
   {
-    "name": "فراس براق",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Fras Braq",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-14.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد العنزي",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Mhmd Alanzy",
+    "subject": "Teacher Biology",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ فلاح الطائي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Flah Altaئy",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-16.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ عمار السلامي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Amar Alslamy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-17.jpg",
+    "bio": ""
   },
   {
-    "name": "اشتر احمد",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Ashtr Ahmd",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-18.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ ادم ابراهيم",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Adm Abrahym",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-19.jpg",
+    "bio": ""
   },
   {
-    "name": "يوسف الجعفري",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Ywsf Aljafry",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-20.jpg",
+    "bio": ""
   },
   {
-    "name": "غيداء الشمري",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Ghydaa Alshmry",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-21.jpg",
+    "bio": ""
   },
   {
-    "name": "جعفر الحسني",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Jafr Alhsny",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-22.jpg",
+    "bio": ""
   },
   {
-    "name": "الست حراب حامد",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Hrab Hamd",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-23.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ احمد كتيب",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Ahmd Ktyb",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-24.jpg",
+    "bio": ""
   },
   {
-    "name": "وسام الاسدي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Wsam Alasdy",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-25.jpg",
+    "bio": ""
   },
   {
-    "name": "علي السوداني",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Aly Alswdany",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-26.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ همام التميمي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Hmam Altmymy",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-27.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد اللامي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Mhmd Allamy",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-28.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ مازن الحسناوي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Mazn Alhsnawy",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-29.png",
+    "bio": ""
   },
   {
-    "name": "د.كرار محمود",
-    "subject": "مدرس التربية الاسلامية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "D.krar Mhmwd",
+    "subject": "Teacher Altrbya Islamic Studies",
+    "photo": "/assets/extracted_teachers/teacher-30.jpg",
+    "bio": ""
   },
   {
-    "name": "معاون العراق أكاديمي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Maawn Alaraq Akadymy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ ياسر الربيعي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Yasr Alrbyay",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-32.png",
+    "bio": ""
   },
   {
-    "name": "هدى الحسناوي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Hda Alhsnawy",
+    "subject": "Teacher English",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "زينب الجوهر",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Zynb Aljwhr",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-34.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ وسام السراي",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Wsam Alsray",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-35.jpg",
+    "bio": ""
   },
   {
-    "name": "ماهر نايف",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Mahr Nayf",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-36.png",
+    "bio": ""
   },
   {
-    "name": "يوسف حاتم",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Ywsf Hatm",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-37.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذة رملة فارس الغزي",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "A Rmla Fars Alghzy",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-38.jpg",
+    "bio": ""
   },
   {
-    "name": "ا. فاضل العتبي",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "A. Fadl Alatby",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-39.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ احمد النداوي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Ahmd Alndawy",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-40.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد فلاح السعد",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Mhmd Flah Alsad",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-41.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ خالد وليد",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Khald Wlyd",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-42.jpg",
+    "bio": ""
   },
   {
-    "name": "حيدر ديوان",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Hydr Dywan",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-43.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ حسين طيارة",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Hsyn Tyara",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-44.jpg",
+    "bio": ""
   },
   {
-    "name": "سفيان الزهيري",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Sfyan Alzhyry",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-45.jpg",
+    "bio": ""
   },
   {
-    "name": "علي صادق جابر",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Aly Sadq Jabr",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عمار فاضل",
-    "subject": "مدرس التربية الاسلامية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Amar Fadl",
+    "subject": "Teacher Altrbya Islamic Studies",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عقيل الزبيدي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Aqyl Alzbydy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ أحمد النعيمي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Ahmd Alnaymy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-49.jpg",
+    "bio": ""
   },
   {
-    "name": "أستاذ عبد الكريم نجف",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Astadh Abd Alkrym Njf",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-50.jpg",
+    "bio": ""
   },
   {
-    "name": "ابراهيم الصميدعي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Abrahym Alsmyday",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-51.jpg",
+    "bio": ""
   },
   {
-    "name": "ست ريم الطائي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "St Rym Altaئy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-52.jpg",
+    "bio": ""
   },
   {
-    "name": "كرار محمد الغريباوي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Krar Mhmd Alghrybawy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-53.jpg",
+    "bio": ""
   },
   {
-    "name": "الست تفيده عبدالله",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Tfydh Abdallh",
+    "subject": "Teacher English",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عمر المعموري",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Amr Almamwry",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-55.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عمر شاكر علي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Amr Shakr Aly",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-56.jpg",
+    "bio": ""
   },
   {
-    "name": "الرياضيات - حسام الحلو",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Alryadyat - Hsam Alhlw",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-57.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ همام الشمسي",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Hmam Alshmsy",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-58.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ سنان مهدي",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Snan Mhdy",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-59.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمود وليد",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Mhmwd Wlyd",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-60.jpg",
+    "bio": ""
   },
   {
-    "name": "علي احسان ناجي الشمري",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Aly Ahsan Najy Alshmry",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-61.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ نورس الموسوي",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Nwrs Almwswy",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-62.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ احمد حسان",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Ahmd Hsan",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-63.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ ذوالفقار احمد خضير",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Dhwalfqar Ahmd Khdyr",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-64.jpg",
+    "bio": ""
   },
   {
-    "name": "سالم ال منصور",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Salm Al Mnswr",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-65.png",
+    "bio": ""
   },
   {
-    "name": "كرم عصام",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Krm Asam",
+    "subject": "Teacher Biology",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ هاشم الغرباوي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Hashm Alghrbawy",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-67.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ حيدر الحيدري",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Hydr Alhydry",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-68.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ ابراهيم جبار الحلفي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Abrahym Jbar Alhlfy",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-69.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ خالد الدليمي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Khald Aldlymy",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-70.jpg",
+    "bio": ""
   },
   {
-    "name": "زينب الشالجي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Zynb Alshaljy",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-71.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ برزان فاضل",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Brzan Fadl",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-72.jpg",
+    "bio": ""
   },
   {
-    "name": "حسن عبد الكاظم الربيعي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Hsn Abd Alkazm Alrbyay",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-73.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ امجد فخري",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Amjd Fkhry",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-74.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد العامري",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Mhmd Alaamry",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-75.png",
+    "bio": ""
   },
   {
-    "name": "مصطفى الزيدي",
-    "subject": "مدرس الاقتصاد",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Mstfa Alzydy",
+    "subject": "Teacher Economics",
+    "photo": "/assets/extracted_teachers/teacher-76.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ نمير فائق حكمت",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Nmyr Faئq Hkmt",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-77.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ مصطفى آل جلعوط",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Mstfa Al Jlawt",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-78.jpg",
+    "bio": ""
   },
   {
-    "name": "وسام بنيان آدم عيسى",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Wsam Bnyan Adm Aysa",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عماد حميد",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Amad Hmyd",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-80.jpg",
+    "bio": ""
   },
   {
-    "name": "علي كوشان",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Aly Kwshan",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "حسن كامل",
-    "subject": "مدرس التربية الاسلامية",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Hsn Kaml",
+    "subject": "Teacher Altrbya Islamic Studies",
+    "photo": "/assets/extracted_teachers/teacher-82.jpg",
+    "bio": ""
   },
   {
     "name": "Mohammed Alshamery",
-    "subject": "مدرس هندسة النفط",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "subject": "Teacher Hndsa Alnft",
+    "photo": "/assets/extracted_teachers/teacher-83.jpg",
+    "bio": ""
   },
   {
-    "name": "الثغرات الأمنية",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Althghrat Alamnya",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ ماهر الآلوسي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Mahr Alalwsy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-85.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ باقر جاسم",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Baqr Jasm",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-86.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عمر النعيمي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Amr Alnaymy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-87.png",
+    "bio": ""
   },
   {
-    "name": "الأستاذ سجاد اللامي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Sjad Allamy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "علاء السعداوي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Alaa Alsadawy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-89.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ علي الجبوري",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Aly Aljbwry",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-90.jpg",
+    "bio": ""
   },
   {
-    "name": "زبيده رشيد توفيق",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Zbydh Rshyd Twfyq",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-91.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ سجاد العبيدي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Sjad Alabydy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-92.jpg",
+    "bio": ""
   },
   {
-    "name": "إبراهيم عبد الجليل",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Ebrahym Abd Aljlyl",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-93.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ مقدام حسام",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Mqdam Hsam",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-94.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ غسان الهاشمي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Ghsan Alhashmy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-95.jpg",
+    "bio": ""
   },
   {
-    "name": "امنه الواسطي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Amnh Alwasty",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-96.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ ولاء حسين",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Wlaa Hsyn",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-97.jpg",
+    "bio": ""
   },
   {
-    "name": "احمد عادل الموسوي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Ahmd Aadl Almwswy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-98.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ قصي هاشم التميمي",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Qsy Hashm Altmymy",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-99.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ طلال ابو التمن",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Tlal Abw Altmn",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-100.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ خالد تركي",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Khald Trky",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-101.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد كاظم",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Mhmd Kazm",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-102.jpg",
+    "bio": ""
   },
   {
-    "name": "الست ايمان مزاحم",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Ayman Mzahm",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-103.jpg",
+    "bio": ""
   },
   {
-    "name": "sajadhamza- سجاد حمزة",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Sajadhamza- Sjad Hmza",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-104.jpg",
+    "bio": ""
   },
   {
-    "name": "مصطفى عقيل",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Mstfa Aqyl",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-105.jpg",
+    "bio": ""
   },
   {
-    "name": "أحمد العراك",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Ahmd Alarak",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-106.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذة مروه الواسطي",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "A Mrwh Alwasty",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-107.jpg",
+    "bio": ""
   },
   {
-    "name": "الست نورهان اياد",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Nwrhan Ayad",
+    "subject": "Teacher Biology",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "غالب كاظم جواد",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Ghalb Kazm Jwad",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-109.jpg",
+    "bio": ""
   },
   {
-    "name": "الست غادة الجابري",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Ghada Aljabry",
+    "subject": "Teacher Biology",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ فاضل العتبي",
-    "subject": "مدرس الاحياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Fadl Alatby",
+    "subject": "Teacher Biology",
+    "photo": "/assets/extracted_teachers/teacher-111.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عبد الامام علي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Abd Alamam Aly",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-112.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد حسون",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Mhmd Hswn",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-113.jpg",
+    "bio": ""
   },
   {
-    "name": "مؤيد سليم الزيدي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Mؤyd Slym Alzydy",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-114.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ جعفر الشافعي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Jafr Alshafay",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-115.jpg",
+    "bio": ""
   },
   {
-    "name": "اللاستاذ عمر النداوي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Allastadh Amr Alndawy",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-116.jpg",
+    "bio": ""
   },
   {
-    "name": "حسين الصالحي",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Hsyn Alsalhy",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-117.jpg",
+    "bio": ""
   },
   {
-    "name": "محمد الواثق",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Mhmd Alwathq",
+    "subject": "Teacher Physics",
+    "photo": "/assets/extracted_teachers/teacher-118.jpg",
+    "bio": ""
   },
   {
-    "name": "خليل الخفاجي",
-    "subject": "مدرس الاجتماعيات",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Khlyl Alkhfajy",
+    "subject": "Teacher Alajtmaayat",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "حقيبة الثالث متوسط",
-    "subject": "مدرس ثالث متوسط",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Hqyba Althalth Mtwst",
+    "subject": "Teacher Thalth Mtwst",
+    "photo": "/assets/extracted_teachers/teacher-120.jpg",
+    "bio": ""
   },
   {
-    "name": "الست مريم حكمت",
-    "subject": "مدرس ثالث متوسط",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Mrym Hkmt",
+    "subject": "Teacher Thalth Mtwst",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "نورا الدايني",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Nwra Aldayny",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-122.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ خالد جمال",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Khald Jmal",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-123.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ أحمد جواد المياحي",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Ahmd Jwad Almyahy",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ حسين محمد",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Hsyn Mhmd",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-125.jpg",
+    "bio": ""
   },
   {
-    "name": "سامر محمد الخفاجي",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Samr Mhmd Alkhfajy",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "د. حسين الحليّ",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "D. Hsyn Alhlyّ",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-127.jpg",
+    "bio": ""
   },
   {
-    "name": "خلدون وهاب علاوي",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Khldwn Whab Alawy",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-128.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ حيدر مولاري",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Hydr Mwlary",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ معتز ضياء الوادي",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Matz Dyaa Alwady",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ محمد العربي",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Mhmd Alarby",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-131.jpg",
+    "bio": ""
   },
   {
-    "name": "د.صباح الدليمي",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "D.sbah Aldlymy",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-132.jpg",
+    "bio": ""
   },
   {
-    "name": "اكاديمية بغداد النموذجية",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Akadymya Bghdad Alnmwdhjya",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ عقيل الدايني",
-    "subject": "مدرس التربية الاسلامية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Aqyl Aldayny",
+    "subject": "Teacher Altrbya Islamic Studies",
+    "photo": "/assets/extracted_teachers/teacher-134.jpg",
+    "bio": ""
   },
   {
-    "name": "رجاء الحكيم",
-    "subject": "مدرس التربية الاسلامية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Rjaa Alhkym",
+    "subject": "Teacher Altrbya Islamic Studies",
+    "photo": "/assets/extracted_teachers/teacher-135.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ محمد الياس",
-    "subject": "مدرس السادس المهني",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Mhmd Alyas",
+    "subject": "Teacher Alsads Almhny",
+    "photo": "/assets/extracted_teachers/teacher-136.jpg",
+    "bio": ""
   },
   {
-    "name": "الست اميمة علي",
-    "subject": "مدرس السادس المهني",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Amyma Aly",
+    "subject": "Teacher Alsads Almhny",
+    "photo": "/assets/extracted_teachers/teacher-137.jpg",
+    "bio": ""
   },
   {
-    "name": "زينب كاظم لازم",
-    "subject": "مدرس السادس المهني",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Zynb Kazm Lazm",
+    "subject": "Teacher Alsads Almhny",
+    "photo": "/assets/extracted_teachers/teacher-138.png",
+    "bio": ""
   },
   {
-    "name": "Business management",
-    "subject": "مدرس إدارة أعمال",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Business Management",
+    "subject": "Teacher Edara Aamal",
+    "photo": "/assets/extracted_teachers/teacher-139.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ فادي تيلا",
-    "subject": "مدرس الهندسة المدني",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Fady Tyla",
+    "subject": "Teacher Alhndsa Almdny",
+    "photo": "/assets/extracted_teachers/teacher-140.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ علي عثمان",
-    "subject": "مدرس الهندسة المدني",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Aly Athman",
+    "subject": "Teacher Alhndsa Almdny",
+    "photo": "/assets/extracted_teachers/teacher-141.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ احمد الاغا",
-    "subject": "مدرس العراق اكاديمي",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Ahmd Alagha",
+    "subject": "Teacher Alaraq Akadymy",
+    "photo": "/assets/extracted_teachers/teacher-142.jpg",
+    "bio": ""
   },
   {
-    "name": "ثانوية العراق اكاديمي",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Thanwya Alaraq Akadymy",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/extracted_teachers/teacher-143.png",
+    "bio": ""
   },
   {
-    "name": "waleed",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Waleed",
+    "subject": "Teacher Arabic",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
     "name": "Test Teacher2",
-    "subject": "مدرس اللغة العربية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "subject": "Teacher Arabic",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "احمد التميمي",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Wlyd Alsba",
+    "subject": "Teacher English",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "أزل سلوان",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Ahmd Altmymy",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-147.jpg",
+    "bio": ""
   },
   {
-    "name": "اسامة محمد",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Azl Slwan",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-148.jpg",
+    "bio": ""
+  },
+  {
+    "name": "Asama Mhmd",
+    "subject": "Teacher English",
+    "photo": "/assets/extracted_teachers/teacher-149.jpg",
+    "bio": ""
   },
   {
     "name": "Test Teacher",
-    "subject": "مدرس اللغة الانكليزية",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "subject": "Teacher English",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ علي الأحمد",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "Aly Alahmd",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-151.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ حيدر العزي",
-    "subject": "مدرس الرياضيات",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Hydr Alazy",
+    "subject": "Teacher Mathematics",
+    "photo": "/assets/extracted_teachers/teacher-152.png",
+    "bio": ""
   },
   {
-    "name": "الاستاذ حبيب الجنابي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Hbyb Aljnaby",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/extracted_teachers/teacher-153.png",
+    "bio": ""
   },
   {
-    "name": "مؤمل سعد عبادي",
-    "subject": "مدرس الكيمياء",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Mؤml Sad Abady",
+    "subject": "Teacher Chemistry",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الأستاذ محمد البسام",
-    "subject": "مدرس الفيزياء",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Mhmd Albsam",
+    "subject": "Teacher Physics",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "قصي العميري",
-    "subject": "مدرس ثالث متوسط",
-    "photo": "/assets/teachers/teacher-5.jpg"
+    "name": "Qsy Alamyry",
+    "subject": "Teacher Thalth Mtwst",
+    "photo": "/assets/extracted_teachers/teacher-156.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ م. اسامة الجبوري",
-    "subject": "مدرس سادس إعدادي",
-    "photo": "/assets/teachers/teacher-6.jpg"
+    "name": "M. Asama Aljbwry",
+    "subject": "Teacher Sads Eadady",
+    "photo": "/assets/extracted_teachers/teacher-157.png",
+    "bio": ""
   },
   {
-    "name": "زينب نجم",
-    "subject": "مدرس ثانوية",
-    "photo": "/assets/teachers/teacher-1.jpg"
+    "name": "Mؤml Sad Abady",
+    "subject": "Teacher Thanwya A",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الست انتصار محمد الدفاعي",
-    "subject": "مدرس السادس المهني",
-    "photo": "/assets/teachers/teacher-2.jpg"
+    "name": "Mؤml Sad Abady",
+    "subject": "Teacher Thanwya A",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "الاستاذ علي محمد",
-    "subject": "مدرس رياضيات ادبي+علمي",
-    "photo": "/assets/teachers/teacher-3.jpg"
+    "name": "Zynb Njm",
+    "subject": "Teacher Thanwya",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
   },
   {
-    "name": "د. احمد الدوري",
-    "subject": "مدرس الهندسة",
-    "photo": "/assets/teachers/teacher-4.jpg"
+    "name": "Antsar Mhmd Aldfaay",
+    "subject": "Teacher Alsads Almhny",
+    "photo": "/assets/extracted_teachers/teacher-161.jpg",
+    "bio": ""
   },
   {
-    "name": "AHMED NABEEL",
-    "subject": "مدرس الهندسة",
-    "photo": "/assets/teachers/teacher-5.jpg"
-  }
+    "name": "Aly Mhmd",
+    "subject": "Teacher Ryadyat Adby+almy",
+    "photo": "/assets/extracted_teachers/teacher-162.jpg",
+    "bio": ""
+  },
+  {
+    "name": "D. Ahmd Aldwry",
+    "subject": "Teacher Alhndsa",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
+  },
+  {
+    "name": "Ahmed Nabeel",
+    "subject": "Teacher Alhndsa",
+    "photo": "/assets/teachers/teacher-1.jpg",
+    "bio": ""
+  },
 ];
 
 export const seedCourses = [
   {
-    "title": "الدورة المجانية",
-    "grade": "سادس إعدادي",
-    "teacherName": "حيدر كاظم القريشي",
+    "title": "Course Free",
+    "grade": "6th Prep",
+    "teacherName": "Hydr Kazm Alqryshy",
+    "imageUrl": "/assets/extracted_courses/course-1.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجربية 2024",
-    "grade": "سادس إعدادي",
-    "teacherName": "حيدر ديوان",
+    "title": "Course Altjrbya 2024",
+    "grade": "6th Prep",
+    "teacherName": "Hydr Dywan",
+    "imageUrl": "/assets/extracted_courses/course-2.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجربية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ محمد العامري",
+    "title": "Course Altjrbya",
+    "grade": "6th Prep",
+    "teacherName": "Mhmd Alaamry",
+    "imageUrl": "/assets/extracted_courses/course-3.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجربية 2024",
-    "grade": "سادس إعدادي",
-    "teacherName": "الأستاذ همام التميمي",
+    "title": "Course Altjrbya 2024",
+    "grade": "6th Prep",
+    "teacherName": "Hmam Altmymy",
+    "imageUrl": "/assets/extracted_courses/course-4.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجربية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ حيدر الحيدري",
+    "title": "Course Altjrbya",
+    "grade": "6th Prep",
+    "teacherName": "Hydr Alhydry",
+    "imageUrl": "/assets/extracted_courses/course-5.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "Electronic business",
-    "grade": "إدارة الاعمال",
-    "teacherName": "Business management",
+    "title": "Electronic Business",
+    "grade": "Edara Alaamal",
+    "teacherName": "Business Management",
+    "imageUrl": "/assets/extracted_courses/course-6.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Edara Alaamal"
   },
   {
-    "title": "الاول متوسط",
-    "grade": "الاول متوسط",
-    "teacherName": "الاستاذ عبدالوهاب عبدالكريم",
+    "title": "Alawl Mtwst",
+    "grade": "Alawl Mtwst",
+    "teacherName": "Abdalwhab Abdalkrym",
+    "imageUrl": "/assets/extracted_courses/course-7.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Alawl Mtwst"
   },
   {
-    "title": "الرابع اعدادي",
-    "grade": "الرابع اعدادي",
-    "teacherName": "الاستاذ عبدالوهاب عبدالكريم",
+    "title": "Alraba Aadady",
+    "grade": "Alraba Aadady",
+    "teacherName": "Abdalwhab Abdalkrym",
+    "imageUrl": "/assets/extracted_courses/course-8.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Alraba Aadady"
   },
   {
-    "title": "الخامس اعدادي",
-    "grade": "الخامس اعدادي",
-    "teacherName": "الاستاذ عبدالوهاب عبدالكريم",
+    "title": "Alkhams Aadady",
+    "grade": "Alkhams Aadady",
+    "teacherName": "Abdalwhab Abdalkrym",
+    "imageUrl": "/assets/extracted_courses/course-9.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Alkhams Aadady"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ عمار فاضل",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Amar Fadl",
+    "imageUrl": "/assets/extracted_courses/course-10.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجربية",
-    "grade": "سادس إعدادي",
-    "teacherName": "غيداء الشمري",
+    "title": "Course Altjrbya",
+    "grade": "6th Prep",
+    "teacherName": "Ghydaa Alshmry",
+    "imageUrl": "/assets/extracted_courses/course-11.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة المجانية",
-    "grade": "الهندسة المدني",
-    "teacherName": "محمد حسن ( Mohammed Hassan)",
+    "title": "Course Free",
+    "grade": "Alhndsa Almdny",
+    "teacherName": "Mhmd Hsn ( Mohammed Hassan)",
+    "imageUrl": "/assets/extracted_courses/course-12.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Alhndsa Almdny"
   },
   {
-    "title": "الثالث متوسط 2025",
-    "grade": "ثالث متوسط",
-    "teacherName": "الأستاذ حيدر وليد",
+    "title": "Althalth Mtwst 2025",
+    "grade": "Thalth Mtwst",
+    "teacherName": "Hydr Wlyd",
+    "imageUrl": "/assets/extracted_courses/course-13.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Thalth Mtwst"
   },
   {
-    "title": "المراجعة المركزة ( المجانبة )",
-    "grade": "سادس إعدادي",
-    "teacherName": "اخلاص اكرم مهدي",
+    "title": "Almrajaa Almrkza ( Almjanba )",
+    "grade": "6th Prep",
+    "teacherName": "Akhlas Akrm Mhdy",
+    "imageUrl": "/assets/extracted_courses/course-14.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "دورة اللغة الانكليزية للثالث متوسط",
-    "grade": "ثالث متوسط",
-    "teacherName": "اخلاص اكرم مهدي",
+    "title": "Dwra Allgha Alanklyzya Llthalth Mtwst",
+    "grade": "Thalth Mtwst",
+    "teacherName": "Akhlas Akrm Mhdy",
+    "imageUrl": "/assets/extracted_courses/course-15.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Thalth Mtwst"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "اخلاص اكرم مهدي",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Akhlas Akrm Mhdy",
+    "imageUrl": "/assets/extracted_courses/course-16.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية السادس اعدادي",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ عبدالوهاب عبدالكريم",
+    "title": "Course Altjrybya Al6th Aadady",
+    "grade": "6th Prep",
+    "teacherName": "Abdalwhab Abdalkrym",
+    "imageUrl": "/assets/extracted_courses/course-17.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الأستاذ أحمد النعيمي",
+    "title": "Almhadrat Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Ahmd Alnaymy",
+    "imageUrl": "/assets/extracted_courses/course-18.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "علي فلاح الخاقاني",
+    "title": "Almhadrat Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Aly Flah Alkhaqany",
+    "imageUrl": "/assets/extracted_courses/course-19.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الاحياء",
-    "grade": "ثالث متوسط",
-    "teacherName": "الست نورهان اياد",
+    "title": "Alahyaa",
+    "grade": "Thalth Mtwst",
+    "teacherName": "Nwrhan Ayad",
+    "imageUrl": "/assets/extracted_courses/course-20.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Thalth Mtwst"
   },
   {
-    "title": "الكيمياء (مجانية)",
-    "grade": "سادس إعدادي",
-    "teacherName": "الأستاذ مصطفى آل جلعوط",
+    "title": "Alkymyaa (mjanya)",
+    "grade": "6th Prep",
+    "teacherName": "Mstfa Al Jlawt",
+    "imageUrl": "/assets/extracted_courses/course-21.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الفيزياء",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ مازن الحسناوي",
+    "title": "Alfyzyaa",
+    "grade": "6th Prep",
+    "teacherName": "Mazn Alhsnawy",
+    "imageUrl": "/assets/extracted_courses/course-22.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذة رملة فارس الغزي",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "A Rmla Fars Alghzy",
+    "imageUrl": "/assets/extracted_courses/course-23.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ خالد الدليمي",
+    "title": "Course Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Khald Aldlymy",
+    "imageUrl": "/assets/extracted_courses/course-24.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "اشتر احمد",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Ashtr Ahmd",
+    "imageUrl": "/assets/extracted_courses/course-25.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ عمر المعموري",
+    "title": "Course Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Amr Almamwry",
+    "imageUrl": "/assets/extracted_courses/course-26.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ فلاح الطائي",
+    "title": "Course Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Flah Altaئy",
+    "imageUrl": "/assets/extracted_courses/course-27.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "جعفر الحسني",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Jafr Alhsny",
+    "imageUrl": "/assets/extracted_courses/course-28.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدور الثاني",
-    "grade": "سادس إعدادي",
-    "teacherName": "معاون العراق أكاديمي",
+    "title": "Aldwr Althany",
+    "grade": "6th Prep",
+    "teacherName": "Maawn Alaraq Akadymy",
+    "imageUrl": "/assets/extracted_courses/course-29.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "الأستاذ حيدر وليد",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Hydr Wlyd",
+    "imageUrl": "/assets/extracted_courses/course-30.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "احمد فوزي",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Ahmd Fwzy",
+    "imageUrl": "/assets/extracted_courses/course-31.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ ادم ابراهيم",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Adm Abrahym",
+    "imageUrl": "/assets/extracted_courses/course-32.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "محاضرات تجريبية 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ محمد حسين",
+    "title": "Mhadrat Tjrybya 2026",
+    "grade": "6th Prep",
+    "teacherName": "Mhmd Hsyn",
+    "imageUrl": "/assets/extracted_courses/course-33.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "حسين حمزة",
+    "title": "Almhadrat Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Hsyn Hmza",
+    "imageUrl": "/assets/extracted_courses/course-34.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025 (للمنهجين)",
-    "grade": "سادس إعدادي",
-    "teacherName": "عصام الشمري",
+    "title": "Course Altjrybya 2025 (llmnhjyn)",
+    "grade": "6th Prep",
+    "teacherName": "Asam Alshmry",
+    "imageUrl": "/assets/extracted_courses/course-35.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2025",
-    "grade": "سادس إعدادي",
-    "teacherName": "سالم ال منصور",
+    "title": "Course Altjrybya 2025",
+    "grade": "6th Prep",
+    "teacherName": "Salm Al Mnswr",
+    "imageUrl": "/assets/extracted_courses/course-36.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الثالث متوسط",
-    "grade": "ثالث متوسط",
-    "teacherName": "الاستاذ عبدالوهاب عبدالكريم",
+    "title": "Althalth Mtwst",
+    "grade": "Thalth Mtwst",
+    "teacherName": "Abdalwhab Abdalkrym",
+    "imageUrl": "/assets/extracted_courses/course-37.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "Thalth Mtwst"
   },
   {
-    "title": "الدورة التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ فاضل العتبي",
+    "title": "Course Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Fadl Alatby",
+    "imageUrl": "/assets/extracted_courses/course-38.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة المجانية",
-    "grade": "سادس إعدادي",
-    "teacherName": "ا. فاضل العتبي",
+    "title": "Course Free",
+    "grade": "6th Prep",
+    "teacherName": "A. Fadl Alatby",
+    "imageUrl": "/assets/extracted_courses/course-39.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "سفيان الزهيري",
+    "title": "Course Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Sfyan Alzhyry",
+    "imageUrl": "/assets/extracted_courses/course-40.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدور الثالث",
-    "grade": "سادس إعدادي",
-    "teacherName": "ا. فاضل العتبي",
+    "title": "Aldwr Althalth",
+    "grade": "6th Prep",
+    "teacherName": "A. Fadl Alatby",
+    "imageUrl": "/assets/extracted_courses/course-41.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الفصل الثالث (تجريبي)",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ فلاح الطائي",
+    "title": "Alfsl Althalth (tjryby)",
+    "grade": "6th Prep",
+    "teacherName": "Flah Altaئy",
+    "imageUrl": "/assets/extracted_courses/course-42.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة المجانية الفصل الرابع",
-    "grade": "سادس إعدادي",
-    "teacherName": "علي فلاح الخاقاني",
+    "title": "Course Free Alfsl Alraba",
+    "grade": "6th Prep",
+    "teacherName": "Aly Flah Alkhaqany",
+    "imageUrl": "/assets/extracted_courses/course-43.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة المجانية التجريبية لدفعة 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ محمد فلاح السعد",
+    "title": "Course Free Altjrybya Ldfaa 2026",
+    "grade": "6th Prep",
+    "teacherName": "Mhmd Flah Alsad",
+    "imageUrl": "/assets/extracted_courses/course-44.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "فراس براق",
+    "title": "Almhadrat Altjrybya 2026",
+    "grade": "6th Prep",
+    "teacherName": "Fras Braq",
+    "imageUrl": "/assets/extracted_courses/course-45.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "اخلاص اكرم مهدي",
+    "title": "Almhadrat Altjrybya 2026",
+    "grade": "6th Prep",
+    "teacherName": "Akhlas Akrm Mhdy",
+    "imageUrl": "/assets/extracted_courses/course-46.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "كرم عصام",
+    "title": "Almhadrat Altjrybya 2026",
+    "grade": "6th Prep",
+    "teacherName": "Krm Asam",
+    "imageUrl": "/assets/extracted_courses/course-47.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "علي احسان ناجي الشمري",
+    "title": "Almhadrat Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Aly Ahsan Najy Alshmry",
+    "imageUrl": "/assets/extracted_courses/course-48.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ عمر شاكر علي",
+    "title": "Almhadrat Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Amr Shakr Aly",
+    "imageUrl": "/assets/extracted_courses/course-49.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورات التجريبة",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ برزان فاضل",
+    "title": "Aldwrat Altjryba",
+    "grade": "6th Prep",
+    "teacherName": "Brzan Fadl",
+    "imageUrl": "/assets/extracted_courses/course-50.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة التجريبية 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "وليد السبع",
+    "title": "Course Altjrybya 2026",
+    "grade": "6th Prep",
+    "teacherName": "Wlyd Alsba",
+    "imageUrl": "/assets/extracted_courses/course-51.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "المحاضرات التجريبية",
-    "grade": "سادس إعدادي",
-    "teacherName": "حسن كامل",
+    "title": "Almhadrat Altjrybya",
+    "grade": "6th Prep",
+    "teacherName": "Hsn Kaml",
+    "imageUrl": "/assets/extracted_courses/course-52.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الكورس الاول - اللغة العربية 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "الاستاذ عماد حميد",
+    "title": "Alkwrs Alawl - Allgha Alarbya 2026",
+    "grade": "6th Prep",
+    "teacherName": "Amad Hmyd",
+    "imageUrl": "/assets/extracted_courses/course-53.png",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدروس التجريبية - اللغة الانكليزية - الدورة الشتوية",
-    "grade": "سادس إعدادي",
-    "teacherName": "اخلاص اكرم مهدي",
+    "title": "Aldrws Altjrybya - Allgha Alanklyzya - Course Alshtwya",
+    "grade": "6th Prep",
+    "teacherName": "Akhlas Akrm Mhdy",
+    "imageUrl": "/assets/extracted_courses/course-54.jpg",
     "price": 0,
-    "description": "Course description placeholder"
+    "description": "",
+    "category": "6th Prep"
   },
   {
-    "title": "الدورة المجانية 2026",
-    "grade": "سادس إعدادي",
-    "teacherName": "علي كوشان",
+    "title": "Course Free 2026",
+    "grade": "6th Prep",
+    "teacherName": "Aly Kwshan",
+    "imageUrl": "/assets/extracted_courses/course-55.jpg",
     "price": 0,
-    "description": "Course description placeholder"
-  }
+    "description": "",
+    "category": "6th Prep"
+  },
 ];

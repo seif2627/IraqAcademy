@@ -167,7 +167,8 @@ function loadIntoFrame(page) {
   if (frame) {
     if (frame.getAttribute('data-loading') === '1') return;
     frame.setAttribute('data-loading', '1');
-    frame.src = mapping[page];
+    // Add cache buster to force reload
+    frame.src = mapping[page] + "?v=" + Date.now();
     frame.onload = function () {
       frame.removeAttribute('data-loading');
     };
