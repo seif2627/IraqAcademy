@@ -61,6 +61,30 @@ const buildAuthClient = () => ({
             saveSession(session);
             return { data: { session, user }, error: null };
         },
+        async signInWithProvider({ provider, profile }) {
+            if (!profile?.email) {
+                return { data: null, error: { message: 'تعذر قراءة البريد الإلكتروني من الحساب.' } };
+            }
+            const users = loadUsers();
+            let user = users.find((item) => item.email === profile.email);
+            if (!user) {
+                user = {
+                    id: profile.id || createId(),
+                    email: profile.email,
+                    password: '',
+                    user_metadata: {
+                        full_name: profile.full_name || profile.name || '',
+                        role: normalizeRole(profile.role)
+                    },
+                    provider: provider || 'social'
+                };
+                users.push(user);
+                saveUsers(users);
+            }
+            const session = { user };
+            saveSession(session);
+            return { data: { session, user }, error: null };
+        },
         async signOut() {
             clearSession();
             return { error: null };

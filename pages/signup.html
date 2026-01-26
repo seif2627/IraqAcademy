@@ -143,6 +143,7 @@
   </div>
 
   <script type="module" src="../assets/convex.js"></script>
+  <script type="module" src="../assets/firebase.js"></script>
   <script src="../assets/auth.js"></script>
   <script src="../assets/store.js"></script>
   <script>
@@ -192,13 +193,40 @@
       }
     });
 
-    const showSocialNotice = () => {
-      errorMessage.textContent = 'التسجيل عبر Google أو Facebook يحتاج ربط خدمة خارجية مجانية.';
-      errorMessage.classList.remove('hidden');
+    const signUpWithProvider = async (providerName) => {
+      errorMessage.classList.add('hidden');
+      const firebaseAuth = window.firebaseAuth;
+      if (!firebaseAuth) {
+        errorMessage.textContent = 'إعداد Firebase غير مكتمل.';
+        errorMessage.classList.remove('hidden');
+        return;
+      }
+      const provider = providerName === 'google' ? firebaseAuth.googleProvider : firebaseAuth.facebookProvider;
+      const { user } = await firebaseAuth.signInWithPopup(firebaseAuth.auth, provider);
+      const { data, error } = await window.authClient.auth.signInWithProvider({
+        provider: providerName,
+        profile: {
+          id: user.uid,
+          email: user.email,
+          full_name: user.displayName
+        }
+      });
+      if (error) {
+        errorMessage.textContent = error.message;
+        errorMessage.classList.remove('hidden');
+        return;
+      }
+      if (window.top?.iaStore) {
+        await window.top.iaStore.syncUser(data?.user || data?.session?.user);
+      }
+      successMessage.textContent = 'تم إنشاء الحساب بنجاح عبر تسجيل الدخول الاجتماعي.';
+      successMessage.classList.remove('hidden');
+      window.top.location.hash = '#/home';
+      window.top.location.reload();
     };
 
-    googleSignup.addEventListener('click', showSocialNotice);
-    facebookSignup.addEventListener('click', showSocialNotice);
+    googleSignup.addEventListener('click', () => signUpWithProvider('google'));
+    facebookSignup.addEventListener('click', () => signUpWithProvider('facebook'));
   </script>
 </body>
 </html>
