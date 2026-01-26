@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --ia-accent: #10b981;
+      --ia-accent-hover: #059669;
+    }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    .text-accent { color: var(--ia-accent); }
+    .bg-accent { background-color: var(--ia-accent); }
+    .bg-accent-hover:hover { background-color: var(--ia-accent-hover); }
+  </style>
+</head>
+<body class="bg-white text-slate-900 font-sans p-8" dir="rtl">
+  <div id="accountsContent" class="max-w-6xl mx-auto">
+    <div class="flex items-start justify-between mb-10 gap-6 flex-wrap">
+      <div>
+        <h1 class="text-3xl font-bold mb-2">إدارة حسابات المشرفين والمدرسين</h1>
+        <p class="text-slate-600">إنشاء حسابات الإدارة والتدريس من حساب المالك فقط.</p>
+      </div>
+      <div class="bg-emerald-50 text-emerald-700 px-4 py-3 rounded-xl text-sm">
+        سيتم إنشاء كلمات مرور مؤقتة وتظهر لك بعد الحفظ.
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-1 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <h2 class="text-xl font-bold mb-4">إنشاء حساب جديد</h2>
+        <form id="createAccountForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">الاسم الكامل</label>
+            <input id="accountName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">البريد الإلكتروني</label>
+            <input id="accountEmail" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="name@example.com">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">نوع الحساب</label>
+            <select id="accountRole" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+              <option value="admin">مشرف</option>
+              <option value="teacher">مدرس</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">كلمة المرور المؤقتة</label>
+            <div class="flex gap-2">
+              <input id="accountPassword" class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="توليد كلمة مرور" readonly>
+              <button id="generatePassword" class="px-4 rounded-xl border border-slate-200 text-slate-600 hover:border-accent hover:text-accent transition-all" type="button">توليد</button>
+            </div>
+          </div>
+          <button class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">إنشاء الحساب</button>
+          <div id="accountNotice" class="text-sm text-slate-600"></div>
+        </form>
+      </div>
+
+      <div class="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <h2 class="text-xl font-bold mb-4">قائمة الحسابات</h2>
+        <div id="accountsList" class="space-y-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="accountsDenied" class="hidden max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+    <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent mx-auto mb-6">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+    </div>
+    <h2 class="text-2xl font-bold mb-3">هذه الصفحة مخصصة للمالك فقط</h2>
+    <p class="text-slate-600 mb-6">يرجى تسجيل الدخول بحساب المالك للوصول إلى إدارة الحسابات.</p>
+    <a href="../index.html#/login" target="_top" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">تسجيل الدخول</a>
+  </div>
+
+  <script type="module" src="../assets/convex.js"></script>
+  <script src="../assets/auth.js"></script>
+  <script src="../assets/store.js"></script>
+  <script>
+    const client = window.top?.authClient || window.authClient;
+    const convex = window.top?.convexClient || window.convexClient;
+    const accountsContent = document.getElementById('accountsContent');
+    const accountsDenied = document.getElementById('accountsDenied');
+    const accountsList = document.getElementById('accountsList');
+    const form = document.getElementById('createAccountForm');
+    const notice = document.getElementById('accountNotice');
+    const nameInput = document.getElementById('accountName');
+    const emailInput = document.getElementById('accountEmail');
+    const roleInput = document.getElementById('accountRole');
+    const passwordInput = document.getElementById('accountPassword');
+    const generateBtn = document.getElementById('generatePassword');
+
+    const showDenied = () => {
+      if (accountsContent) accountsContent.classList.add('hidden');
+      if (accountsDenied) accountsDenied.classList.remove('hidden');
+    };
+
+    const generatePassword = () => {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+      let result = '';
+      for (let i = 0; i < 10; i += 1) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+      }
+      passwordInput.value = result;
+    };
+
+    generateBtn.addEventListener('click', generatePassword);
+    generatePassword();
+
+    const getLocalUsers = () => {
+      try {
+        const users = JSON.parse(localStorage.getItem('ia_users') || '[]');
+        return users.filter((user) => user.user_metadata?.role === 'admin' || user.user_metadata?.role === 'teacher');
+      } catch (error) {
+        return [];
+      }
+    };
+
+    const renderAccounts = (users) => {
+      if (!users.length) {
+        accountsList.innerHTML = '<div class="text-slate-500 text-sm">لا توجد حسابات بعد.</div>';
+        return;
+      }
+      accountsList.innerHTML = users.map((user) => `
+        <div class="border border-slate-100 rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div class="font-bold text-slate-900">${user.fullName || user.user_metadata?.full_name || '—'}</div>
+            <div class="text-sm text-slate-500">${user.email || user.user_metadata?.email || ''}</div>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700">${user.role || user.user_metadata?.role || ''}</span>
+        </div>
+      `).join('');
+    };
+
+    const loadAccounts = async () => {
+      if (convex) {
+        try {
+          const users = await convex.query('users:list', {});
+          renderAccounts(users.filter((user) => user.role === 'admin' || user.role === 'teacher'));
+          return;
+        } catch (error) {
+          renderAccounts(getLocalUsers());
+          return;
+        }
+      }
+      renderAccounts(getLocalUsers());
+    };
+
+    const checkAccess = async () => {
+      if (!client) {
+        showDenied();
+        return;
+      }
+      const { data: { session } } = await client.auth.getSession();
+      const role = session?.user?.user_metadata?.role || 'student';
+      if (role !== 'owner') {
+        showDenied();
+        return;
+      }
+      loadAccounts();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      notice.textContent = '';
+      const fullName = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const role = roleInput.value;
+      const password = passwordInput.value.trim();
+      if (!fullName || !email || !password) {
+        notice.textContent = 'يرجى تعبئة كل الحقول قبل الحفظ.';
+        return;
+      }
+      const { data, error } = await client.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            role
+          }
+        }
+      });
+      if (error) {
+        notice.textContent = error.message;
+        return;
+      }
+      if (window.top?.iaStore) {
+        await window.top.iaStore.syncUser(data?.user);
+      }
+      notice.textContent = `تم إنشاء الحساب. كلمة المرور المؤقتة: ${password}`;
+      nameInput.value = '';
+      emailInput.value = '';
+      generatePassword();
+      await loadAccounts();
+    });
+
+    checkAccess();
+  </script>
+</body>
+</html>

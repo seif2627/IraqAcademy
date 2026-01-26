@@ -19,6 +19,9 @@
     [dir="rtl"] {
       text-align: right;
     }
+    .courses-grid {
+      display: none;
+    }
   </style>
 </head>
 <body class="bg-white text-slate-900 font-sans p-8" dir="rtl">
@@ -401,6 +404,7 @@
 
     if (grid) {
       grid.innerHTML = courses.map(buildCard).join('');
+      grid.style.display = 'grid';
     }
 
     const cartPanel = document.createElement('aside');

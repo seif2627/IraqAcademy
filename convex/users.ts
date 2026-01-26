@@ -1,4 +1,4 @@
-import { mutation } from "convex/server";
+import { mutation, query } from "convex/server";
 import { v } from "convex/values";
 
 export const upsert = mutation({
@@ -28,5 +28,19 @@ export const upsert = mutation({
       role: args.role,
       createdAt: Date.now()
     });
+  }
+});
+
+export const list = query({
+  args: { role: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    if (args.role) {
+      return await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("role"), args.role))
+        .order("desc")
+        .collect();
+    }
+    return await ctx.db.query("users").order("desc").collect();
   }
 });

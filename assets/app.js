@@ -5,7 +5,8 @@ var mapping = {
   teachers: "pages/teachers.html",
   help: "pages/help.html",
   login: "pages/login.html",
-  signup: "pages/signup.html"
+  signup: "pages/signup.html",
+  accounts: "pages/accounts.html"
 };
 
 var translations = {
@@ -15,6 +16,7 @@ var translations = {
     nav_students: "الطلاب",
     nav_teachers: "المعلمون",
     nav_help: "المساعدة",
+    nav_accounts: "إدارة الحسابات",
     search_placeholder: "ابحث عن الدورات أو المعلمين...",
     login: "تسجيل الدخول",
     signup: "إنشاء حساب",
@@ -122,7 +124,15 @@ function loadIntoFrame(page) {
   if (page === "students" && !canAccessStudents()) {
     page = "home";
   }
+  if (page === "accounts" && !canAccessAccounts()) {
+    page = "home";
+  }
+  if (frame.getAttribute('data-loading') === '1') return;
+  frame.setAttribute('data-loading', '1');
   frame.src = mapping[page];
+  frame.onload = function () {
+    frame.removeAttribute('data-loading');
+  };
   setActiveNav(page);
 }
 
@@ -173,6 +183,10 @@ function canAccessStudents() {
   return window.currentUserRole === "admin" || window.currentUserRole === "owner";
 }
 
+function canAccessAccounts() {
+  return window.currentUserRole === "owner";
+}
+
 function getRoleLabel(role) {
   if (role === "owner") return "مالك";
   if (role === "admin") return "مشرف";
@@ -184,6 +198,10 @@ function updateNavAccess() {
   var studentsBtn = document.querySelector('.nav-link[data-page="students"]');
   if (studentsBtn) {
     studentsBtn.style.display = canAccessStudents() ? 'inline-flex' : 'none';
+  }
+  var accountsBtn = document.querySelector('.nav-link[data-page="accounts"]');
+  if (accountsBtn) {
+    accountsBtn.style.display = canAccessAccounts() ? 'inline-flex' : 'none';
   }
 }
 
@@ -202,6 +220,9 @@ window.addEventListener("hashchange", function () {
 // Initialize
 window.addEventListener('DOMContentLoaded', () => {
     updateUI();
+    if (frame) {
+      frame.style.visibility = 'hidden';
+    }
     checkAuthState().then(() => {
       updateNavAccess();
       var initial = normalizePage(getPageFromHash());
@@ -210,6 +231,9 @@ window.addEventListener('DOMContentLoaded', () => {
           location.hash = targetHash;
       } else {
           loadIntoFrame(initial);
+      }
+      if (frame) {
+        frame.style.visibility = 'visible';
       }
     });
 });

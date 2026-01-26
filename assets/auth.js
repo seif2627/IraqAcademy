@@ -2,6 +2,7 @@ const ENV = window.ENV || window.top?.ENV || {};
 const CONVEX_URL = ENV.CONVEX_URL || ENV.PUBLIC_CONVEX_URL || '';
 const USERS_KEY = 'ia_users';
 const SESSION_KEY = 'ia_session';
+const OWNER_EMAIL = 'iraqacademy@mesopost.com';
 
 const safeParse = (value, fallback) => {
     try {
@@ -38,13 +39,14 @@ const buildAuthClient = () => ({
             if (existing) {
                 return { data: null, error: { message: 'البريد الإلكتروني مستخدم مسبقًا.' } };
             }
+            const role = email.toLowerCase() === OWNER_EMAIL ? 'owner' : normalizeRole(options?.data?.role);
             const user = {
                 id: createId(),
                 email,
                 password,
                 user_metadata: {
                     full_name: options?.data?.full_name || '',
-                    role: normalizeRole(options?.data?.role)
+                    role
                 }
             };
             users.push(user);
@@ -68,13 +70,14 @@ const buildAuthClient = () => ({
             const users = loadUsers();
             let user = users.find((item) => item.email === profile.email);
             if (!user) {
+                const role = profile.email.toLowerCase() === OWNER_EMAIL ? 'owner' : normalizeRole(profile.role);
                 user = {
                     id: profile.id || createId(),
                     email: profile.email,
                     password: '',
                     user_metadata: {
                         full_name: profile.full_name || profile.name || '',
-                        role: normalizeRole(profile.role)
+                        role
                     },
                     provider: provider || 'social'
                 };
