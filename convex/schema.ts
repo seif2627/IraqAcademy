@@ -62,16 +62,20 @@ export default defineSchema({
   teachers: defineTable({
     name: v.string(),
     subject: v.string(),
-    bio: v.string(),
-    gender: v.string(),
+    bio: v.optional(v.string()),
+    gender: v.optional(v.string()),
     imageUrl: v.optional(v.string())
   }),
   courses: defineTable({
     title: v.string(),
-    subtitle: v.string(),
-    category: v.string(),
-    type: v.string(),
-    status: v.string(),
+    grade: v.optional(v.string()),
+    teacherName: v.optional(v.string()),
+    price: v.optional(v.number()),
+    description: v.optional(v.string()),
+    subtitle: v.optional(v.string()),
+    category: v.optional(v.string()),
+    type: v.optional(v.string()),
+    status: v.optional(v.string()),
     imageUrl: v.optional(v.string())
   })
 });
