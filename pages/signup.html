@@ -111,6 +111,7 @@
     </div>
   </div>
   <script src="../assets/config.js"></script>
+  <script type="module" src="../assets/firebase.js"></script>
   <script type="module" src="../assets/convex.js"></script>
   <script src="../assets/auth.js"></script>
   <script>
@@ -178,15 +179,7 @@
         const errorDiv = document.getElementById('errorMessage');
         try {
             errorDiv.classList.add('hidden');
-            // Mock provider login logic
-            console.log(`Signing up with ${provider}...`);
-            const mockProfile = {
-                email: 'demo@example.com',
-                name: 'Demo User',
-                role: 'student',
-                id: 'mock_provider_id_' + Date.now()
-            };
-            await window.authClient.auth.signInWithProvider({ provider, profile: mockProfile });
+            await window.authClient.auth.signInWithProvider({ provider });
             // Redirect to login or home
             window.parent.navigateTo('login');
         } catch (err) {

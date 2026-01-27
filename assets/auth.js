@@ -1,26 +1,4 @@
-const CONVEX_URL = window.IA_CONFIG?.convexUrl || "";
-const USERS_KEY = 'ia_users';
-const SESSION_KEY = 'ia_session';
 const OWNER_EMAIL = 'iraqacademy@mesopost.com';
-
-const safeParse = (value, fallback) => {
-    try {
-        return JSON.parse(value);
-    } catch (error) {
-        return fallback;
-    }
-};
-
-const loadUsers = () => safeParse(localStorage.getItem(USERS_KEY), []);
-const saveUsers = (users) => localStorage.setItem(USERS_KEY, JSON.stringify(users));
-const loadSession = () => safeParse(localStorage.getItem(SESSION_KEY), null);
-const saveSession = (session) => localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-const clearSession = () => localStorage.removeItem(SESSION_KEY);
-
-const createId = () => {
-    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
-    return `user_${Date.now()}_${Math.random().toString(16).slice(2)}`;
-};
 
 const normalizeRole = (role) => {
     const value = String(role || '').toLowerCase();
@@ -30,108 +8,143 @@ const normalizeRole = (role) => {
     return 'student';
 };
 
+const buildFirebaseUserObject = (fbUser, roleOverride) => {
+    if (!fbUser) return null;
+    const email = fbUser.email || '';
+    const role = email.toLowerCase() === OWNER_EMAIL ? 'owner' : normalizeRole(roleOverride);
+    return {
+        id: fbUser.uid,
+        email,
+        user_metadata: {
+            full_name: fbUser.displayName || '',
+            role
+        },
+        provider: (fbUser.providerData && fbUser.providerData[0]?.providerId) || 'password'
+    };
+};
+
+const getAuthUser = () => {
+    const auth = window.firebaseAuth?.auth;
+    if (!auth || !window.firebaseAuth?.onAuthStateChanged) {
+        return Promise.resolve(null);
+    }
+    if (auth.currentUser) return Promise.resolve(auth.currentUser);
+    return new Promise((resolve) => {
+        const unsubscribe = window.firebaseAuth.onAuthStateChanged(auth, (user) => {
+            if (typeof unsubscribe === 'function') {
+                unsubscribe();
+            }
+            resolve(user || null);
+        });
+    });
+};
+
 const buildAuthClient = () => ({
     auth: {
         async signUp({ email, password, options }) {
-            const users = loadUsers();
-            const existing = users.find((user) => user.email === email);
-            if (existing) {
-                return { data: null, error: { message: 'Email already in use.' } };
+            const auth = window.firebaseAuth?.auth;
+            const { createUserWithEmailAndPassword, updateProfile } = window.firebaseAuth || {};
+            if (!auth || !createUserWithEmailAndPassword) {
+                return { data: null, error: { message: 'Authentication not configured.' } };
             }
-            const role = email.toLowerCase() === OWNER_EMAIL ? 'owner' : normalizeRole(options?.data?.role);
-            const user = {
-                id: createId(),
-                email,
-                password,
-                user_metadata: {
-                    full_name: options?.data?.full_name || '',
-                    role
+            try {
+                const cred = await createUserWithEmailAndPassword(auth, email, password);
+                const fullName = options?.data?.full_name || '';
+                if (fullName && updateProfile) {
+                    await updateProfile(cred.user, { displayName: fullName });
                 }
-            };
-            users.push(user);
-            saveUsers(users);
-            return { data: { user }, error: null };
+                const role = options?.data?.role;
+                const user = buildFirebaseUserObject(cred.user, role);
+                if (window.top?.iaStore && user) {
+                    await window.top.iaStore.syncUser(user);
+                }
+                return { data: { user }, error: null };
+            } catch (err) {
+                return { data: null, error: { message: err?.message || 'Failed to sign up.' } };
+            }
         },
         async signInWithPassword({ email, password }) {
-            const users = loadUsers();
-            const user = users.find((item) => item.email === email);
-            if (!user || user.password !== password) {
-                return { data: null, error: { message: 'Invalid login credentials.' } };
+            const auth = window.firebaseAuth?.auth;
+            const { signInWithEmailAndPassword } = window.firebaseAuth || {};
+            if (!auth || !signInWithEmailAndPassword) {
+                return { data: null, error: { message: 'Authentication not configured.' } };
             }
-            const session = { user };
-            saveSession(session);
-            return { data: { session, user }, error: null };
+            try {
+                const cred = await signInWithEmailAndPassword(auth, email, password);
+                const user = buildFirebaseUserObject(cred.user);
+                if (window.top?.iaStore && user) {
+                    await window.top.iaStore.syncUser(user);
+                }
+                const session = { user };
+                return { data: { session, user }, error: null };
+            } catch (err) {
+                return { data: null, error: { message: err?.message || 'Invalid login credentials.' } };
+            }
         },
-        async signInWithProvider({ provider, profile }) {
-            if (!profile?.email) {
-                return { data: null, error: { message: 'تعذر قراءة البريد الإلكتروني من الحساب.' } };
+        async signIn({ email, password }) {
+            return await this.signInWithPassword({ email, password });
+        },
+        async signInWithProvider({ provider }) {
+            const auth = window.firebaseAuth?.auth;
+            const { signInWithPopup, googleProvider, microsoftProvider } = window.firebaseAuth || {};
+            if (!auth || !signInWithPopup) {
+                return { data: null, error: { message: 'Authentication not configured.' } };
             }
-            const users = loadUsers();
-            let user = users.find((item) => item.email === profile.email);
-            if (!user) {
-                const role = profile.email.toLowerCase() === OWNER_EMAIL ? 'owner' : normalizeRole(profile.role);
-                user = {
-                    id: profile.id || createId(),
-                    email: profile.email,
-                    password: '',
-                    user_metadata: {
-                        full_name: profile.full_name || profile.name || '',
-                        role
-                    },
-                    provider: provider || 'social'
-                };
-                users.push(user);
-                saveUsers(users);
+            try {
+                let prov = null;
+                if (provider === 'google') prov = googleProvider;
+                if (provider === 'microsoft') prov = microsoftProvider;
+                if (!prov) {
+                    return { data: null, error: { message: 'Unsupported provider.' } };
+                }
+                const cred = await signInWithPopup(auth, prov);
+                const user = buildFirebaseUserObject(cred.user);
+                if (window.top?.iaStore && user) {
+                    await window.top.iaStore.syncUser(user);
+                }
+                const session = { user };
+                return { data: { session, user }, error: null };
+            } catch (err) {
+                return { data: null, error: { message: err?.message || 'Failed to sign in with provider.' } };
             }
-            const session = { user };
-            saveSession(session);
-            return { data: { session, user }, error: null };
         },
         async signOut() {
-            clearSession();
-            return { error: null };
+            const auth = window.firebaseAuth?.auth;
+            if (!auth) return { error: { message: 'Authentication not configured.' } };
+            try {
+                await auth.signOut();
+                return { error: null };
+            } catch (err) {
+                return { error: { message: err?.message || 'Failed to sign out.' } };
+            }
         },
         async getSession() {
-            const session = loadSession();
+            const fbUser = await getAuthUser();
+            const user = buildFirebaseUserObject(fbUser);
+            const session = user ? { user } : null;
             return { data: { session } };
         },
         async getUser() {
-            const session = loadSession();
-            return { data: { user: session?.user || null } };
+            const fbUser = await getAuthUser();
+            const user = buildFirebaseUserObject(fbUser);
+            return { data: { user } };
         }
     },
     metadata: {
-        provider: 'convex',
-        convexUrl: CONVEX_URL
+        provider: 'firebase'
     }
 });
 
-let storageReady = true;
-try {
-    localStorage.setItem('__ia_test', '1');
-    localStorage.removeItem('__ia_test');
-} catch (error) {
-    storageReady = false;
-}
+window.authClient = buildAuthClient();
+window.authConfigError = '';
 
-if (!storageReady) {
-    window.authClient = null;
-    window.authConfigError = 'Local storage unavailable. Login disabled.';
-} else {
-    window.authClient = buildAuthClient();
-    window.authConfigError = CONVEX_URL ? '' : 'Convex not configured yet.';
-}
-
-async function getCurrentUser() {
-    if (!window.authClient) return null;
-    const { data: { user } } = await window.authClient.auth.getUser();
-    return user;
-}
-
-async function getProfile(userId) {
-    if (!window.authClient) return null;
-    const users = loadUsers();
-    return users.find((user) => user.id === userId) || null;
+if (window.firebaseAuth?.onAuthStateChanged && window.firebaseAuth?.auth) {
+    window.firebaseAuth.onAuthStateChanged(window.firebaseAuth.auth, async (fbUser) => {
+        const user = buildFirebaseUserObject(fbUser);
+        if (user && window.top?.iaStore) {
+            await window.top.iaStore.syncUser(user);
+        }
+    });
 }
 
 async function signOut() {
