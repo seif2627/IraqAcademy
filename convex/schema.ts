@@ -60,13 +60,20 @@ export default defineSchema({
     updatedAt: v.number()
   }).index("by_userId", ["userId"]),
   teachers: defineTable({
+    userId: v.string(),
     name: v.string(),
     subject: v.string(),
     bio: v.optional(v.string()),
     gender: v.optional(v.string()),
-    imageUrl: v.optional(v.string())
-  }),
+    imageUrl: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number()
+  })
+    .index("by_userId", ["userId"])
+    .index("by_subject", ["subject"])
+    .index("by_name", ["name"]),
   courses: defineTable({
+    teacherId: v.id("teachers"),
     title: v.string(),
     grade: v.optional(v.string()),
     teacherName: v.optional(v.string()),
@@ -76,6 +83,11 @@ export default defineSchema({
     category: v.optional(v.string()),
     type: v.optional(v.string()),
     status: v.optional(v.string()),
-    imageUrl: v.optional(v.string())
+    imageUrl: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number()
   })
+    .index("by_teacherId", ["teacherId"])
+    .index("by_category", ["category"])
+    .index("by_status", ["status"])
 });
