@@ -262,6 +262,14 @@ main {
   color: var(--ia-muted);
 }
 
+.teacher-bio,
+.course-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .shell-nav-inner {

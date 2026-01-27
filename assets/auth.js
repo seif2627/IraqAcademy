@@ -1,5 +1,4 @@
-const ENV = window.ENV || window.top?.ENV || {};
-const CONVEX_URL = ENV.CONVEX_URL || ENV.PUBLIC_CONVEX_URL || '';
+const CONVEX_URL = window.IA_CONFIG?.convexUrl || "";
 const USERS_KEY = 'ia_users';
 const SESSION_KEY = 'ia_session';
 const OWNER_EMAIL = 'iraqacademy@mesopost.com';

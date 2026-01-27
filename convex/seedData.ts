@@ -1,1484 +1,1631 @@
 export const seedTeachers = [
   {
-    "name": "Akadymya Alqmm Altbya",
-    "subject": "Teacher Studies Medical",
-    "photo": "/assets/extracted_teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. كايمية القمم الطبية",
+    "subject": "الدراسة الطبية",
+    "bio": "متخصص في الدراسة الطبية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-كايمية-القمم-الطبية.jpg"
   },
   {
-    "name": "Ala Alsraf",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-2.jpg",
-    "bio": ""
+    "name": "أ. ة التريسية علا الصراف",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ة-التريسية-علا-الصراف.jpg"
   },
   {
-    "name": "Akhlas Akrm Mhdy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-3.jpg",
-    "bio": ""
+    "name": "د. اخلاص اكرم مهي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-اخلاص-اكرم-مهي.jpg"
   },
   {
-    "name": "Mhmd Hsyn",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-4.jpg",
-    "bio": ""
+    "name": "د. محم حسين",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-محم-حسين.jpg"
   },
   {
-    "name": "Abdalwhab Abdalkrym",
-    "subject": "Teacher French",
-    "photo": "/assets/extracted_teachers/teacher-5.jpg",
-    "bio": ""
+    "name": "د. عبالوهاب عبالكريم",
+    "subject": "اللغة الفرنسية",
+    "bio": "متخصص في اللغة الفرنسية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-عبالوهاب-عبالكريم.jpg"
   },
   {
-    "name": "Aly Flah Alkhaqany",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-6.jpg",
-    "bio": ""
+    "name": "د. علي فلاح الخاقاني",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-علي-فلاح-الخاقاني.jpg"
   },
   {
-    "name": "Hydr Wlyd",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-7.jpg",
-    "bio": ""
+    "name": "د. حير ولي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-حير-ولي.jpg"
   },
   {
-    "name": "Hsyn Hmza",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-8.jpg",
-    "bio": ""
+    "name": "د. حسين حمزة",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-حسين-حمزة.jpg"
   },
   {
-    "name": "Ahmd Fwzy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-9.jpg",
-    "bio": ""
+    "name": "د. احم فوزي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-احم-فوزي.jpg"
   },
   {
-    "name": "Asam Alshmry",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-10.png",
-    "bio": ""
+    "name": "د. عصام الشمري",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-عصام-الشمري.jpg"
   },
   {
-    "name": "Mhmd Hsn ( Mohammed Hassan)",
-    "subject": "Teacher Alhndsa Almdny",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. محم حسن ( )",
+    "subject": "الهندسة المدني",
+    "bio": "متخصص في الهندسة المدني. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-حسن.jpg"
   },
   {
-    "name": "Wlyd Alsba",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-12.jpg",
-    "bio": ""
+    "name": "د. ولي السبع",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-ولي-السبع.jpg"
   },
   {
-    "name": "Hydr Kazm Alqryshy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-13.jpg",
-    "bio": ""
+    "name": "د. حير كاظم القريشي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-حير-كاظم-القريشي.jpg"
   },
   {
-    "name": "Fras Braq",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-14.png",
-    "bio": ""
+    "name": "د. فراس براق",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-فراس-براق.jpg"
   },
   {
-    "name": "Mhmd Alanzy",
-    "subject": "Teacher Biology",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. محم العنزي",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-العنزي.jpg"
   },
   {
-    "name": "Flah Altaئy",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-16.jpg",
-    "bio": ""
+    "name": "د. فلاح الطائي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-فلاح-الطائي.jpg"
   },
   {
-    "name": "Amar Alslamy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-17.jpg",
-    "bio": ""
+    "name": "أ. عمار السلامي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-عمار-السلامي.jpg"
   },
   {
-    "name": "Ashtr Ahmd",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-18.jpg",
-    "bio": ""
+    "name": "د. اشتر احم",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-اشتر-احم.jpg"
   },
   {
-    "name": "Adm Abrahym",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-19.jpg",
-    "bio": ""
+    "name": "د. ام ابراهيم",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-ام-ابراهيم.jpg"
   },
   {
-    "name": "Ywsf Aljafry",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-20.jpg",
-    "bio": ""
+    "name": "أ. يوسف الجعفري",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-يوسف-الجعفري.jpg"
   },
   {
-    "name": "Ghydaa Alshmry",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-21.jpg",
-    "bio": ""
+    "name": "د. غياء الشمري",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-غياء-الشمري.jpg"
   },
   {
-    "name": "Jafr Alhsny",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-22.jpg",
-    "bio": ""
+    "name": "د. جعفر الحسني",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-جعفر-الحسني.jpg"
   },
   {
-    "name": "Hrab Hamd",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-23.png",
-    "bio": ""
+    "name": "أ. الست حراب حام",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-حراب-حام.jpg"
   },
   {
-    "name": "Ahmd Ktyb",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-24.jpg",
-    "bio": ""
+    "name": "أ. احم كتيب",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-احم-كتيب.jpg"
   },
   {
-    "name": "Wsam Alasdy",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-25.jpg",
-    "bio": ""
+    "name": "أ. وسام الاسي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-وسام-الاسي.jpg"
   },
   {
-    "name": "Aly Alswdany",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-26.jpg",
-    "bio": ""
+    "name": "أ. علي السواني",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-علي-السواني.jpg"
   },
   {
-    "name": "Hmam Altmymy",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-27.jpg",
-    "bio": ""
+    "name": "د. همام التميمي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-همام-التميمي.jpg"
   },
   {
-    "name": "Mhmd Allamy",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-28.png",
-    "bio": ""
+    "name": "أ. محم اللامي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-اللامي.jpg"
   },
   {
-    "name": "Mazn Alhsnawy",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-29.png",
-    "bio": ""
+    "name": "د. مازن الحسناوي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-مازن-الحسناوي.jpg"
   },
   {
-    "name": "D.krar Mhmwd",
-    "subject": "Teacher Altrbya Islamic Studies",
-    "photo": "/assets/extracted_teachers/teacher-30.jpg",
-    "bio": ""
+    "name": "أ. كرار محمو",
+    "subject": "التربية الاسلامية",
+    "bio": "متخصص في التربية الاسلامية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-كرار-محمو.jpg"
   },
   {
-    "name": "Maawn Alaraq Akadymy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "د. معاون العراق كايمي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-معاون-العراق-كايمي.jpg"
   },
   {
-    "name": "Yasr Alrbyay",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-32.png",
-    "bio": ""
+    "name": "أ. ياسر الربيعي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ياسر-الربيعي.jpg"
   },
   {
-    "name": "Hda Alhsnawy",
-    "subject": "Teacher English",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. هى الحسناوي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-هى-الحسناوي.jpg"
   },
   {
-    "name": "Zynb Aljwhr",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-34.jpg",
-    "bio": ""
+    "name": "أ. زينب الجوهر",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-زينب-الجوهر.jpg"
   },
   {
-    "name": "Wsam Alsray",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-35.jpg",
-    "bio": ""
+    "name": "أ. وسام السراي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-وسام-السراي.jpg"
   },
   {
-    "name": "Mahr Nayf",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-36.png",
-    "bio": ""
+    "name": "أ. ماهر نايف",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ماهر-نايف.jpg"
   },
   {
-    "name": "Ywsf Hatm",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-37.png",
-    "bio": ""
+    "name": "أ. يوسف حاتم",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-يوسف-حاتم.jpg"
   },
   {
-    "name": "A Rmla Fars Alghzy",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-38.jpg",
-    "bio": ""
+    "name": "د. ة رملة فارس الغزي",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-ة-رملة-فارس-الغزي.jpg"
   },
   {
-    "name": "A. Fadl Alatby",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-39.jpg",
-    "bio": ""
+    "name": "د. ا. فاضل العتبي",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-ا-فاضل-العتبي.jpg"
   },
   {
-    "name": "Ahmd Alndawy",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-40.jpg",
-    "bio": ""
+    "name": "أ. احم الناوي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-احم-الناوي.jpg"
   },
   {
-    "name": "Mhmd Flah Alsad",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-41.jpg",
-    "bio": ""
+    "name": "د. محم فلاح السع",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-محم-فلاح-السع.jpg"
   },
   {
-    "name": "Khald Wlyd",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-42.jpg",
-    "bio": ""
+    "name": "أ. خال ولي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-خال-ولي.jpg"
   },
   {
-    "name": "Hydr Dywan",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-43.png",
-    "bio": ""
+    "name": "د. حير يوان",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-حير-يوان.jpg"
   },
   {
-    "name": "Hsyn Tyara",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-44.jpg",
-    "bio": ""
+    "name": "أ. حسين طيارة",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حسين-طيارة.jpg"
   },
   {
-    "name": "Sfyan Alzhyry",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-45.jpg",
-    "bio": ""
+    "name": "د. سفيان الزهيري",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-سفيان-الزهيري.jpg"
   },
   {
-    "name": "Aly Sadq Jabr",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. علي صاق جابر",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-علي-صاق-جابر.jpg"
   },
   {
-    "name": "Amar Fadl",
-    "subject": "Teacher Altrbya Islamic Studies",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "د. عمار فاضل",
+    "subject": "التربية الاسلامية",
+    "bio": "متخصص في التربية الاسلامية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-عمار-فاضل.jpg"
   },
   {
-    "name": "Aqyl Alzbydy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. عقيل الزبيي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-عقيل-الزبيي.jpg"
   },
   {
-    "name": "Ahmd Alnaymy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-49.jpg",
-    "bio": ""
+    "name": "د. حم النعيمي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-حم-النعيمي.jpg"
   },
   {
-    "name": "Astadh Abd Alkrym Njf",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-50.jpg",
-    "bio": ""
+    "name": "أ. عب الكريم نجف",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-عب-الكريم-نجف.jpg"
   },
   {
-    "name": "Abrahym Alsmyday",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-51.jpg",
-    "bio": ""
+    "name": "أ. ابراهيم الصميعي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ابراهيم-الصميعي.jpg"
   },
   {
-    "name": "St Rym Altaئy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-52.jpg",
-    "bio": ""
+    "name": "أ. ست ريم الطائي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ست-ريم-الطائي.jpg"
   },
   {
-    "name": "Krar Mhmd Alghrybawy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-53.jpg",
-    "bio": ""
+    "name": "أ. كرار محم الغريباوي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-كرار-محم-الغريباوي.jpg"
   },
   {
-    "name": "Tfydh Abdallh",
-    "subject": "Teacher English",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. الست تفيه عبالله",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-تفيه-عبالله.jpg"
   },
   {
-    "name": "Amr Almamwry",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-55.jpg",
-    "bio": ""
+    "name": "د. عمر المعموري",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-عمر-المعموري.jpg"
   },
   {
-    "name": "Amr Shakr Aly",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-56.jpg",
-    "bio": ""
+    "name": "د. عمر شاكر علي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-عمر-شاكر-علي.jpg"
   },
   {
-    "name": "Alryadyat - Hsam Alhlw",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-57.jpg",
-    "bio": ""
+    "name": "أ. الرياضيات - حسام الحلو",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الرياضيات-حسام-الحلو.jpg"
   },
   {
-    "name": "Hmam Alshmsy",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-58.jpg",
-    "bio": ""
+    "name": "أ. همام الشمسي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-همام-الشمسي.jpg"
   },
   {
-    "name": "Snan Mhdy",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-59.jpg",
-    "bio": ""
+    "name": "أ. سنان مهي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-سنان-مهي.jpg"
   },
   {
-    "name": "Mhmwd Wlyd",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-60.jpg",
-    "bio": ""
+    "name": "أ. محمو ولي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محمو-ولي.jpg"
   },
   {
-    "name": "Aly Ahsan Najy Alshmry",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-61.jpg",
-    "bio": ""
+    "name": "د. علي احسان ناجي الشمري",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-علي-احسان-ناجي-الشمري.jpg"
   },
   {
-    "name": "Nwrs Almwswy",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-62.jpg",
-    "bio": ""
+    "name": "أ. نورس الموسوي",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-نورس-الموسوي.jpg"
   },
   {
-    "name": "Ahmd Hsan",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-63.jpg",
-    "bio": ""
+    "name": "أ. احم حسان",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-احم-حسان.jpg"
   },
   {
-    "name": "Dhwalfqar Ahmd Khdyr",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-64.jpg",
-    "bio": ""
+    "name": "أ. ذوالفقار احم خضير",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ذوالفقار-احم-خضير.jpg"
   },
   {
-    "name": "Salm Al Mnswr",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-65.png",
-    "bio": ""
+    "name": "د. سالم ال منصور",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-سالم-ال-منصور.jpg"
   },
   {
-    "name": "Krm Asam",
-    "subject": "Teacher Biology",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "د. كرم عصام",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-كرم-عصام.jpg"
   },
   {
-    "name": "Hashm Alghrbawy",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-67.jpg",
-    "bio": ""
+    "name": "أ. هاشم الغرباوي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-هاشم-الغرباوي.jpg"
   },
   {
-    "name": "Hydr Alhydry",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-68.jpg",
-    "bio": ""
+    "name": "د. حير الحيري",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-حير-الحيري.jpg"
   },
   {
-    "name": "Abrahym Jbar Alhlfy",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-69.png",
-    "bio": ""
+    "name": "أ. ابراهيم جبار الحلفي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ابراهيم-جبار-الحلفي.jpg"
   },
   {
-    "name": "Khald Aldlymy",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-70.jpg",
-    "bio": ""
+    "name": "د. خال الليمي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-خال-الليمي.jpg"
   },
   {
-    "name": "Zynb Alshaljy",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-71.png",
-    "bio": ""
+    "name": "أ. زينب الشالجي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-زينب-الشالجي.jpg"
   },
   {
-    "name": "Brzan Fadl",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-72.jpg",
-    "bio": ""
+    "name": "د. برزان فاضل",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-برزان-فاضل.jpg"
   },
   {
-    "name": "Hsn Abd Alkazm Alrbyay",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-73.png",
-    "bio": ""
+    "name": "أ. حسن عب الكاظم الربيعي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حسن-عب-الكاظم-الربيعي.jpg"
   },
   {
-    "name": "Amjd Fkhry",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-74.jpg",
-    "bio": ""
+    "name": "أ. امج فخري",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-امج-فخري.jpg"
   },
   {
-    "name": "Mhmd Alaamry",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-75.png",
-    "bio": ""
+    "name": "د. محم العامري",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-محم-العامري.jpg"
   },
   {
-    "name": "Mstfa Alzydy",
-    "subject": "Teacher Economics",
-    "photo": "/assets/extracted_teachers/teacher-76.png",
-    "bio": ""
+    "name": "أ. مصطفى الزيي",
+    "subject": "الاقتصاد",
+    "bio": "متخصص في الاقتصاد. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-مصطفى-الزيي.jpg"
   },
   {
-    "name": "Nmyr Faئq Hkmt",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-77.jpg",
-    "bio": ""
+    "name": "أ. نمير فائق حكمت",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-نمير-فائق-حكمت.jpg"
   },
   {
-    "name": "Mstfa Al Jlawt",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-78.jpg",
-    "bio": ""
+    "name": "د. مصطفى آل جلعوط",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-مصطفى-آل-جلعوط.jpg"
   },
   {
-    "name": "Wsam Bnyan Adm Aysa",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. وسام بنيان آم عيسى",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-وسام-بنيان-آم-عيسى.jpg"
   },
   {
-    "name": "Amad Hmyd",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-80.jpg",
-    "bio": ""
+    "name": "د. عما حمي",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-عما-حمي.jpg"
   },
   {
-    "name": "Aly Kwshan",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "د. علي كوشان",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-علي-كوشان.jpg"
   },
   {
-    "name": "Hsn Kaml",
-    "subject": "Teacher Altrbya Islamic Studies",
-    "photo": "/assets/extracted_teachers/teacher-82.jpg",
-    "bio": ""
+    "name": "د. حسن كامل",
+    "subject": "التربية الاسلامية",
+    "bio": "متخصص في التربية الاسلامية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-حسن-كامل.jpg"
   },
   {
-    "name": "Mohammed Alshamery",
-    "subject": "Teacher Hndsa Alnft",
-    "photo": "/assets/extracted_teachers/teacher-83.jpg",
-    "bio": ""
+    "name": "أ. Mohammed Alshamery",
+    "subject": "هندسة النفط",
+    "bio": "متخصص في هندسة النفط. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-Mohammed-Alshamery.jpg"
   },
   {
-    "name": "Althghrat Alamnya",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. الثغرات المنية",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الثغرات-المنية.jpg"
   },
   {
-    "name": "Mahr Alalwsy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-85.jpg",
-    "bio": ""
+    "name": "أ. ماهر الآلوسي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ماهر-الآلوسي.jpg"
   },
   {
-    "name": "Baqr Jasm",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-86.jpg",
-    "bio": ""
+    "name": "أ. باقر جاسم",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-باقر-جاسم.jpg"
   },
   {
-    "name": "Amr Alnaymy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-87.png",
-    "bio": ""
+    "name": "أ. عمر النعيمي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-عمر-النعيمي.jpg"
   },
   {
-    "name": "Sjad Allamy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. سجا اللامي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-سجا-اللامي.jpg"
   },
   {
-    "name": "Alaa Alsadawy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-89.jpg",
-    "bio": ""
+    "name": "أ. علاء السعاوي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-علاء-السعاوي.jpg"
   },
   {
-    "name": "Aly Aljbwry",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-90.jpg",
-    "bio": ""
+    "name": "أ. علي الجبوري",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-علي-الجبوري.jpg"
   },
   {
-    "name": "Zbydh Rshyd Twfyq",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-91.png",
-    "bio": ""
+    "name": "أ. زبيه رشي توفيق",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-زبيه-رشي-توفيق.jpg"
   },
   {
-    "name": "Sjad Alabydy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-92.jpg",
-    "bio": ""
+    "name": "أ. سجا العبيي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-سجا-العبيي.jpg"
   },
   {
-    "name": "Ebrahym Abd Aljlyl",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-93.jpg",
-    "bio": ""
+    "name": "أ. إبراهيم عب الجليل",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-إبراهيم-عب-الجليل.jpg"
   },
   {
-    "name": "Mqdam Hsam",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-94.png",
-    "bio": ""
+    "name": "أ. مقام حسام",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-مقام-حسام.jpg"
   },
   {
-    "name": "Ghsan Alhashmy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-95.jpg",
-    "bio": ""
+    "name": "أ. غسان الهاشمي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-غسان-الهاشمي.jpg"
   },
   {
-    "name": "Amnh Alwasty",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-96.jpg",
-    "bio": ""
+    "name": "أ. امنه الواسطي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-امنه-الواسطي.jpg"
   },
   {
-    "name": "Wlaa Hsyn",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-97.jpg",
-    "bio": ""
+    "name": "أ. ولاء حسين",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ولاء-حسين.jpg"
   },
   {
-    "name": "Ahmd Aadl Almwswy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-98.jpg",
-    "bio": ""
+    "name": "أ. احم عال الموسوي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-احم-عال-الموسوي.jpg"
   },
   {
-    "name": "Qsy Hashm Altmymy",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-99.png",
-    "bio": ""
+    "name": "أ. قصي هاشم التميمي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-قصي-هاشم-التميمي.jpg"
   },
   {
-    "name": "Tlal Abw Altmn",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-100.jpg",
-    "bio": ""
+    "name": "أ. طلال ابو التمن",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-طلال-ابو-التمن.jpg"
   },
   {
-    "name": "Khald Trky",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-101.jpg",
-    "bio": ""
+    "name": "أ. خال تركي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-خال-تركي.jpg"
   },
   {
-    "name": "Mhmd Kazm",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-102.jpg",
-    "bio": ""
+    "name": "أ. محم كاظم",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-كاظم.jpg"
   },
   {
-    "name": "Ayman Mzahm",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-103.jpg",
-    "bio": ""
+    "name": "أ. الست ايمان مزاحم",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-ايمان-مزاحم.jpg"
   },
   {
-    "name": "Sajadhamza- Sjad Hmza",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-104.jpg",
-    "bio": ""
+    "name": "أ. - سجا حمزة",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-سجا-حمزة.jpg"
   },
   {
-    "name": "Mstfa Aqyl",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-105.jpg",
-    "bio": ""
+    "name": "أ. مصطفى عقيل",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-مصطفى-عقيل.jpg"
   },
   {
-    "name": "Ahmd Alarak",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-106.jpg",
-    "bio": ""
+    "name": "أ. حم العراك",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حم-العراك.jpg"
   },
   {
-    "name": "A Mrwh Alwasty",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-107.jpg",
-    "bio": ""
+    "name": "أ. ة مروه الواسطي",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ة-مروه-الواسطي.jpg"
   },
   {
-    "name": "Nwrhan Ayad",
-    "subject": "Teacher Biology",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. الست نورهان ايا",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-نورهان-ايا.jpg"
   },
   {
-    "name": "Ghalb Kazm Jwad",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-109.jpg",
-    "bio": ""
+    "name": "أ. غالب كاظم جوا",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-غالب-كاظم-جوا.jpg"
   },
   {
-    "name": "Ghada Aljabry",
-    "subject": "Teacher Biology",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. الست غاة الجابري",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-غاة-الجابري.jpg"
   },
   {
-    "name": "Fadl Alatby",
-    "subject": "Teacher Biology",
-    "photo": "/assets/extracted_teachers/teacher-111.jpg",
-    "bio": ""
+    "name": "د. فاضل العتبي",
+    "subject": "الاحياء",
+    "bio": "متخصص في الاحياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/د-فاضل-العتبي.jpg"
   },
   {
-    "name": "Abd Alamam Aly",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-112.jpg",
-    "bio": ""
+    "name": "أ. عب الامام علي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-عب-الامام-علي.jpg"
   },
   {
-    "name": "Mhmd Hswn",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-113.jpg",
-    "bio": ""
+    "name": "أ. محم حسون",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-حسون.jpg"
   },
   {
-    "name": "Mؤyd Slym Alzydy",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-114.png",
-    "bio": ""
+    "name": "أ. مؤي سليم الزيي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-مؤي-سليم-الزيي.jpg"
   },
   {
-    "name": "Jafr Alshafay",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-115.jpg",
-    "bio": ""
+    "name": "أ. جعفر الشافعي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-جعفر-الشافعي.jpg"
   },
   {
-    "name": "Allastadh Amr Alndawy",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-116.jpg",
-    "bio": ""
+    "name": "أ. الل عمر الناوي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الل-عمر-الناوي.jpg"
   },
   {
-    "name": "Hsyn Alsalhy",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-117.jpg",
-    "bio": ""
+    "name": "أ. حسين الصالحي",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حسين-الصالحي.jpg"
   },
   {
-    "name": "Mhmd Alwathq",
-    "subject": "Teacher Physics",
-    "photo": "/assets/extracted_teachers/teacher-118.jpg",
-    "bio": ""
+    "name": "أ. محم الواثق",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-الواثق.jpg"
   },
   {
-    "name": "Khlyl Alkhfajy",
-    "subject": "Teacher Alajtmaayat",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. خليل الخفاجي",
+    "subject": "الاجتماعيات",
+    "bio": "متخصص في الاجتماعيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-خليل-الخفاجي.jpg"
   },
   {
-    "name": "Hqyba Althalth Mtwst",
-    "subject": "Teacher Thalth Mtwst",
-    "photo": "/assets/extracted_teachers/teacher-120.jpg",
-    "bio": ""
+    "name": "أ. حقيبة الثالث متوسط",
+    "subject": "ثالث متوسط",
+    "bio": "متخصص في ثالث متوسط. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حقيبة-الثالث-متوسط.jpg"
   },
   {
-    "name": "Mrym Hkmt",
-    "subject": "Teacher Thalth Mtwst",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. الست مريم حكمت",
+    "subject": "ثالث متوسط",
+    "bio": "متخصص في ثالث متوسط. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-مريم-حكمت.jpg"
   },
   {
-    "name": "Nwra Aldayny",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-122.jpg",
-    "bio": ""
+    "name": "أ. نورا الايني",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-نورا-الايني.jpg"
   },
   {
-    "name": "Khald Jmal",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-123.jpg",
-    "bio": ""
+    "name": "أ. خال جمال",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-خال-جمال.jpg"
   },
   {
-    "name": "Ahmd Jwad Almyahy",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. حم جوا المياحي",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حم-جوا-المياحي.jpg"
   },
   {
-    "name": "Hsyn Mhmd",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-125.jpg",
-    "bio": ""
+    "name": "أ. حسين محم",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حسين-محم.jpg"
   },
   {
-    "name": "Samr Mhmd Alkhfajy",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. سامر محم الخفاجي",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-سامر-محم-الخفاجي.jpg"
   },
   {
-    "name": "D. Hsyn Alhlyّ",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-127.jpg",
-    "bio": ""
+    "name": "أ. حسين الحليّ",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حسين-الحليّ.jpg"
   },
   {
-    "name": "Khldwn Whab Alawy",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-128.jpg",
-    "bio": ""
+    "name": "أ. خلون وهاب علاوي",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-خلون-وهاب-علاوي.jpg"
   },
   {
-    "name": "Hydr Mwlary",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. حير مولاري",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حير-مولاري.jpg"
   },
   {
-    "name": "Matz Dyaa Alwady",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. معتز ضياء الواي",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-معتز-ضياء-الواي.jpg"
   },
   {
-    "name": "Mhmd Alarby",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-131.jpg",
-    "bio": ""
+    "name": "أ. محم العربي",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-العربي.jpg"
   },
   {
-    "name": "D.sbah Aldlymy",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-132.jpg",
-    "bio": ""
+    "name": "أ. صباح الليمي",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-صباح-الليمي.jpg"
   },
   {
-    "name": "Akadymya Bghdad Alnmwdhjya",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. اكايمية بغا النموذجية",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-اكايمية-بغا-النموذجية.jpg"
   },
   {
-    "name": "Aqyl Aldayny",
-    "subject": "Teacher Altrbya Islamic Studies",
-    "photo": "/assets/extracted_teachers/teacher-134.jpg",
-    "bio": ""
+    "name": "أ. عقيل الايني",
+    "subject": "التربية الاسلامية",
+    "bio": "متخصص في التربية الاسلامية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-عقيل-الايني.jpg"
   },
   {
-    "name": "Rjaa Alhkym",
-    "subject": "Teacher Altrbya Islamic Studies",
-    "photo": "/assets/extracted_teachers/teacher-135.png",
-    "bio": ""
+    "name": "أ. رجاء الحكيم",
+    "subject": "التربية الاسلامية",
+    "bio": "متخصص في التربية الاسلامية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-رجاء-الحكيم.jpg"
   },
   {
-    "name": "Mhmd Alyas",
-    "subject": "Teacher Alsads Almhny",
-    "photo": "/assets/extracted_teachers/teacher-136.jpg",
-    "bio": ""
+    "name": "أ. محم الياس",
+    "subject": "السادس المهني",
+    "bio": "متخصص في السادس المهني. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-الياس.jpg"
   },
   {
-    "name": "Amyma Aly",
-    "subject": "Teacher Alsads Almhny",
-    "photo": "/assets/extracted_teachers/teacher-137.jpg",
-    "bio": ""
+    "name": "أ. الست اميمة علي",
+    "subject": "السادس المهني",
+    "bio": "متخصص في السادس المهني. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-اميمة-علي.jpg"
   },
   {
-    "name": "Zynb Kazm Lazm",
-    "subject": "Teacher Alsads Almhny",
-    "photo": "/assets/extracted_teachers/teacher-138.png",
-    "bio": ""
+    "name": "أ. زينب كاظم لازم",
+    "subject": "السادس المهني",
+    "bio": "متخصص في السادس المهني. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-زينب-كاظم-لازم.jpg"
   },
   {
-    "name": "Business Management",
-    "subject": "Teacher Edara Aamal",
-    "photo": "/assets/extracted_teachers/teacher-139.jpg",
-    "bio": ""
+    "name": "أ. Business management",
+    "subject": "إدارة أعمال",
+    "bio": "متخصص في إدارة أعمال. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-Business-management.jpg"
   },
   {
-    "name": "Fady Tyla",
-    "subject": "Teacher Alhndsa Almdny",
-    "photo": "/assets/extracted_teachers/teacher-140.jpg",
-    "bio": ""
+    "name": "أ. فاي تيلا",
+    "subject": "الهندسة المدني",
+    "bio": "متخصص في الهندسة المدني. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-فاي-تيلا.jpg"
   },
   {
-    "name": "Aly Athman",
-    "subject": "Teacher Alhndsa Almdny",
-    "photo": "/assets/extracted_teachers/teacher-141.jpg",
-    "bio": ""
+    "name": "أ. علي عثمان",
+    "subject": "الهندسة المدني",
+    "bio": "متخصص في الهندسة المدني. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-علي-عثمان.jpg"
   },
   {
-    "name": "Ahmd Alagha",
-    "subject": "Teacher Alaraq Akadymy",
-    "photo": "/assets/extracted_teachers/teacher-142.jpg",
-    "bio": ""
+    "name": "أ. احم الاغا",
+    "subject": "العراق اكاديمي",
+    "bio": "متخصص في العراق اكاديمي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-احم-الاغا.jpg"
   },
   {
-    "name": "Thanwya Alaraq Akadymy",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/extracted_teachers/teacher-143.png",
-    "bio": ""
+    "name": "أ. ثانوية العراق اكايمي",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-ثانوية-العراق-اكايمي.jpg"
   },
   {
-    "name": "Waleed",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. waleed",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-waleed.jpg"
   },
   {
-    "name": "Test Teacher2",
-    "subject": "Teacher Arabic",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. 2",
+    "subject": "اللغة العربية",
+    "bio": "متخصص في اللغة العربية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-2.jpg"
   },
   {
-    "name": "Wlyd Alsba",
-    "subject": "Teacher English",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. احم التميمي",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-احم-التميمي.jpg"
   },
   {
-    "name": "Ahmd Altmymy",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-147.jpg",
-    "bio": ""
+    "name": "أ. زل سلوان",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-زل-سلوان.jpg"
   },
   {
-    "name": "Azl Slwan",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-148.jpg",
-    "bio": ""
+    "name": "أ. اسامة محم",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-اسامة-محم.jpg"
   },
   {
-    "name": "Asama Mhmd",
-    "subject": "Teacher English",
-    "photo": "/assets/extracted_teachers/teacher-149.jpg",
-    "bio": ""
+    "name": "أ. Test Teacher",
+    "subject": "اللغة الانكليزية",
+    "bio": "متخصص في اللغة الانكليزية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-Test-Teacher.jpg"
   },
   {
-    "name": "Test Teacher",
-    "subject": "Teacher English",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. علي الحم",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-علي-الحم.jpg"
   },
   {
-    "name": "Aly Alahmd",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-151.jpg",
-    "bio": ""
+    "name": "أ. حير العزي",
+    "subject": "الرياضيات",
+    "bio": "متخصص في الرياضيات. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حير-العزي.jpg"
   },
   {
-    "name": "Hydr Alazy",
-    "subject": "Teacher Mathematics",
-    "photo": "/assets/extracted_teachers/teacher-152.png",
-    "bio": ""
+    "name": "أ. حبيب الجنابي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-حبيب-الجنابي.jpg"
   },
   {
-    "name": "Hbyb Aljnaby",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/extracted_teachers/teacher-153.png",
-    "bio": ""
+    "name": "أ. مؤمل سع عباي",
+    "subject": "الكيمياء",
+    "bio": "متخصص في الكيمياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-مؤمل-سع-عباي.jpg"
   },
   {
-    "name": "Mؤml Sad Abady",
-    "subject": "Teacher Chemistry",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. محم البسام",
+    "subject": "الفيزياء",
+    "bio": "متخصص في الفيزياء. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-محم-البسام.jpg"
   },
   {
-    "name": "Mhmd Albsam",
-    "subject": "Teacher Physics",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. قصي العميري",
+    "subject": "ثالث متوسط",
+    "bio": "متخصص في ثالث متوسط. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-قصي-العميري.jpg"
   },
   {
-    "name": "Qsy Alamyry",
-    "subject": "Teacher Thalth Mtwst",
-    "photo": "/assets/extracted_teachers/teacher-156.jpg",
-    "bio": ""
+    "name": "أ. م. اسامة الجبوري",
+    "subject": "سادس إعدادي",
+    "bio": "متخصص في سادس إعدادي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-م-اسامة-الجبوري.jpg"
   },
   {
-    "name": "M. Asama Aljbwry",
-    "subject": "Teacher Sads Eadady",
-    "photo": "/assets/extracted_teachers/teacher-157.png",
-    "bio": ""
+    "name": "أ. زينب نجم",
+    "subject": "ثانوية",
+    "bio": "متخصص في ثانوية. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-زينب-نجم.jpg"
   },
   {
-    "name": "Mؤml Sad Abady",
-    "subject": "Teacher Thanwya A",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. الست انتصار محم الفاعي",
+    "subject": "السادس المهني",
+    "bio": "متخصص في السادس المهني. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-الست-انتصار-محم-الفاعي.jpg"
   },
   {
-    "name": "Mؤml Sad Abady",
-    "subject": "Teacher Thanwya A",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. علي محم",
+    "subject": "رياضيات ادبي+علمي",
+    "bio": "متخصص في رياضيات ادبي+علمي. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-علي-محم.jpg"
   },
   {
-    "name": "Zynb Njm",
-    "subject": "Teacher Thanwya",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
+    "name": "أ. احم الوري",
+    "subject": "الهندسة",
+    "bio": "متخصص في الهندسة. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-احم-الوري.jpg"
   },
   {
-    "name": "Antsar Mhmd Aldfaay",
-    "subject": "Teacher Alsads Almhny",
-    "photo": "/assets/extracted_teachers/teacher-161.jpg",
-    "bio": ""
-  },
-  {
-    "name": "Aly Mhmd",
-    "subject": "Teacher Ryadyat Adby+almy",
-    "photo": "/assets/extracted_teachers/teacher-162.jpg",
-    "bio": ""
-  },
-  {
-    "name": "D. Ahmd Aldwry",
-    "subject": "Teacher Alhndsa",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
-  },
-  {
-    "name": "Ahmed Nabeel",
-    "subject": "Teacher Alhndsa",
-    "photo": "/assets/teachers/teacher-1.jpg",
-    "bio": ""
-  },
+    "name": "أ. AHMED NABEEL",
+    "subject": "الهندسة",
+    "bio": "متخصص في الهندسة. يركز على تبسيط المفاهيم والتطبيق العملي.",
+    "photo": "/assets/images/teachers/أ-AHMED-NABEEL.jpg"
+  }
 ];
 
 export const seedCourses = [
   {
-    "title": "Course Free",
-    "grade": "6th Prep",
-    "teacherName": "Hydr Kazm Alqryshy",
-    "imageUrl": "/assets/extracted_courses/course-1.jpg",
+    "title": "الدورة المجانية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. حير كاظم القريشي",
+    "imageUrl": "/assets/images/courses/الدورة-المجانية.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة المجانية لمرحلة سادس إعدادي. يقدمها د. حير كاظم القريشي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrbya 2024",
-    "grade": "6th Prep",
-    "teacherName": "Hydr Dywan",
-    "imageUrl": "/assets/extracted_courses/course-2.png",
+    "title": "الدورة التجربية 2024",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. حير يوان",
+    "imageUrl": "/assets/images/courses/الدورة-التجربية-2024.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجربية 2024 لمرحلة سادس إعدادي. يقدمها د. حير يوان مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrbya",
-    "grade": "6th Prep",
-    "teacherName": "Mhmd Alaamry",
-    "imageUrl": "/assets/extracted_courses/course-3.png",
+    "title": "الدورة التجربية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. محم العامري",
+    "imageUrl": "/assets/images/courses/الدورة-التجربية.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجربية لمرحلة سادس إعدادي. يقدمها د. محم العامري مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrbya 2024",
-    "grade": "6th Prep",
-    "teacherName": "Hmam Altmymy",
-    "imageUrl": "/assets/extracted_courses/course-4.png",
+    "title": "الدورة التجربية 2024",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. همام التميمي",
+    "imageUrl": "/assets/images/courses/الدورة-التجربية-2024-2.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجربية 2024 لمرحلة سادس إعدادي. يقدمها د. همام التميمي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrbya",
-    "grade": "6th Prep",
-    "teacherName": "Hydr Alhydry",
-    "imageUrl": "/assets/extracted_courses/course-5.jpg",
+    "title": "الدورة التجربية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. حير الحيري",
+    "imageUrl": "/assets/images/courses/الدورة-التجربية-2.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجربية لمرحلة سادس إعدادي. يقدمها د. حير الحيري مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Electronic Business",
-    "grade": "Edara Alaamal",
-    "teacherName": "Business Management",
-    "imageUrl": "/assets/extracted_courses/course-6.jpg",
+    "title": "Electronic business",
+    "grade": "إدارة الاعمال",
+    "teacherName": "أ. Mohammed Alshamery",
+    "imageUrl": "/assets/images/courses/Electronic-business.jpg",
     "price": 0,
-    "description": "",
-    "category": "Edara Alaamal"
+    "description": "Electronic business لمرحلة إدارة الاعمال. يقدمها أ. Mohammed Alshamery مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 12",
+    "category": "إدارة الاعمال",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alawl Mtwst",
-    "grade": "Alawl Mtwst",
-    "teacherName": "Abdalwhab Abdalkrym",
-    "imageUrl": "/assets/extracted_courses/course-7.png",
+    "title": "الاول متوسط",
+    "grade": "الاول متوسط",
+    "teacherName": "د. عبالوهاب عبالكريم",
+    "imageUrl": "/assets/images/courses/الاول-متوسط.png",
     "price": 0,
-    "description": "",
-    "category": "Alawl Mtwst"
+    "description": "الاول متوسط لمرحلة الاول متوسط. يقدمها د. عبالوهاب عبالكريم مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 14",
+    "category": "الاول متوسط",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alraba Aadady",
-    "grade": "Alraba Aadady",
-    "teacherName": "Abdalwhab Abdalkrym",
-    "imageUrl": "/assets/extracted_courses/course-8.png",
+    "title": "الرابع اعدادي",
+    "grade": "الرابع اعدادي",
+    "teacherName": "د. عبالوهاب عبالكريم",
+    "imageUrl": "/assets/images/courses/الرابع-اعدادي.png",
     "price": 0,
-    "description": "",
-    "category": "Alraba Aadady"
+    "description": "الرابع اعدادي لمرحلة الرابع اعدادي. يقدمها د. عبالوهاب عبالكريم مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "الرابع اعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alkhams Aadady",
-    "grade": "Alkhams Aadady",
-    "teacherName": "Abdalwhab Abdalkrym",
-    "imageUrl": "/assets/extracted_courses/course-9.png",
+    "title": "الخامس اعدادي",
+    "grade": "الخامس اعدادي",
+    "teacherName": "د. عبالوهاب عبالكريم",
+    "imageUrl": "/assets/images/courses/الخامس-اعدادي.png",
     "price": 0,
-    "description": "",
-    "category": "Alkhams Aadady"
+    "description": "الخامس اعدادي لمرحلة الخامس اعدادي. يقدمها د. عبالوهاب عبالكريم مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "الخامس اعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Amar Fadl",
-    "imageUrl": "/assets/extracted_courses/course-10.jpg",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. عمار فاضل",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. عمار فاضل مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrbya",
-    "grade": "6th Prep",
-    "teacherName": "Ghydaa Alshmry",
-    "imageUrl": "/assets/extracted_courses/course-11.png",
+    "title": "الدورة التجربية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. غياء الشمري",
+    "imageUrl": "/assets/images/courses/الدورة-التجربية-3.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجربية لمرحلة سادس إعدادي. يقدمها د. غياء الشمري مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Free",
-    "grade": "Alhndsa Almdny",
-    "teacherName": "Mhmd Hsn ( Mohammed Hassan)",
-    "imageUrl": "/assets/extracted_courses/course-12.jpg",
+    "title": "الدورة المجانية",
+    "grade": "الهندسة المدني",
+    "teacherName": "أ. محم حسن ( )",
+    "imageUrl": "/assets/images/courses/الدورة-المجانية-2.jpg",
     "price": 0,
-    "description": "",
-    "category": "Alhndsa Almdny"
+    "description": "الدورة المجانية لمرحلة الهندسة المدني. يقدمها أ. محم حسن ( ) مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 12",
+    "category": "الهندسة المدني",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Althalth Mtwst 2025",
-    "grade": "Thalth Mtwst",
-    "teacherName": "Hydr Wlyd",
-    "imageUrl": "/assets/extracted_courses/course-13.jpg",
+    "title": "الثالث متوسط 2025",
+    "grade": "ثالث متوسط",
+    "teacherName": "د. حير ولي",
+    "imageUrl": "/assets/images/courses/الثالث-متوسط-2025.jpg",
     "price": 0,
-    "description": "",
-    "category": "Thalth Mtwst"
+    "description": "الثالث متوسط 2025 لمرحلة ثالث متوسط. يقدمها د. حير ولي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 14",
+    "category": "ثالث متوسط",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almrajaa Almrkza ( Almjanba )",
-    "grade": "6th Prep",
-    "teacherName": "Akhlas Akrm Mhdy",
-    "imageUrl": "/assets/extracted_courses/course-14.png",
+    "title": "المراجعة المركزة ( المجانبة )",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. اخلاص اكرم مهي",
+    "imageUrl": "/assets/images/courses/المراجعة-المركزة-المجانبة.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المراجعة المركزة ( المجانبة ) لمرحلة سادس إعدادي. يقدمها د. اخلاص اكرم مهي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Dwra Allgha Alanklyzya Llthalth Mtwst",
-    "grade": "Thalth Mtwst",
-    "teacherName": "Akhlas Akrm Mhdy",
-    "imageUrl": "/assets/extracted_courses/course-15.jpg",
+    "title": "دورة اللغة الانكليزية للثالث متوسط",
+    "grade": "ثالث متوسط",
+    "teacherName": "د. اخلاص اكرم مهي",
+    "imageUrl": "/assets/images/courses/دورة-اللغة-الانكليزية-للثالث-متوسط.jpg",
     "price": 0,
-    "description": "",
-    "category": "Thalth Mtwst"
+    "description": "دورة اللغة الانكليزية للثالث متوسط لمرحلة ثالث متوسط. يقدمها د. اخلاص اكرم مهي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 14",
+    "category": "ثالث متوسط",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Akhlas Akrm Mhdy",
-    "imageUrl": "/assets/extracted_courses/course-16.png",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. اخلاص اكرم مهي",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-2.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. اخلاص اكرم مهي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya Al6th Aadady",
-    "grade": "6th Prep",
-    "teacherName": "Abdalwhab Abdalkrym",
-    "imageUrl": "/assets/extracted_courses/course-17.jpg",
+    "title": "الدورة التجريبية السادس اعدادي",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. عبالوهاب عبالكريم",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-السادس-اعدادي.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية السادس اعدادي لمرحلة سادس إعدادي. يقدمها د. عبالوهاب عبالكريم مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Ahmd Alnaymy",
-    "imageUrl": "/assets/extracted_courses/course-18.jpg",
+    "title": "المحاضرات التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. حم النعيمي",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية لمرحلة سادس إعدادي. يقدمها د. حم النعيمي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Aly Flah Alkhaqany",
-    "imageUrl": "/assets/extracted_courses/course-19.jpg",
+    "title": "المحاضرات التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. علي فلاح الخاقاني",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-2025.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. علي فلاح الخاقاني مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alahyaa",
-    "grade": "Thalth Mtwst",
-    "teacherName": "Nwrhan Ayad",
-    "imageUrl": "/assets/extracted_courses/course-20.jpg",
+    "title": "الاحياء",
+    "grade": "ثالث متوسط",
+    "teacherName": "أ. الست نورهان ايا",
+    "imageUrl": "/assets/images/courses/الاحياء.jpg",
     "price": 0,
-    "description": "",
-    "category": "Thalth Mtwst"
+    "description": "الاحياء لمرحلة ثالث متوسط. يقدمها أ. الست نورهان ايا مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 14",
+    "category": "ثالث متوسط",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alkymyaa (mjanya)",
-    "grade": "6th Prep",
-    "teacherName": "Mstfa Al Jlawt",
-    "imageUrl": "/assets/extracted_courses/course-21.png",
+    "title": "الكيمياء (مجانية)",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. مصطفى آل جلعوط",
+    "imageUrl": "/assets/images/courses/الكيمياء-مجانية.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الكيمياء (مجانية) لمرحلة سادس إعدادي. يقدمها د. مصطفى آل جلعوط مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alfyzyaa",
-    "grade": "6th Prep",
-    "teacherName": "Mazn Alhsnawy",
-    "imageUrl": "/assets/extracted_courses/course-22.png",
+    "title": "الفيزياء",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. مازن الحسناوي",
+    "imageUrl": "/assets/images/courses/الفيزياء.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الفيزياء لمرحلة سادس إعدادي. يقدمها د. مازن الحسناوي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "A Rmla Fars Alghzy",
-    "imageUrl": "/assets/extracted_courses/course-23.png",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. ة رملة فارس الغزي",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-3.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. ة رملة فارس الغزي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Khald Aldlymy",
-    "imageUrl": "/assets/extracted_courses/course-24.png",
+    "title": "الدورة التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. خال الليمي",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية لمرحلة سادس إعدادي. يقدمها د. خال الليمي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Ashtr Ahmd",
-    "imageUrl": "/assets/extracted_courses/course-25.png",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. اشتر احم",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-4.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. اشتر احم مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Amr Almamwry",
-    "imageUrl": "/assets/extracted_courses/course-26.png",
+    "title": "الدورة التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. عمر المعموري",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية لمرحلة سادس إعدادي. يقدمها د. عمر المعموري مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Flah Altaئy",
-    "imageUrl": "/assets/extracted_courses/course-27.png",
+    "title": "الدورة التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. فلاح الطائي",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-3.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية لمرحلة سادس إعدادي. يقدمها د. فلاح الطائي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Jafr Alhsny",
-    "imageUrl": "/assets/extracted_courses/course-28.jpg",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. جعفر الحسني",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-5.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. جعفر الحسني مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Aldwr Althany",
-    "grade": "6th Prep",
-    "teacherName": "Maawn Alaraq Akadymy",
-    "imageUrl": "/assets/extracted_courses/course-29.png",
+    "title": "الدور الثاني",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. معاون العراق كايمي",
+    "imageUrl": "/assets/images/courses/الدور-الثاني.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدور الثاني لمرحلة سادس إعدادي. يقدمها د. معاون العراق كايمي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Hydr Wlyd",
-    "imageUrl": "/assets/extracted_courses/course-30.png",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. حير ولي",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-6.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. حير ولي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Ahmd Fwzy",
-    "imageUrl": "/assets/extracted_courses/course-31.jpg",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. احم فوزي",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-7.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. احم فوزي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Adm Abrahym",
-    "imageUrl": "/assets/extracted_courses/course-32.jpg",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. ام ابراهيم",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-8.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. ام ابراهيم مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Mhadrat Tjrybya 2026",
-    "grade": "6th Prep",
-    "teacherName": "Mhmd Hsyn",
-    "imageUrl": "/assets/extracted_courses/course-33.png",
+    "title": "محاضرات تجريبية 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. محم حسين",
+    "imageUrl": "/assets/images/courses/محاضرات-تجريبية-2026.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "محاضرات تجريبية 2026 لمرحلة سادس إعدادي. يقدمها د. محم حسين مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Hsyn Hmza",
-    "imageUrl": "/assets/extracted_courses/course-34.jpg",
+    "title": "المحاضرات التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. حسين حمزة",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-2025-2.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. حسين حمزة مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025 (llmnhjyn)",
-    "grade": "6th Prep",
-    "teacherName": "Asam Alshmry",
-    "imageUrl": "/assets/extracted_courses/course-35.jpg",
+    "title": "الدورة التجريبية 2025 (للمنهجين)",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. عصام الشمري",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-للمنهجين.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 (للمنهجين) لمرحلة سادس إعدادي. يقدمها د. عصام الشمري مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2025",
-    "grade": "6th Prep",
-    "teacherName": "Salm Al Mnswr",
-    "imageUrl": "/assets/extracted_courses/course-36.jpg",
+    "title": "الدورة التجريبية 2025",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. سالم ال منصور",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2025-9.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2025 لمرحلة سادس إعدادي. يقدمها د. سالم ال منصور مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Althalth Mtwst",
-    "grade": "Thalth Mtwst",
-    "teacherName": "Abdalwhab Abdalkrym",
-    "imageUrl": "/assets/extracted_courses/course-37.jpg",
+    "title": "الثالث متوسط",
+    "grade": "ثالث متوسط",
+    "teacherName": "د. عبالوهاب عبالكريم",
+    "imageUrl": "/assets/images/courses/الثالث-متوسط.jpg",
     "price": 0,
-    "description": "",
-    "category": "Thalth Mtwst"
+    "description": "الثالث متوسط لمرحلة ثالث متوسط. يقدمها د. عبالوهاب عبالكريم مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 14",
+    "category": "ثالث متوسط",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Fadl Alatby",
-    "imageUrl": "/assets/extracted_courses/course-38.png",
+    "title": "الدورة التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. فاضل العتبي",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-4.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية لمرحلة سادس إعدادي. يقدمها د. فاضل العتبي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Free",
-    "grade": "6th Prep",
-    "teacherName": "A. Fadl Alatby",
-    "imageUrl": "/assets/extracted_courses/course-39.png",
+    "title": "الدورة المجانية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. ا. فاضل العتبي",
+    "imageUrl": "/assets/images/courses/الدورة-المجانية-3.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة المجانية لمرحلة سادس إعدادي. يقدمها د. ا. فاضل العتبي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Sfyan Alzhyry",
-    "imageUrl": "/assets/extracted_courses/course-40.jpg",
+    "title": "الدورة التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. سفيان الزهيري",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-5.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية لمرحلة سادس إعدادي. يقدمها د. سفيان الزهيري مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Aldwr Althalth",
-    "grade": "6th Prep",
-    "teacherName": "A. Fadl Alatby",
-    "imageUrl": "/assets/extracted_courses/course-41.png",
+    "title": "الدور الثالث",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. ا. فاضل العتبي",
+    "imageUrl": "/assets/images/courses/الدور-الثالث.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدور الثالث لمرحلة سادس إعدادي. يقدمها د. ا. فاضل العتبي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alfsl Althalth (tjryby)",
-    "grade": "6th Prep",
-    "teacherName": "Flah Altaئy",
-    "imageUrl": "/assets/extracted_courses/course-42.png",
+    "title": "الفصل الثالث (تجريبي)",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. فلاح الطائي",
+    "imageUrl": "/assets/images/courses/الفصل-الثالث-تجريبي.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الفصل الثالث (تجريبي) لمرحلة سادس إعدادي. يقدمها د. فلاح الطائي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Free Alfsl Alraba",
-    "grade": "6th Prep",
-    "teacherName": "Aly Flah Alkhaqany",
-    "imageUrl": "/assets/extracted_courses/course-43.png",
+    "title": "الدورة المجانية الفصل الرابع",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. علي فلاح الخاقاني",
+    "imageUrl": "/assets/images/courses/الدورة-المجانية-الفصل-الرابع.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة المجانية الفصل الرابع لمرحلة سادس إعدادي. يقدمها د. علي فلاح الخاقاني مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Free Altjrybya Ldfaa 2026",
-    "grade": "6th Prep",
-    "teacherName": "Mhmd Flah Alsad",
-    "imageUrl": "/assets/extracted_courses/course-44.png",
+    "title": "الدورة المجانية التجريبية لدفعة 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. محم فلاح السع",
+    "imageUrl": "/assets/images/courses/الدورة-المجانية-التجريبية-لدفعة-2026.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة المجانية التجريبية لدفعة 2026 لمرحلة سادس إعدادي. يقدمها د. محم فلاح السع مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya 2026",
-    "grade": "6th Prep",
-    "teacherName": "Fras Braq",
-    "imageUrl": "/assets/extracted_courses/course-45.png",
+    "title": "المحاضرات التجريبية 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. فراس براق",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-2026.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية 2026 لمرحلة سادس إعدادي. يقدمها د. فراس براق مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya 2026",
-    "grade": "6th Prep",
-    "teacherName": "Akhlas Akrm Mhdy",
-    "imageUrl": "/assets/extracted_courses/course-46.jpg",
+    "title": "المحاضرات التجريبية 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. اخلاص اكرم مهي",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-2026-2.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية 2026 لمرحلة سادس إعدادي. يقدمها د. اخلاص اكرم مهي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya 2026",
-    "grade": "6th Prep",
-    "teacherName": "Krm Asam",
-    "imageUrl": "/assets/extracted_courses/course-47.png",
+    "title": "المحاضرات التجريبية 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. كرم عصام",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-2026-3.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية 2026 لمرحلة سادس إعدادي. يقدمها د. كرم عصام مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Aly Ahsan Najy Alshmry",
-    "imageUrl": "/assets/extracted_courses/course-48.jpg",
+    "title": "المحاضرات التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. علي احسان ناجي الشمري",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-2.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية لمرحلة سادس إعدادي. يقدمها د. علي احسان ناجي الشمري مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Amr Shakr Aly",
-    "imageUrl": "/assets/extracted_courses/course-49.png",
+    "title": "المحاضرات التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. عمر شاكر علي",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-3.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية لمرحلة سادس إعدادي. يقدمها د. عمر شاكر علي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Aldwrat Altjryba",
-    "grade": "6th Prep",
-    "teacherName": "Brzan Fadl",
-    "imageUrl": "/assets/extracted_courses/course-50.png",
+    "title": "الدورات التجريبة",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. برزان فاضل",
+    "imageUrl": "/assets/images/courses/الدورات-التجريبة.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورات التجريبة لمرحلة سادس إعدادي. يقدمها د. برزان فاضل مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Altjrybya 2026",
-    "grade": "6th Prep",
-    "teacherName": "Wlyd Alsba",
-    "imageUrl": "/assets/extracted_courses/course-51.png",
+    "title": "الدورة التجريبية 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. ولي السبع",
+    "imageUrl": "/assets/images/courses/الدورة-التجريبية-2026.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدورة التجريبية 2026 لمرحلة سادس إعدادي. يقدمها د. ولي السبع مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Almhadrat Altjrybya",
-    "grade": "6th Prep",
-    "teacherName": "Hsn Kaml",
-    "imageUrl": "/assets/extracted_courses/course-52.png",
+    "title": "المحاضرات التجريبية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. حسن كامل",
+    "imageUrl": "/assets/images/courses/المحاضرات-التجريبية-4.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "المحاضرات التجريبية لمرحلة سادس إعدادي. يقدمها د. حسن كامل مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Alkwrs Alawl - Allgha Alarbya 2026",
-    "grade": "6th Prep",
-    "teacherName": "Amad Hmyd",
-    "imageUrl": "/assets/extracted_courses/course-53.png",
+    "title": "الكورس الاول - اللغة العربية 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. عما حمي",
+    "imageUrl": "/assets/images/courses/الكورس-الاول-اللغة-العربية-2026.png",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الكورس الاول - اللغة العربية 2026 لمرحلة سادس إعدادي. يقدمها د. عما حمي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Aldrws Altjrybya - Allgha Alanklyzya - Course Alshtwya",
-    "grade": "6th Prep",
-    "teacherName": "Akhlas Akrm Mhdy",
-    "imageUrl": "/assets/extracted_courses/course-54.jpg",
+    "title": "الدروس التجريبية - اللغة الانكليزية - الدورة الشتوية",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. اخلاص اكرم مهي",
+    "imageUrl": "/assets/images/courses/الدروس-التجريبية-اللغة-الانكليزية-الدورة-الشتوية.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
+    "description": "الدروس التجريبية - اللغة الانكليزية - الدورة الشتوية لمرحلة سادس إعدادي. يقدمها د. اخلاص اكرم مهي مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
   },
   {
-    "title": "Course Free 2026",
-    "grade": "6th Prep",
-    "teacherName": "Aly Kwshan",
-    "imageUrl": "/assets/extracted_courses/course-55.jpg",
+    "title": "الدورة المجانية 2026",
+    "grade": "سادس إعدادي",
+    "teacherName": "د. علي كوشان",
+    "imageUrl": "/assets/images/courses/الدورة-المجانية-2026.jpg",
     "price": 0,
-    "description": "",
-    "category": "6th Prep"
-  },
+    "description": "الدورة المجانية 2026 لمرحلة سادس إعدادي. يقدمها د. علي كوشان مع شرح مبسط وتمارين تطبيقية.",
+    "subtitle": "عدد الحصص: 16",
+    "category": "سادس إعدادي",
+    "type": "دورة تدريبية",
+    "status": "متاحة الآن"
+  }
 ];
