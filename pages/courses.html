@@ -2,7 +2,7 @@
 
 
 
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 
 
@@ -27,7 +27,7 @@
 
 
 
-<body class="bg-white text-slate-900 font-sans p-8" dir="rtl">
+<body class="bg-white text-slate-900 font-sans p-6 lg:p-8">
   <div class="max-w-7xl mx-auto">
 
 
@@ -40,29 +40,20 @@
 
 
 
-        <h1 class="text-4xl font-bold mb-2" data-i18n="courses_title">الدورات المتاحة</h1>
-        <p class="text-slate-600 text-lg" data-i18n="courses_subtitle">تصفح مجموعة متنوعة من الدورات التعليمية المتخصصة.</p>
+        <h1 class="text-4xl font-bold mb-2">Available Courses</h1>
+        <p class="text-slate-600 text-lg">Browse our wide range of specialized educational courses.</p>
       </div>
 
 
 
       <div class="flex gap-4">
-
-
-
-        <select class="border-2 border-slate-200 rounded-lg px-4 py-2 focus:border-accent outline-none">
-
-
-
-          <option data-i18n="courses_cat_all">جميع التصنيفات</option>
-          <option data-i18n="courses_cat_6">السادس الإعدادي</option>
-          <option data-i18n="courses_cat_3">الثالث المتوسط</option>
-          <option data-i18n="courses_cat_langs">اللغات</option>
-          <option data-i18n="courses_cat_other">أخرى</option>
+        <select id="categoryFilter" class="border-2 border-slate-200 rounded-lg px-4 py-2 focus:border-accent outline-none">
+          <option value="">All Categories</option>
+          <option value="Science">Science</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="Languages">Languages</option>
+          <option value="Technology">Technology</option>
         </select>
-
-
-
       </div>
 
 
@@ -75,7 +66,18 @@
 
 
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 courses-grid"></div>
+    <div class="flex items-center justify-between mb-4 flex-wrap gap-4">
+      <div id="cartSummary" class="text-sm text-slate-600"></div>
+      <div class="flex gap-2">
+        <button id="checkoutBtn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">Checkout (Demo)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 courses-grid"></div>
+
+    <div id="enrollmentsPanel" class="mt-12 hidden">
+      <h2 class="text-2xl font-bold mb-4">My Enrollments</h2>
+      <div id="enrollmentsList" class="grid md:grid-cols-2 gap-4"></div>
+    </div>
 
 
 
@@ -120,6 +122,73 @@
 
   <script>
     const coursesGrid = document.querySelector('.courses-grid');
+    const cartSummary = document.getElementById('cartSummary');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const enrollmentsPanel = document.getElementById('enrollmentsPanel');
+    const enrollmentsList = document.getElementById('enrollmentsList');
+    let cachedCourses = [];
+
+    const renderCourses = (courses) => {
+      coursesGrid.innerHTML = '';
+      courses.forEach((course) => {
+        const card = document.createElement('div');
+        card.className = 'group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300';
+        const badge = course.grade || 'General';
+        const title = course.title || '';
+        const subtitleParts = [];
+        if (course.grade) subtitleParts.push(course.grade);
+        if (course.teacherName) subtitleParts.push(course.teacherName);
+        const subtitle = subtitleParts.join(' - ');
+        const type = course.type || 'Training Course';
+        const status = course.status || 'Available Now';
+        const description = course.description || '';
+        const duration = course.subtitle || '';
+        const imageUrl = course.imageUrl || '';
+        let imageHtml = '';
+        if (imageUrl) {
+          imageHtml = `<img src="${imageUrl}" alt="${title}" class="w-full h-full object-cover">`;
+        } else {
+          imageHtml = '<div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100"><span>Course Image</span></div>';
+        }
+
+        card.innerHTML = `
+          <div class="relative h-48 bg-slate-200">
+            ${imageHtml}
+            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-accent">${badge}</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">${title}</h3>
+            <p class="text-slate-600 text-sm mb-2 line-clamp-2">${subtitle}</p>
+            <p class="text-slate-500 text-sm mb-3 course-desc line-clamp-2">${description}</p>
+            <div class="text-xs text-slate-500 mb-4">${duration}</div>
+            <div class="flex items-center justify-between pt-4 border-t border-slate-50">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-slate-700">${type}</span>
+              </div>
+              <div class="text-accent font-bold">${status}</div>
+            </div>
+            <div class="mt-4">
+              <button class="add-to-cart px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">Add to Cart</button>
+            </div>
+          </div>
+        `;
+
+        coursesGrid.appendChild(card);
+        
+        const addBtn = card.querySelector('.add-to-cart');
+        addBtn.addEventListener('click', async () => {
+          if (!window.top?.iaStore) return;
+          const item = {
+            courseId: course._id,
+            title: course.title || '',
+            price: Number(course.price || 0)
+          };
+          await window.top.iaStore.addToCart(item);
+          await updateCartSummary();
+        });
+      });
+    };
 
     async function loadCourses() {
       const convex = window.top?.convexClient || window.convexClient;
@@ -129,56 +198,79 @@
 
       try {
         const courses = await convex.query('content:getCourses', {});
-        coursesGrid.innerHTML = '';
+        cachedCourses = courses;
+        const filtered = categoryFilter?.value
+          ? courses.filter((course) => (course.category || '') === categoryFilter.value)
+          : courses;
 
-        courses.forEach((course) => {
-          const card = document.createElement('div');
-          card.className = 'group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300';
-          const badge = course.grade || 'عام';
-          const title = course.title || '';
-          const subtitleParts = [];
-          if (course.grade) subtitleParts.push(course.grade);
-          if (course.teacherName) subtitleParts.push(course.teacherName);
-          const subtitle = subtitleParts.join(' - ');
-          const type = course.type || 'دورة تدريبية';
-          const status = course.status || 'متاحة الآن';
-          const description = course.description || '';
-          const duration = course.subtitle || '';
-          const imageUrl = course.imageUrl || '';
-          let imageHtml = '';
-          if (imageUrl) {
-            imageHtml = `<img src="${imageUrl}" alt="${title}" class="w-full h-full object-cover">`;
-          } else {
-            imageHtml = '<div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100"><span>صورة الدورة</span></div>';
-          }
-
-          card.innerHTML = `
-            <div class="relative h-48 bg-slate-200">
-              ${imageHtml}
-              <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-accent">${badge}</div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">${title}</h3>
-              <p class="text-slate-600 text-sm mb-2 line-clamp-2">${subtitle}</p>
-              <p class="text-slate-500 text-sm mb-3 course-desc line-clamp-2">${description}</p>
-              <div class="text-xs text-slate-500 mb-4">${duration}</div>
-              <div class="flex items-center justify-between pt-4 border-t border-slate-50">
-                <div class="flex items-center gap-2">
-                  <span class="text-sm font-medium text-slate-700">${type}</span>
-                </div>
-                <div class="text-accent font-bold">${status}</div>
-              </div>
-            </div>
-          `;
-
-          coursesGrid.appendChild(card);
-        });
+        renderCourses(filtered);
       } catch (error) {
         console.error('Failed to load courses', error);
       }
     }
 
+    async function loadEnrollments() {
+      const convex = window.top?.convexClient || window.convexClient;
+      const client = window.top?.authClient || window.authClient;
+      if (!convex || !client) return;
+      const { data: { session } } = await client.auth.getSession();
+      if (!session) return;
+      try {
+        const enrollments = await convex.query('enrollments:listByUser', { userId: session.user.id });
+        if (!enrollments.length) return;
+        enrollmentsPanel.classList.remove('hidden');
+        enrollmentsList.innerHTML = enrollments.map((enrollment) => {
+          const course = cachedCourses.find((c) => c._id === enrollment.courseId);
+          const title = course?.title || 'Course';
+          const status = enrollment.status || 'active';
+          return `
+            <div class="border border-slate-200 rounded-2xl p-4 bg-white shadow-sm">
+              <div class="font-bold text-slate-900">${title}</div>
+              <div class="text-sm text-slate-500 mt-1">Status: ${status}</div>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        return;
+      }
+    }
+
+    async function updateCartSummary() {
+      if (!window.top?.iaStore || !cartSummary) return;
+      const cart = await window.top.iaStore.getCart();
+      const count = cart.items.reduce((sum, i) => sum + (i.qty || 1), 0);
+      const total = cart.items.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.qty || 1), 0);
+      cartSummary.textContent = `Cart: ${count} items — Total: ${total.toFixed(2)} (demo)`;
+    }
+
+    checkoutBtn.addEventListener('click', async () => {
+      if (!window.top?.iaStore) return;
+      const cart = await window.top.iaStore.getCart();
+      if (!cart.items.length) return;
+      const payload = {
+        items: cart.items,
+        total: cart.items.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.qty || 1), 0),
+        paymentMethod: 'demo',
+        payerName: '',
+        phone: '',
+        notes: 'Demo checkout'
+      };
+      await window.top.iaStore.checkout(payload);
+      await updateCartSummary();
+      alert('Demo checkout complete. You are enrolled!');
+      await loadEnrollments();
+    });
+
+    categoryFilter?.addEventListener('change', () => {
+      const filtered = categoryFilter.value
+        ? cachedCourses.filter((course) => (course.category || '') === categoryFilter.value)
+        : cachedCourses;
+      renderCourses(filtered);
+    });
+
     loadCourses();
+    updateCartSummary();
+    loadEnrollments();
   </script>
 </body>
 </html>

@@ -91,4 +91,14 @@ export default defineSchema({
     .index("by_teacherId", ["teacherId"])
     .index("by_category", ["category"])
     .index("by_status", ["status"])
+  enrollments: defineTable({
+    userId: v.string(),
+    courseId: v.id("courses"),
+    teacherId: v.id("teachers"),
+    status: v.string(),
+    createdAt: v.number()
+  })
+    .index("by_userId", ["userId"])
+    .index("by_courseId", ["courseId"])
+    .index("by_teacherId", ["teacherId"])
 });

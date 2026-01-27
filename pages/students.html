@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../assets/styles.css">
 </head>
-<body class="bg-white text-slate-900 font-sans p-8" dir="ltr">
+<body class="bg-white text-slate-900 font-sans p-6 lg:p-8">
   <div id="profileContent" class="max-w-4xl mx-auto mb-12">
     <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-      <h1 class="text-2xl font-bold mb-2">تحديث الملف الشخصي</h1>
-      <p class="text-slate-600 mb-6">يمكنك تحديث بياناتك الأساسية وصورتك الشخصية.</p>
+      <h1 class="text-2xl font-bold mb-2">Update Your Profile</h1>
+      <p class="text-slate-600 mb-6">Update your basic information and profile image.</p>
       <div class="flex items-center gap-4 mb-6">
         <img id="studentProfileImage" src="" alt="Profile" class="w-16 h-16 rounded-full border border-slate-200 object-cover hidden">
         <div>
           <input id="studentImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
-          <div class="text-xs text-slate-500 mt-1">سيتم قص الصورة تلقائياً.</div>
+          <div class="text-xs text-slate-500 mt-1">Image is cropped automatically.</div>
         </div>
       </div>
       <div class="grid md:grid-cols-2 gap-4">
-        <input id="studentFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
-        <input id="studentPhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الهاتف">
-        <input id="studentCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المدينة">
-        <input id="studentGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المحافظة">
-        <input id="studentAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="العنوان">
-        <input id="studentIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رقم الهوية">
+        <input id="studentFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
+        <input id="studentPhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone">
+        <input id="studentCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City">
+        <input id="studentGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate">
+        <input id="studentAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Address">
+        <input id="studentIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
         <input id="studentBirthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
       </div>
-      <button id="saveStudentProfile" class="mt-6 bg-accent bg-accent-hover text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg">حفظ البيانات</button>
+      <button id="saveStudentProfile" class="mt-6 bg-accent bg-accent-hover text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg">Save</button>
       <div id="studentProfileNotice" class="text-sm text-slate-600 mt-3"></div>
     </div>
   </div>
@@ -43,7 +43,7 @@
       </button>
     </div>
 
-    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm overflow-x-auto">
       <table class="w-full text-left border-collapse">
         <thead class="bg-slate-50 border-bottom border-slate-200">
           <tr>
@@ -239,7 +239,7 @@
       studentProfileNotice.textContent = '';
       const { data: { session } } = await client.auth.getSession();
       if (!session) {
-        studentProfileNotice.textContent = 'يرجى تسجيل الدخول أولاً.';
+        studentProfileNotice.textContent = 'Please log in first.';
         return;
       }
       try {
@@ -254,9 +254,9 @@
           birthDate: studentBirthDate.value,
           imageUrl: studentImageUrl || undefined
         });
-        studentProfileNotice.textContent = 'تم حفظ بياناتك بنجاح.';
+        studentProfileNotice.textContent = 'Your data has been saved.';
       } catch (error) {
-        studentProfileNotice.textContent = 'تعذر حفظ البيانات.';
+        studentProfileNotice.textContent = 'Unable to save data.';
       }
     });
 

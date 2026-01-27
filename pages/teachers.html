@@ -2,7 +2,7 @@
 
 
 
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 
 
@@ -33,63 +33,68 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-16">
-      <h1 class="text-4xl font-extrabold text-slate-900 mb-4">كادرنا التدريسي</h1>
-      <p class="text-xl text-slate-600 max-w-3xl mx-auto">مجموعة نخبوية من المدرسين لتقديم أفضل تجربة تعليمية.</p>
+      <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Our Teaching Staff</h1>
+      <p class="text-xl text-slate-600 max-w-3xl mx-auto">A distinguished group of teachers offering the best learning experience.</p>
     </div>
 
     <section id="teacherManagement" class="hidden bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-12">
       <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
         <div>
-          <h2 class="text-2xl font-bold mb-2">لوحة إدارة المدرسين والدورات</h2>
-          <p class="text-slate-600">إدارة ملف المدرس ودوراته حسب الصلاحيات.</p>
+          <h2 class="text-2xl font-bold mb-2">Teacher & Course Management</h2>
+          <p class="text-slate-600">Manage teacher profile and courses based on permissions.</p>
         </div>
+        <div id="teacherManageRole" class="text-sm text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl"></div>
         <div id="teacherManageRole" class="text-sm text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl"></div>
       </div>
       <div class="grid lg:grid-cols-2 gap-8">
         <div class="space-y-4">
           <div id="teacherSelectWrap" class="hidden">
-            <label class="block text-sm font-medium text-slate-700 mb-1">اختيار مدرس</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Select Teacher</label>
             <select id="teacherSelect" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none"></select>
           </div>
           <div class="flex items-center gap-4">
             <img id="teacherImagePreview" src="" alt="Teacher" class="w-20 h-20 rounded-full border border-slate-200 object-cover hidden">
             <div>
               <input id="teacherImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
-              <div class="text-xs text-slate-500 mt-1">سيتم قص الصورة تلقائياً.</div>
+              <div class="text-xs text-slate-500 mt-1">Image is cropped automatically.</div>
             </div>
           </div>
-          <input id="teacherNameInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="اسم المدرس">
-          <input id="teacherSubjectInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المادة">
-          <textarea id="teacherBioInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" rows="4" placeholder="نبذة مختصرة"></textarea>
-          <input id="teacherGenderInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الجنس">
+          <input id="teacherNameInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Teacher Name">
+          <input id="teacherSubjectInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Subject">
+          <textarea id="teacherBioInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" rows="4" placeholder="Short Bio"></textarea>
+          <input id="teacherGenderInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Gender">
           <div class="flex gap-3">
-            <button id="saveTeacherBtn" class="flex-1 bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">حفظ المدرس</button>
-            <button id="createTeacherBtn" class="flex-1 border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all hidden">إنشاء ملف</button>
+            <button id="saveTeacherBtn" class="flex-1 bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Save Teacher</button>
+            <button id="createTeacherBtn" class="flex-1 border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all hidden">Create Profile</button>
           </div>
-          <button id="deleteTeacherBtn" class="w-full border border-rose-200 text-rose-600 rounded-xl py-3 font-bold hover:bg-rose-50 transition-all hidden">حذف المدرس</button>
+          <button id="deleteTeacherBtn" class="w-full border border-rose-200 text-rose-600 rounded-xl py-3 font-bold hover:bg-rose-50 transition-all hidden">Delete Teacher</button>
           <div id="teacherNotice" class="text-sm text-slate-600"></div>
         </div>
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold">إدارة الدورات</h3>
-            <button id="newCourseBtn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">إضافة دورة</button>
+            <h3 class="text-lg font-bold">Courses</h3>
+            <button id="newCourseBtn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">Add Course</button>
           </div>
           <div class="grid gap-3" id="coursesList"></div>
+          <div class="border border-slate-200 rounded-2xl p-4">
+            <h4 class="text-sm font-bold text-slate-700 mb-2">Enrollments for Selected Course</h4>
+            <div id="enrollmentsList" class="space-y-2 text-sm text-slate-600">Select a course to view enrollments.</div>
+          </div>
           <div class="border border-slate-200 rounded-2xl p-4 space-y-3">
-            <input id="courseTitle" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="عنوان الدورة">
-            <input id="courseSubtitle" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ملخص قصير">
-            <textarea id="courseDescription" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" rows="3" placeholder="وصف الدورة"></textarea>
+            <input id="courseTitle" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Course Title">
+            <input id="courseSubtitle" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Short Summary">
+            <textarea id="courseDescription" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" rows="3" placeholder="Course Description"></textarea>
             <div class="grid md:grid-cols-2 gap-3">
-              <input id="courseCategory" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="التصنيف">
-              <input id="courseType" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="النوع">
-              <input id="courseStatus" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الحالة">
-              <input id="courseGrade" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المرحلة">
-              <input id="coursePrice" type="number" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="السعر">
-              <input id="courseImageUrl" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رابط صورة الدورة">
+              <input id="courseCategory" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Category">
+              <input id="courseType" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Type">
+              <input id="courseStatus" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Status">
+              <input id="courseGrade" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Grade">
+              <input id="coursePrice" type="number" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Price">
+              <input id="courseImageUrl" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Course Image URL">
             </div>
             <div class="flex gap-3">
-              <button id="saveCourseBtn" class="flex-1 bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">حفظ الدورة</button>
-              <button id="deleteCourseBtn" class="flex-1 border border-rose-200 text-rose-600 rounded-xl py-3 font-bold hover:bg-rose-50 transition-all hidden">حذف الدورة</button>
+              <button id="saveCourseBtn" class="flex-1 bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Save Course</button>
+              <button id="deleteCourseBtn" class="flex-1 border border-rose-200 text-rose-600 rounded-xl py-3 font-bold hover:bg-rose-50 transition-all hidden">Delete Course</button>
             </div>
             <div id="courseNotice" class="text-sm text-slate-600"></div>
           </div>
@@ -118,7 +123,7 @@
 
 
 
-      <p class="mt-4 text-slate-500">جارٍ تحميل بيانات المدرسين...</p>
+      <p class="mt-4 text-slate-500">Loading teachers...</p>
     </div>
 
 
@@ -178,6 +183,7 @@
     const saveCourseBtn = document.getElementById('saveCourseBtn');
     const deleteCourseBtn = document.getElementById('deleteCourseBtn');
     const courseNotice = document.getElementById('courseNotice');
+    const enrollmentsList = document.getElementById('enrollmentsList');
 
     let currentTeacher = null;
     let currentTeacherImage = '';
@@ -244,7 +250,7 @@
     const renderCourses = (courses) => {
       coursesList.innerHTML = '';
       if (!courses.length) {
-        coursesList.innerHTML = '<div class="text-sm text-slate-500">لا توجد دورات بعد.</div>';
+        coursesList.innerHTML = '<div class="text-sm text-slate-500">No courses yet.</div>';
         return;
       }
       courses.forEach((course) => {
@@ -253,9 +259,9 @@
         wrapper.innerHTML = `
           <div>
             <div class="font-bold text-slate-900">${course.title}</div>
-            <div class="text-xs text-slate-500">${course.status || 'متاحة'}</div>
+            <div class="text-xs text-slate-500">${course.status || 'Available'}</div>
           </div>
-          <button class="edit-course-btn px-3 py-1 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-course-id="${course._id}">تحرير</button>
+          <button class="edit-course-btn px-3 py-1 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-course-id="${course._id}">Edit</button>
         `;
         coursesList.appendChild(wrapper);
       });
@@ -267,8 +273,32 @@
       try {
         const courses = await convex.query('content:getCoursesPublic', { teacherId });
         renderCourses(courses);
+        enrollmentsList.textContent = 'Select a course to view enrollments.';
       } catch (error) {
-        coursesList.innerHTML = '<div class="text-sm text-slate-500">تعذر تحميل الدورات.</div>';
+        coursesList.innerHTML = '<div class="text-sm text-slate-500">Unable to load courses.</div>';
+      }
+    };
+
+    const loadEnrollmentsForCourse = async (courseId) => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex || !courseId) {
+        enrollmentsList.textContent = 'Select a course to view enrollments.';
+        return;
+      }
+      try {
+        const enrollments = await convex.query('enrollments:listByCourse', { courseId });
+        if (!enrollments.length) {
+          enrollmentsList.textContent = 'No enrollments yet.';
+          return;
+        }
+        enrollmentsList.innerHTML = enrollments.map((enrollment) => `
+          <div class="flex items-center justify-between border border-slate-100 rounded-xl px-3 py-2">
+            <span class="text-slate-900">${enrollment.userId}</span>
+            <span class="text-xs text-slate-500">${enrollment.status || 'active'}</span>
+          </div>
+        `).join('');
+      } catch (error) {
+        enrollmentsList.textContent = 'Unable to load enrollments.';
       }
     };
 
@@ -293,7 +323,7 @@
 
 
 
-          message.textContent = 'تعذر تحميل بيانات المدرسين.';
+          message.textContent = 'Unable to load teachers.';
         }
 
 
@@ -316,7 +346,7 @@
           currentRole = session?.user?.user_metadata?.role || 'student';
           if (session && (currentRole === 'teacher' || currentRole === 'admin' || currentRole === 'owner')) {
             management.classList.remove('hidden');
-            manageRole.textContent = currentRole === 'teacher' ? 'صلاحيات مدرس' : 'صلاحيات إدارية';
+            manageRole.textContent = currentRole === 'teacher' ? 'Teacher permissions' : 'Admin permissions';
           }
         }
 
@@ -394,7 +424,7 @@
 
 
             <button class="w-full py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium hover:border-accent hover:text-accent transition-colors">
-              عرض الملف
+              View Profile
             </button>
           `;
 
@@ -455,7 +485,7 @@
 
 
 
-          message.textContent = 'فشل تحميل بيانات المدرسين.';
+          message.textContent = 'Failed to load teachers.';
         }
 
 
@@ -488,6 +518,7 @@
         .then((items) => items.find((t) => t._id === teacherId));
       fillTeacherForm(teacher || null);
       loadCourses(teacherId);
+      loadEnrollmentsForCourse(null);
       fillCourseForm(null);
     });
 
@@ -503,10 +534,10 @@
           gender: teacherGenderInput.value.trim(),
           imageUrl: currentTeacherImage || undefined
         });
-        teacherNotice.textContent = 'تم إنشاء ملف المدرس.';
+        teacherNotice.textContent = 'Teacher profile created.';
         await loadTeachers();
       } catch (error) {
-        teacherNotice.textContent = 'تعذر إنشاء الملف.';
+        teacherNotice.textContent = 'Unable to create profile.';
       }
     });
 
@@ -523,10 +554,10 @@
           gender: teacherGenderInput.value.trim(),
           imageUrl: currentTeacherImage || undefined
         });
-        teacherNotice.textContent = 'تم حفظ التغييرات.';
+        teacherNotice.textContent = 'Changes saved.';
         await loadTeachers();
       } catch (error) {
-        teacherNotice.textContent = 'تعذر حفظ التغييرات.';
+        teacherNotice.textContent = 'Unable to save changes.';
       }
     });
 
@@ -536,12 +567,12 @@
       teacherNotice.textContent = '';
       try {
         await convex.mutation('teachers:remove', { id: currentTeacher._id });
-        teacherNotice.textContent = 'تم حذف المدرس.';
+        teacherNotice.textContent = 'Teacher deleted.';
         currentTeacher = null;
         fillTeacherForm(null);
         await loadTeachers();
       } catch (error) {
-        teacherNotice.textContent = 'تعذر حذف المدرس.';
+        teacherNotice.textContent = 'Unable to delete teacher.';
       }
     });
 
@@ -559,6 +590,7 @@
       const courses = await convex.query('content:getCoursesPublic', { teacherId: currentTeacher._id });
       const course = courses.find((c) => c._id === courseId);
       fillCourseForm(course || null);
+      await loadEnrollmentsForCourse(courseId);
     });
 
     saveCourseBtn.addEventListener('click', async () => {
@@ -583,11 +615,11 @@
         } else {
           await convex.mutation('courses:create', payload);
         }
-        courseNotice.textContent = 'تم حفظ الدورة.';
+        courseNotice.textContent = 'Course saved.';
         fillCourseForm(null);
         await loadCourses(currentTeacher._id);
       } catch (error) {
-        courseNotice.textContent = 'تعذر حفظ الدورة.';
+        courseNotice.textContent = 'Unable to save course.';
       }
     });
 
@@ -597,11 +629,12 @@
       courseNotice.textContent = '';
       try {
         await convex.mutation('courses:remove', { id: currentCourseId });
-        courseNotice.textContent = 'تم حذف الدورة.';
+        courseNotice.textContent = 'Course deleted.';
         fillCourseForm(null);
         await loadCourses(currentTeacher._id);
+        loadEnrollmentsForCourse(null);
       } catch (error) {
-        courseNotice.textContent = 'تعذر حذف الدورة.';
+        courseNotice.textContent = 'Unable to delete course.';
       }
     });
 
@@ -618,6 +651,4 @@
 
 
 </html>
-
-
 

@@ -245,6 +245,16 @@ const checkout = async (payload) => {
         paymentStatus: order.paymentStatus,
         paymentDetails: order.paymentDetails
       });
+      for (const item of order.items) {
+        try {
+          await convex.mutation("enrollments:enroll", {
+            userId: order.userId,
+            courseId: item.courseId,
+            status: "active"
+          });
+        } catch (e) {
+        }
+      }
       await clearCart();
       return order;
     } catch (error) {

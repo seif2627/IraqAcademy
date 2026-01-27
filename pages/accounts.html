@@ -18,74 +18,78 @@
     .bg-accent-hover:hover { background-color: var(--ia-accent-hover); }
   </style>
 </head>
-<body class="bg-white text-slate-900 font-sans p-8" dir="ltr">
+<body class="bg-white text-slate-900 font-sans p-6 lg:p-8">
   <div id="accountsContent" class="max-w-6xl mx-auto">
     <div class="flex items-start justify-between mb-10 gap-6 flex-wrap">
       <div>
-        <h1 class="text-3xl font-bold mb-2">إدارة الحسابات</h1>
-        <p class="text-slate-600">إدارة المستخدمين والمدرسين من لوحة واحدة.</p>
+        <h1 class="text-3xl font-bold mb-2">Account Management</h1>
+        <p class="text-slate-600">Manage users, teachers, and profiles in one place.</p>
       </div>
       <div class="bg-emerald-50 text-emerald-700 px-4 py-3 rounded-xl text-sm">
-        سيتم إنشاء كلمات مرور مؤقتة للحسابات الجديدة.
+        Temporary passwords are generated for new accounts.
       </div>
     </div>
 
     <div class="grid lg:grid-cols-3 gap-8">
       <div class="lg:col-span-1 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 class="text-xl font-bold mb-4">إنشاء حساب جديد</h2>
+        <h2 class="text-xl font-bold mb-4">Create New Account</h2>
         <form id="createAccountForm" class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">الاسم الكامل</label>
-            <input id="accountName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
+            <label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+            <input id="accountName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">البريد الإلكتروني</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
             <input id="accountEmail" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="name@example.com">
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">الدور</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Role</label>
             <select id="accountRole" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
               <option value="admin">Admin</option>
               <option value="teacher">Teacher</option>
             </select>
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">كلمة مرور مؤقتة</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Temporary Password</label>
             <div class="flex gap-2">
-              <input id="accountPassword" class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="توليد كلمة مرور" readonly>
-              <button id="generatePassword" class="px-4 rounded-xl border border-slate-200 text-slate-600 hover:border-accent hover:text-accent transition-all" type="button">توليد</button>
+              <input id="accountPassword" class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Generate Password" readonly>
+              <button id="generatePassword" class="px-4 rounded-xl border border-slate-200 text-slate-600 hover:border-accent hover:text-accent transition-all" type="button">Generate</button>
             </div>
           </div>
-          <button class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">إنشاء الحساب</button>
+          <button class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Create Account</button>
           <div id="accountNotice" class="text-sm text-slate-600"></div>
         </form>
       </div>
 
       <div class="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 class="text-xl font-bold mb-4">قائمة المستخدمين</h2>
+        <h2 class="text-xl font-bold mb-4">User List</h2>
         <div id="accountsList" class="space-y-3"></div>
         <div class="mt-8 border-t border-slate-100 pt-6">
-          <h3 class="text-lg font-bold mb-4">تحرير ملف المستخدم</h3>
+          <h3 class="text-lg font-bold mb-4">Edit User Profile</h3>
           <div id="profileEditor" class="space-y-4">
             <div class="flex items-center gap-4">
               <img id="profileImagePreview" src="" alt="Profile" class="w-16 h-16 rounded-full border border-slate-200 object-cover hidden">
               <div>
                 <input id="profileImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
-                <div class="text-xs text-slate-500 mt-1">سيتم قص الصورة تلقائياً.</div>
+                <div class="text-xs text-slate-500 mt-1">Image is cropped automatically.</div>
               </div>
             </div>
             <div class="grid md:grid-cols-2 gap-4">
-              <input id="profileFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
-              <input id="profilePhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الهاتف">
-              <input id="profileCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المدينة">
-              <input id="profileGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المحافظة">
-              <input id="profileAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="العنوان">
-              <input id="profileIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رقم الهوية">
+              <input id="profileFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
+              <input id="profilePhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone">
+              <input id="profileCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City">
+              <input id="profileGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate">
+              <input id="profileAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Address">
+              <input id="profileIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
               <input id="profileBirthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
             </div>
-            <button id="saveProfileBtn" class="bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all w-full">حفظ الملف</button>
+            <button id="saveProfileBtn" class="bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all w-full">Save Profile</button>
             <div id="profileNotice" class="text-sm text-slate-600"></div>
           </div>
+        </div>
+        <div class="mt-8 border-t border-slate-100 pt-6">
+          <h3 class="text-lg font-bold mb-4">All Enrollments</h3>
+          <div id="enrollmentsList" class="space-y-3 text-sm text-slate-600"></div>
         </div>
       </div>
     </div>
@@ -95,9 +99,9 @@
     <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent mx-auto mb-6">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
     </div>
-    <h2 class="text-2xl font-bold mb-3">لا توجد صلاحية</h2>
-    <p class="text-slate-600 mb-6">يرجى تسجيل الدخول بحساب إداري للوصول.</p>
-    <a href="javascript:void(0)" onclick="window.parent.navigateTo('login')" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">تسجيل الدخول</a>
+    <h2 class="text-2xl font-bold mb-3">Access Required</h2>
+    <p class="text-slate-600 mb-6">Please log in with an admin or owner account to continue.</p>
+    <a href="javascript:void(0)" onclick="window.parent.navigateTo('login')" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">Log In</a>
   </div>
 
   <script src="../assets/config.js"></script>
@@ -130,6 +134,7 @@
     const profileIdNumber = document.getElementById('profileIdNumber');
     const profileBirthDate = document.getElementById('profileBirthDate');
     const saveProfileBtn = document.getElementById('saveProfileBtn');
+    const enrollmentsList = document.getElementById('enrollmentsList');
     let selectedUserId = null;
     let selectedImageUrl = '';
 
@@ -161,7 +166,7 @@
 
     const renderAccounts = (users) => {
       if (!users.length) {
-        accountsList.innerHTML = '<div class="text-slate-500 text-sm">لا توجد حسابات بعد.</div>';
+        accountsList.innerHTML = '<div class="text-slate-500 text-sm">No users yet.</div>';
         return;
       }
       accountsList.innerHTML = users.map((user) => `
@@ -177,7 +182,7 @@
               <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
               <option value="owner" ${user.role === 'owner' ? 'selected' : ''}>Owner</option>
             </select>
-            <button class="edit-profile-btn px-3 py-2 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-user-id="${user.userId}">تحرير الملف</button>
+            <button class="edit-profile-btn px-3 py-2 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-user-id="${user.userId}">Edit Profile</button>
           </div>
         </div>
       `).join('');
@@ -195,6 +200,28 @@
         }
       }
       renderAccounts(getLocalUsers());
+    };
+
+    const loadEnrollments = async () => {
+      if (!convex || !enrollmentsList) return;
+      try {
+        const enrollments = await convex.query('enrollments:listAll', {});
+        if (!enrollments.length) {
+          enrollmentsList.innerHTML = '<div class="text-slate-500">No enrollments yet.</div>';
+          return;
+        }
+        enrollmentsList.innerHTML = enrollments.map((enrollment) => `
+          <div class="border border-slate-100 rounded-xl p-3 flex items-center justify-between gap-4">
+            <div>
+              <div class="font-semibold text-slate-900">User: ${enrollment.userId}</div>
+              <div class="text-xs text-slate-500">Course: ${enrollment.courseId}</div>
+            </div>
+            <span class="text-xs text-slate-500">${enrollment.status || 'active'}</span>
+          </div>
+        `).join('');
+      } catch (error) {
+        enrollmentsList.innerHTML = '<div class="text-slate-500">Unable to load enrollments.</div>';
+      }
     };
 
     const cropImage = (file) => new Promise((resolve) => {
@@ -247,6 +274,7 @@
         return;
       }
       loadAccounts();
+      loadEnrollments();
     };
 
     form.addEventListener('submit', async (event) => {
@@ -257,7 +285,7 @@
       const role = roleInput.value;
       const password = passwordInput.value.trim();
       if (!fullName || !email || !password) {
-        notice.textContent = 'يرجى ملء جميع الحقول.';
+        notice.textContent = 'Please fill all fields.';
         return;
       }
       const { data, error } = await client.auth.signUp({
@@ -277,7 +305,7 @@
       if (window.top?.iaStore) {
         await window.top.iaStore.syncUser(data?.user);
       }
-      notice.textContent = `تم إنشاء الحساب. كلمة المرور المؤقتة: ${password}`;
+      notice.textContent = `Account created. Temporary password: ${password}`;
       nameInput.value = '';
       emailInput.value = '';
       generatePassword();
@@ -289,10 +317,17 @@
       const userId = event.target.getAttribute('data-user-id');
       const role = event.target.value;
       if (!userId || !convex) return;
+      if (role === 'owner' || role === 'admin') {
+        const confirmed = confirm('Confirm privileged role change?');
+        if (!confirmed) {
+          await loadAccounts();
+          return;
+        }
+      }
       try {
         await convex.mutation('users:updateRole', { userId, role });
       } catch (error) {
-        notice.textContent = 'تعذر تحديث الدور.';
+        notice.textContent = 'Unable to update role.';
       }
     });
 
@@ -321,7 +356,7 @@
 
     saveProfileBtn.addEventListener('click', async () => {
       if (!selectedUserId || !convex) {
-        profileNotice.textContent = 'اختر مستخدماً أولاً.';
+        profileNotice.textContent = 'Select a user first.';
         return;
       }
       profileNotice.textContent = '';
@@ -337,9 +372,9 @@
           birthDate: profileBirthDate.value,
           imageUrl: selectedImageUrl || undefined
         });
-        profileNotice.textContent = 'تم حفظ الملف بنجاح.';
+        profileNotice.textContent = 'Profile saved successfully.';
       } catch (error) {
-        profileNotice.textContent = 'تعذر حفظ الملف.';
+        profileNotice.textContent = 'Unable to save profile.';
       }
     });
 
