@@ -22,48 +22,71 @@
   <div id="accountsContent" class="max-w-6xl mx-auto">
     <div class="flex items-start justify-between mb-10 gap-6 flex-wrap">
       <div>
-        <h1 class="text-3xl font-bold mb-2">Admin & Teacher Accounts</h1>
-        <p class="text-slate-600">Create admin and teacher accounts (Owner only).</p>
+        <h1 class="text-3xl font-bold mb-2">إدارة الحسابات</h1>
+        <p class="text-slate-600">إدارة المستخدمين والمدرسين من لوحة واحدة.</p>
       </div>
       <div class="bg-emerald-50 text-emerald-700 px-4 py-3 rounded-xl text-sm">
-        Temporary passwords will be generated and shown after saving.
+        سيتم إنشاء كلمات مرور مؤقتة للحسابات الجديدة.
       </div>
     </div>
 
     <div class="grid lg:grid-cols-3 gap-8">
       <div class="lg:col-span-1 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 class="text-xl font-bold mb-4">Create New Account</h2>
+        <h2 class="text-xl font-bold mb-4">إنشاء حساب جديد</h2>
         <form id="createAccountForm" class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-            <input id="accountName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
+            <label class="block text-sm font-medium text-slate-700 mb-1">الاسم الكامل</label>
+            <input id="accountName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">البريد الإلكتروني</label>
             <input id="accountEmail" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="name@example.com">
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Account Role</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">الدور</label>
             <select id="accountRole" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
               <option value="admin">Admin</option>
               <option value="teacher">Teacher</option>
             </select>
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Temporary Password</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">كلمة مرور مؤقتة</label>
             <div class="flex gap-2">
-              <input id="accountPassword" class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Generate Password" readonly>
-              <button id="generatePassword" class="px-4 rounded-xl border border-slate-200 text-slate-600 hover:border-accent hover:text-accent transition-all" type="button">Generate</button>
+              <input id="accountPassword" class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="توليد كلمة مرور" readonly>
+              <button id="generatePassword" class="px-4 rounded-xl border border-slate-200 text-slate-600 hover:border-accent hover:text-accent transition-all" type="button">توليد</button>
             </div>
           </div>
-          <button class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Create Account</button>
+          <button class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">إنشاء الحساب</button>
           <div id="accountNotice" class="text-sm text-slate-600"></div>
         </form>
       </div>
 
       <div class="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 class="text-xl font-bold mb-4">Accounts List</h2>
+        <h2 class="text-xl font-bold mb-4">قائمة المستخدمين</h2>
         <div id="accountsList" class="space-y-3"></div>
+        <div class="mt-8 border-t border-slate-100 pt-6">
+          <h3 class="text-lg font-bold mb-4">تحرير ملف المستخدم</h3>
+          <div id="profileEditor" class="space-y-4">
+            <div class="flex items-center gap-4">
+              <img id="profileImagePreview" src="" alt="Profile" class="w-16 h-16 rounded-full border border-slate-200 object-cover hidden">
+              <div>
+                <input id="profileImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
+                <div class="text-xs text-slate-500 mt-1">سيتم قص الصورة تلقائياً.</div>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <input id="profileFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
+              <input id="profilePhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الهاتف">
+              <input id="profileCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المدينة">
+              <input id="profileGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المحافظة">
+              <input id="profileAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="العنوان">
+              <input id="profileIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رقم الهوية">
+              <input id="profileBirthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+            </div>
+            <button id="saveProfileBtn" class="bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all w-full">حفظ الملف</button>
+            <div id="profileNotice" class="text-sm text-slate-600"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -72,9 +95,9 @@
     <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent mx-auto mb-6">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
     </div>
-    <h2 class="text-2xl font-bold mb-3">Owner Access Only</h2>
-    <p class="text-slate-600 mb-6">Please log in with an owner account to access account management.</p>
-    <a href="javascript:void(0)" onclick="window.parent.navigateTo('login')" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">Log In</a>
+    <h2 class="text-2xl font-bold mb-3">لا توجد صلاحية</h2>
+    <p class="text-slate-600 mb-6">يرجى تسجيل الدخول بحساب إداري للوصول.</p>
+    <a href="javascript:void(0)" onclick="window.parent.navigateTo('login')" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">تسجيل الدخول</a>
   </div>
 
   <script src="../assets/config.js"></script>
@@ -95,6 +118,20 @@
     const roleInput = document.getElementById('accountRole');
     const passwordInput = document.getElementById('accountPassword');
     const generateBtn = document.getElementById('generatePassword');
+    const profileEditor = document.getElementById('profileEditor');
+    const profileNotice = document.getElementById('profileNotice');
+    const profileImageInput = document.getElementById('profileImageInput');
+    const profileImagePreview = document.getElementById('profileImagePreview');
+    const profileFullName = document.getElementById('profileFullName');
+    const profilePhone = document.getElementById('profilePhone');
+    const profileAddress = document.getElementById('profileAddress');
+    const profileCity = document.getElementById('profileCity');
+    const profileGovernorate = document.getElementById('profileGovernorate');
+    const profileIdNumber = document.getElementById('profileIdNumber');
+    const profileBirthDate = document.getElementById('profileBirthDate');
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    let selectedUserId = null;
+    let selectedImageUrl = '';
 
     const showDenied = () => {
       if (accountsContent) accountsContent.classList.add('hidden');
@@ -124,7 +161,7 @@
 
     const renderAccounts = (users) => {
       if (!users.length) {
-        accountsList.innerHTML = '<div class="text-slate-500 text-sm">No accounts yet.</div>';
+        accountsList.innerHTML = '<div class="text-slate-500 text-sm">لا توجد حسابات بعد.</div>';
         return;
       }
       accountsList.innerHTML = users.map((user) => `
@@ -133,7 +170,15 @@
             <div class="font-bold text-slate-900">${user.fullName || user.user_metadata?.full_name || '—'}</div>
             <div class="text-sm text-slate-500">${user.email || user.user_metadata?.email || ''}</div>
           </div>
-          <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700">${user.role || user.user_metadata?.role || ''}</span>
+          <div class="flex items-center gap-3">
+            <select class="role-select border border-slate-200 rounded-lg px-3 py-2 text-sm" data-user-id="${user.userId}">
+              <option value="student" ${user.role === 'student' ? 'selected' : ''}>Student</option>
+              <option value="teacher" ${user.role === 'teacher' ? 'selected' : ''}>Teacher</option>
+              <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+              <option value="owner" ${user.role === 'owner' ? 'selected' : ''}>Owner</option>
+            </select>
+            <button class="edit-profile-btn px-3 py-2 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-user-id="${user.userId}">تحرير الملف</button>
+          </div>
         </div>
       `).join('');
     };
@@ -141,8 +186,8 @@
     const loadAccounts = async () => {
       if (convex) {
         try {
-          const users = await convex.query('users:list', {});
-          renderAccounts(users.filter((user) => user.role === 'admin' || user.role === 'teacher'));
+          const users = await convex.query('users:listAll', {});
+          renderAccounts(users);
           return;
         } catch (error) {
           renderAccounts(getLocalUsers());
@@ -152,6 +197,44 @@
       renderAccounts(getLocalUsers());
     };
 
+    const cropImage = (file) => new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const size = 320;
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          const min = Math.min(img.width, img.height);
+          const sx = (img.width - min) / 2;
+          const sy = (img.height - min) / 2;
+          ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+          resolve(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    const fillProfileForm = (profile) => {
+      profileFullName.value = profile?.fullName || '';
+      profilePhone.value = profile?.phone || '';
+      profileAddress.value = profile?.address || '';
+      profileCity.value = profile?.city || '';
+      profileGovernorate.value = profile?.governorate || '';
+      profileIdNumber.value = profile?.idNumber || '';
+      profileBirthDate.value = profile?.birthDate || '';
+      selectedImageUrl = profile?.imageUrl || '';
+      if (selectedImageUrl) {
+        profileImagePreview.src = selectedImageUrl;
+        profileImagePreview.classList.remove('hidden');
+      } else {
+        profileImagePreview.classList.add('hidden');
+      }
+    };
+
     const checkAccess = async () => {
       if (!client) {
         showDenied();
@@ -159,7 +242,7 @@
       }
       const { data: { session } } = await client.auth.getSession();
       const role = session?.user?.user_metadata?.role || 'student';
-      if (role !== 'owner') {
+      if (role !== 'owner' && role !== 'admin') {
         showDenied();
         return;
       }
@@ -174,7 +257,7 @@
       const role = roleInput.value;
       const password = passwordInput.value.trim();
       if (!fullName || !email || !password) {
-        notice.textContent = 'Please fill all fields.';
+        notice.textContent = 'يرجى ملء جميع الحقول.';
         return;
       }
       const { data, error } = await client.auth.signUp({
@@ -194,11 +277,70 @@
       if (window.top?.iaStore) {
         await window.top.iaStore.syncUser(data?.user);
       }
-      notice.textContent = `Account created. Temp password: ${password}`;
+      notice.textContent = `تم إنشاء الحساب. كلمة المرور المؤقتة: ${password}`;
       nameInput.value = '';
       emailInput.value = '';
       generatePassword();
       await loadAccounts();
+    });
+
+    accountsList.addEventListener('change', async (event) => {
+      if (!event.target.classList.contains('role-select')) return;
+      const userId = event.target.getAttribute('data-user-id');
+      const role = event.target.value;
+      if (!userId || !convex) return;
+      try {
+        await convex.mutation('users:updateRole', { userId, role });
+      } catch (error) {
+        notice.textContent = 'تعذر تحديث الدور.';
+      }
+    });
+
+    accountsList.addEventListener('click', async (event) => {
+      const btn = event.target.closest('.edit-profile-btn');
+      if (!btn) return;
+      const userId = btn.getAttribute('data-user-id');
+      if (!userId || !convex) return;
+      selectedUserId = userId;
+      profileNotice.textContent = '';
+      try {
+        const profile = await convex.query('profileAdmin:getProfileByUserId', { userId });
+        fillProfileForm(profile);
+      } catch (error) {
+        fillProfileForm(null);
+      }
+    });
+
+    profileImageInput.addEventListener('change', async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      selectedImageUrl = await cropImage(file);
+      profileImagePreview.src = selectedImageUrl;
+      profileImagePreview.classList.remove('hidden');
+    });
+
+    saveProfileBtn.addEventListener('click', async () => {
+      if (!selectedUserId || !convex) {
+        profileNotice.textContent = 'اختر مستخدماً أولاً.';
+        return;
+      }
+      profileNotice.textContent = '';
+      try {
+        await convex.mutation('profileAdmin:setProfileByUserId', {
+          userId: selectedUserId,
+          fullName: profileFullName.value.trim(),
+          phone: profilePhone.value.trim(),
+          address: profileAddress.value.trim(),
+          city: profileCity.value.trim(),
+          governorate: profileGovernorate.value.trim(),
+          idNumber: profileIdNumber.value.trim(),
+          birthDate: profileBirthDate.value,
+          imageUrl: selectedImageUrl || undefined
+        });
+        profileNotice.textContent = 'تم حفظ الملف بنجاح.';
+      } catch (error) {
+        profileNotice.textContent = 'تعذر حفظ الملف.';
+      }
     });
 
     checkAccess();

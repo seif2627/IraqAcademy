@@ -7,6 +7,31 @@
   <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body class="bg-white text-slate-900 font-sans p-8" dir="ltr">
+  <div id="profileContent" class="max-w-4xl mx-auto mb-12">
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+      <h1 class="text-2xl font-bold mb-2">تحديث الملف الشخصي</h1>
+      <p class="text-slate-600 mb-6">يمكنك تحديث بياناتك الأساسية وصورتك الشخصية.</p>
+      <div class="flex items-center gap-4 mb-6">
+        <img id="studentProfileImage" src="" alt="Profile" class="w-16 h-16 rounded-full border border-slate-200 object-cover hidden">
+        <div>
+          <input id="studentImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
+          <div class="text-xs text-slate-500 mt-1">سيتم قص الصورة تلقائياً.</div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <input id="studentFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الاسم الكامل">
+        <input id="studentPhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الهاتف">
+        <input id="studentCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المدينة">
+        <input id="studentGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المحافظة">
+        <input id="studentAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="العنوان">
+        <input id="studentIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رقم الهوية">
+        <input id="studentBirthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+      </div>
+      <button id="saveStudentProfile" class="mt-6 bg-accent bg-accent-hover text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg">حفظ البيانات</button>
+      <div id="studentProfileNotice" class="text-sm text-slate-600 mt-3"></div>
+    </div>
+  </div>
+
   <div id="studentsContent" class="max-w-7xl mx-auto">
     <div class="flex items-center justify-between mb-12">
       <div>
@@ -113,14 +138,70 @@
     <p class="text-slate-600 mb-6">If you are an admin or owner, please log in with your account to access the student directory.</p>
     <a href="javascript:void(0)" onclick="window.parent.navigateTo('login')" class="bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-600 transition-all inline-flex">Log In</a>
   </div>
+  <script src="../assets/config.js"></script>
+  <script type="module" src="../assets/firebase.js"></script>
+  <script type="module" src="../assets/convex.js"></script>
+  <script src="../assets/auth.js"></script>
   <script>
     const client = window.top?.authClient || window.authClient;
+    const convex = window.top?.convexClient || window.convexClient;
     const content = document.getElementById('studentsContent');
     const denied = document.getElementById('studentsAccessDenied');
+    const profileContent = document.getElementById('profileContent');
+    const studentProfileImage = document.getElementById('studentProfileImage');
+    const studentImageInput = document.getElementById('studentImageInput');
+    const studentFullName = document.getElementById('studentFullName');
+    const studentPhone = document.getElementById('studentPhone');
+    const studentCity = document.getElementById('studentCity');
+    const studentGovernorate = document.getElementById('studentGovernorate');
+    const studentAddress = document.getElementById('studentAddress');
+    const studentIdNumber = document.getElementById('studentIdNumber');
+    const studentBirthDate = document.getElementById('studentBirthDate');
+    const saveStudentProfile = document.getElementById('saveStudentProfile');
+    const studentProfileNotice = document.getElementById('studentProfileNotice');
+    let studentImageUrl = '';
 
     const showDenied = () => {
       if (content) content.classList.add('hidden');
       if (denied) denied.classList.remove('hidden');
+    };
+
+    const cropImage = (file) => new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const size = 320;
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          const min = Math.min(img.width, img.height);
+          const sx = (img.width - min) / 2;
+          const sy = (img.height - min) / 2;
+          ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+          resolve(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    const fillProfile = (profile) => {
+      studentFullName.value = profile?.fullName || '';
+      studentPhone.value = profile?.phone || '';
+      studentCity.value = profile?.city || '';
+      studentGovernorate.value = profile?.governorate || '';
+      studentAddress.value = profile?.address || '';
+      studentIdNumber.value = profile?.idNumber || '';
+      studentBirthDate.value = profile?.birthDate || '';
+      studentImageUrl = profile?.imageUrl || '';
+      if (studentImageUrl) {
+        studentProfileImage.src = studentImageUrl;
+        studentProfileImage.classList.remove('hidden');
+      } else {
+        studentProfileImage.classList.add('hidden');
+      }
     };
 
     const checkAccess = async () => {
@@ -130,10 +211,54 @@
       }
       const { data: { session } } = await client.auth.getSession();
       const role = session?.user?.user_metadata?.role || 'student';
-      if (role !== 'admin' && role !== 'owner') {
+      if (!session) {
         showDenied();
+        return;
+      }
+      if (role !== 'admin' && role !== 'owner') {
+        if (content) content.classList.add('hidden');
+      }
+      try {
+        const profile = await convex.query('profiles:get', { userId: session.user.id });
+        fillProfile(profile);
+      } catch (error) {
+        fillProfile(null);
       }
     };
+
+    studentImageInput.addEventListener('change', async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      studentImageUrl = await cropImage(file);
+      studentProfileImage.src = studentImageUrl;
+      studentProfileImage.classList.remove('hidden');
+    });
+
+    saveStudentProfile.addEventListener('click', async () => {
+      if (!client || !convex) return;
+      studentProfileNotice.textContent = '';
+      const { data: { session } } = await client.auth.getSession();
+      if (!session) {
+        studentProfileNotice.textContent = 'يرجى تسجيل الدخول أولاً.';
+        return;
+      }
+      try {
+        await convex.mutation('profiles:set', {
+          userId: session.user.id,
+          fullName: studentFullName.value.trim(),
+          phone: studentPhone.value.trim(),
+          address: studentAddress.value.trim(),
+          city: studentCity.value.trim(),
+          governorate: studentGovernorate.value.trim(),
+          idNumber: studentIdNumber.value.trim(),
+          birthDate: studentBirthDate.value,
+          imageUrl: studentImageUrl || undefined
+        });
+        studentProfileNotice.textContent = 'تم حفظ بياناتك بنجاح.';
+      } catch (error) {
+        studentProfileNotice.textContent = 'تعذر حفظ البيانات.';
+      }
+    });
 
     checkAccess();
   </script>

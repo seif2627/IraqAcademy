@@ -47,3 +47,27 @@ export const list = query({
     return await ctx.db.query("users").order("desc").collect();
   }
 });
+
+export const listAll = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireRole(ctx, ["owner", "admin"]);
+    return await ctx.db.query("users").order("desc").collect();
+  }
+});
+
+export const updateRole = mutation({
+  args: { userId: v.string(), role: v.string() },
+  handler: async (ctx, args) => {
+    await requireRole(ctx, ["owner", "admin"]);
+    const existing = await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+    if (!existing) {
+      throw new Error("Not found");
+    }
+    await ctx.db.patch(existing._id, { role: args.role });
+    return existing._id;
+  }
+});

@@ -57,6 +57,7 @@ export default defineSchema({
     governorate: v.string(),
     idNumber: v.string(),
     birthDate: v.string(),
+    imageUrl: v.optional(v.string()),
     updatedAt: v.number()
   }).index("by_userId", ["userId"]),
   teachers: defineTable({

@@ -37,6 +37,65 @@
       <p class="text-xl text-slate-600 max-w-3xl mx-auto">مجموعة نخبوية من المدرسين لتقديم أفضل تجربة تعليمية.</p>
     </div>
 
+    <section id="teacherManagement" class="hidden bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-12">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">لوحة إدارة المدرسين والدورات</h2>
+          <p class="text-slate-600">إدارة ملف المدرس ودوراته حسب الصلاحيات.</p>
+        </div>
+        <div id="teacherManageRole" class="text-sm text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl"></div>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <div id="teacherSelectWrap" class="hidden">
+            <label class="block text-sm font-medium text-slate-700 mb-1">اختيار مدرس</label>
+            <select id="teacherSelect" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none"></select>
+          </div>
+          <div class="flex items-center gap-4">
+            <img id="teacherImagePreview" src="" alt="Teacher" class="w-20 h-20 rounded-full border border-slate-200 object-cover hidden">
+            <div>
+              <input id="teacherImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
+              <div class="text-xs text-slate-500 mt-1">سيتم قص الصورة تلقائياً.</div>
+            </div>
+          </div>
+          <input id="teacherNameInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="اسم المدرس">
+          <input id="teacherSubjectInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المادة">
+          <textarea id="teacherBioInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" rows="4" placeholder="نبذة مختصرة"></textarea>
+          <input id="teacherGenderInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الجنس">
+          <div class="flex gap-3">
+            <button id="saveTeacherBtn" class="flex-1 bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">حفظ المدرس</button>
+            <button id="createTeacherBtn" class="flex-1 border border-slate-200 rounded-xl py-3 font-bold text-slate-700 hover:border-accent hover:text-accent transition-all hidden">إنشاء ملف</button>
+          </div>
+          <button id="deleteTeacherBtn" class="w-full border border-rose-200 text-rose-600 rounded-xl py-3 font-bold hover:bg-rose-50 transition-all hidden">حذف المدرس</button>
+          <div id="teacherNotice" class="text-sm text-slate-600"></div>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold">إدارة الدورات</h3>
+            <button id="newCourseBtn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">إضافة دورة</button>
+          </div>
+          <div class="grid gap-3" id="coursesList"></div>
+          <div class="border border-slate-200 rounded-2xl p-4 space-y-3">
+            <input id="courseTitle" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="عنوان الدورة">
+            <input id="courseSubtitle" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ملخص قصير">
+            <textarea id="courseDescription" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" rows="3" placeholder="وصف الدورة"></textarea>
+            <div class="grid md:grid-cols-2 gap-3">
+              <input id="courseCategory" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="التصنيف">
+              <input id="courseType" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="النوع">
+              <input id="courseStatus" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="الحالة">
+              <input id="courseGrade" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="المرحلة">
+              <input id="coursePrice" type="number" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="السعر">
+              <input id="courseImageUrl" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="رابط صورة الدورة">
+            </div>
+            <div class="flex gap-3">
+              <button id="saveCourseBtn" class="flex-1 bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">حفظ الدورة</button>
+              <button id="deleteCourseBtn" class="flex-1 border border-rose-200 text-rose-600 rounded-xl py-3 font-bold hover:bg-rose-50 transition-all hidden">حذف الدورة</button>
+            </div>
+            <div id="courseNotice" class="text-sm text-slate-600"></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
 
@@ -73,10 +132,12 @@
 
 
   <script src="../assets/config.js"></script>
+  <script type="module" src="../assets/firebase.js"></script>
 
 
 
   <script type="module" src="../assets/convex.js"></script>
+  <script src="../assets/auth.js"></script>
 
 
 
@@ -89,18 +150,134 @@
 
 
     const loading = document.getElementById('loading');
+    const management = document.getElementById('teacherManagement');
+    const manageRole = document.getElementById('teacherManageRole');
+    const teacherSelectWrap = document.getElementById('teacherSelectWrap');
+    const teacherSelect = document.getElementById('teacherSelect');
+    const teacherImageInput = document.getElementById('teacherImageInput');
+    const teacherImagePreview = document.getElementById('teacherImagePreview');
+    const teacherNameInput = document.getElementById('teacherNameInput');
+    const teacherSubjectInput = document.getElementById('teacherSubjectInput');
+    const teacherBioInput = document.getElementById('teacherBioInput');
+    const teacherGenderInput = document.getElementById('teacherGenderInput');
+    const saveTeacherBtn = document.getElementById('saveTeacherBtn');
+    const createTeacherBtn = document.getElementById('createTeacherBtn');
+    const deleteTeacherBtn = document.getElementById('deleteTeacherBtn');
+    const teacherNotice = document.getElementById('teacherNotice');
+    const coursesList = document.getElementById('coursesList');
+    const newCourseBtn = document.getElementById('newCourseBtn');
+    const courseTitle = document.getElementById('courseTitle');
+    const courseSubtitle = document.getElementById('courseSubtitle');
+    const courseDescription = document.getElementById('courseDescription');
+    const courseCategory = document.getElementById('courseCategory');
+    const courseType = document.getElementById('courseType');
+    const courseStatus = document.getElementById('courseStatus');
+    const courseGrade = document.getElementById('courseGrade');
+    const coursePrice = document.getElementById('coursePrice');
+    const courseImageUrl = document.getElementById('courseImageUrl');
+    const saveCourseBtn = document.getElementById('saveCourseBtn');
+    const deleteCourseBtn = document.getElementById('deleteCourseBtn');
+    const courseNotice = document.getElementById('courseNotice');
+
+    let currentTeacher = null;
+    let currentTeacherImage = '';
+    let currentCourseId = null;
+    let currentRole = 'student';
 
 
 
 
 
 
+
+    const cropImage = (file) => new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const size = 320;
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          const min = Math.min(img.width, img.height);
+          const sx = (img.width - min) / 2;
+          const sy = (img.height - min) / 2;
+          ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+          resolve(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    const fillTeacherForm = (teacher) => {
+      currentTeacher = teacher;
+      teacherNameInput.value = teacher?.name || '';
+      teacherSubjectInput.value = teacher?.subject || '';
+      teacherBioInput.value = teacher?.bio || '';
+      teacherGenderInput.value = teacher?.gender || '';
+      currentTeacherImage = teacher?.imageUrl || '';
+      if (currentTeacherImage) {
+        teacherImagePreview.src = currentTeacherImage;
+        teacherImagePreview.classList.remove('hidden');
+      } else {
+        teacherImagePreview.classList.add('hidden');
+      }
+      deleteTeacherBtn.classList.toggle('hidden', !teacher || !(currentRole === 'admin' || currentRole === 'owner'));
+    };
+
+    const fillCourseForm = (course) => {
+      currentCourseId = course?._id || null;
+      courseTitle.value = course?.title || '';
+      courseSubtitle.value = course?.subtitle || '';
+      courseDescription.value = course?.description || '';
+      courseCategory.value = course?.category || '';
+      courseType.value = course?.type || '';
+      courseStatus.value = course?.status || '';
+      courseGrade.value = course?.grade || '';
+      coursePrice.value = course?.price || '';
+      courseImageUrl.value = course?.imageUrl || '';
+      deleteCourseBtn.classList.toggle('hidden', !course);
+    };
+
+    const renderCourses = (courses) => {
+      coursesList.innerHTML = '';
+      if (!courses.length) {
+        coursesList.innerHTML = '<div class="text-sm text-slate-500">لا توجد دورات بعد.</div>';
+        return;
+      }
+      courses.forEach((course) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'border border-slate-100 rounded-xl p-3 flex items-center justify-between gap-3 flex-wrap';
+        wrapper.innerHTML = `
+          <div>
+            <div class="font-bold text-slate-900">${course.title}</div>
+            <div class="text-xs text-slate-500">${course.status || 'متاحة'}</div>
+          </div>
+          <button class="edit-course-btn px-3 py-1 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-course-id="${course._id}">تحرير</button>
+        `;
+        coursesList.appendChild(wrapper);
+      });
+    };
+
+    const loadCourses = async (teacherId) => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex || !teacherId) return;
+      try {
+        const courses = await convex.query('content:getCoursesPublic', { teacherId });
+        renderCourses(courses);
+      } catch (error) {
+        coursesList.innerHTML = '<div class="text-sm text-slate-500">تعذر تحميل الدورات.</div>';
+      }
+    };
 
     async function loadTeachers() {
 
 
 
       const convex = window.top?.convexClient || window.convexClient;
+      const client = window.top?.authClient || window.authClient;
 
 
 
@@ -134,14 +311,17 @@
 
 
       try {
+        if (client) {
+          const { data: { session } } = await client.auth.getSession();
+          currentRole = session?.user?.user_metadata?.role || 'student';
+          if (session && (currentRole === 'teacher' || currentRole === 'admin' || currentRole === 'owner')) {
+            management.classList.remove('hidden');
+            manageRole.textContent = currentRole === 'teacher' ? 'صلاحيات مدرس' : 'صلاحيات إدارية';
+          }
+        }
 
 
 
-        const teachers = await convex.query('content:getTeachers', {});
-
-
-
-        loading.style.display = 'none';
 
 
 
@@ -234,9 +414,36 @@
 
         grid.style.display = 'grid';
 
+        if (management && !management.classList.contains('hidden')) {
+          if (currentRole === 'teacher') {
+            teacherSelectWrap.classList.add('hidden');
+            const own = await convex.query('teachers:getOwn', {});
+            if (!own) {
+              fillTeacherForm(null);
+              createTeacherBtn.classList.remove('hidden');
+              saveTeacherBtn.classList.add('hidden');
+              deleteTeacherBtn.classList.add('hidden');
+            } else {
+              fillTeacherForm(own);
+              createTeacherBtn.classList.add('hidden');
+              saveTeacherBtn.classList.remove('hidden');
+              loadCourses(own._id);
+            }
+          } else if (currentRole === 'admin' || currentRole === 'owner') {
+            teacherSelectWrap.classList.remove('hidden');
+            teacherSelect.innerHTML = teachers.map((teacher) => `<option value="${teacher._id}">${teacher.name}</option>`).join('');
+            const selected = teachers[0] || null;
+            if (selected) {
+              teacherSelect.value = selected._id;
+              fillTeacherForm(selected);
+              loadCourses(selected._id);
+              createTeacherBtn.classList.add('hidden');
+              saveTeacherBtn.classList.remove('hidden');
+            }
+          }
+        }
 
 
-      } catch (error) {
 
 
 
@@ -264,6 +471,139 @@
 
 
 
+
+    teacherImageInput.addEventListener('change', async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      currentTeacherImage = await cropImage(file);
+      teacherImagePreview.src = currentTeacherImage;
+      teacherImagePreview.classList.remove('hidden');
+    });
+
+    teacherSelect.addEventListener('change', async () => {
+      const convex = window.top?.convexClient || window.convexClient;
+      const teacherId = teacherSelect.value;
+      if (!convex || !teacherId) return;
+      const teacher = await convex.query('content:getTeachersPublic', { limit: 200 })
+        .then((items) => items.find((t) => t._id === teacherId));
+      fillTeacherForm(teacher || null);
+      loadCourses(teacherId);
+      fillCourseForm(null);
+    });
+
+    createTeacherBtn.addEventListener('click', async () => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex) return;
+      teacherNotice.textContent = '';
+      try {
+        await convex.mutation('teachers:create', {
+          name: teacherNameInput.value.trim(),
+          subject: teacherSubjectInput.value.trim(),
+          bio: teacherBioInput.value.trim(),
+          gender: teacherGenderInput.value.trim(),
+          imageUrl: currentTeacherImage || undefined
+        });
+        teacherNotice.textContent = 'تم إنشاء ملف المدرس.';
+        await loadTeachers();
+      } catch (error) {
+        teacherNotice.textContent = 'تعذر إنشاء الملف.';
+      }
+    });
+
+    saveTeacherBtn.addEventListener('click', async () => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex || !currentTeacher) return;
+      teacherNotice.textContent = '';
+      try {
+        await convex.mutation('teachers:update', {
+          id: currentTeacher._id,
+          name: teacherNameInput.value.trim(),
+          subject: teacherSubjectInput.value.trim(),
+          bio: teacherBioInput.value.trim(),
+          gender: teacherGenderInput.value.trim(),
+          imageUrl: currentTeacherImage || undefined
+        });
+        teacherNotice.textContent = 'تم حفظ التغييرات.';
+        await loadTeachers();
+      } catch (error) {
+        teacherNotice.textContent = 'تعذر حفظ التغييرات.';
+      }
+    });
+
+    deleteTeacherBtn.addEventListener('click', async () => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex || !currentTeacher) return;
+      teacherNotice.textContent = '';
+      try {
+        await convex.mutation('teachers:remove', { id: currentTeacher._id });
+        teacherNotice.textContent = 'تم حذف المدرس.';
+        currentTeacher = null;
+        fillTeacherForm(null);
+        await loadTeachers();
+      } catch (error) {
+        teacherNotice.textContent = 'تعذر حذف المدرس.';
+      }
+    });
+
+    newCourseBtn.addEventListener('click', () => {
+      fillCourseForm(null);
+    });
+
+    coursesList.addEventListener('click', async (event) => {
+      const btn = event.target.closest('.edit-course-btn');
+      if (!btn) return;
+      const courseId = btn.getAttribute('data-course-id');
+      if (!courseId || !currentTeacher) return;
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex) return;
+      const courses = await convex.query('content:getCoursesPublic', { teacherId: currentTeacher._id });
+      const course = courses.find((c) => c._id === courseId);
+      fillCourseForm(course || null);
+    });
+
+    saveCourseBtn.addEventListener('click', async () => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex || !currentTeacher) return;
+      courseNotice.textContent = '';
+      const payload = {
+        teacherId: currentTeacher._id,
+        title: courseTitle.value.trim(),
+        subtitle: courseSubtitle.value.trim(),
+        description: courseDescription.value.trim(),
+        category: courseCategory.value.trim(),
+        type: courseType.value.trim(),
+        status: courseStatus.value.trim(),
+        grade: courseGrade.value.trim(),
+        price: Number(coursePrice.value || 0),
+        imageUrl: courseImageUrl.value.trim()
+      };
+      try {
+        if (currentCourseId) {
+          await convex.mutation('courses:update', { id: currentCourseId, ...payload });
+        } else {
+          await convex.mutation('courses:create', payload);
+        }
+        courseNotice.textContent = 'تم حفظ الدورة.';
+        fillCourseForm(null);
+        await loadCourses(currentTeacher._id);
+      } catch (error) {
+        courseNotice.textContent = 'تعذر حفظ الدورة.';
+      }
+    });
+
+    deleteCourseBtn.addEventListener('click', async () => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex || !currentCourseId) return;
+      courseNotice.textContent = '';
+      try {
+        await convex.mutation('courses:remove', { id: currentCourseId });
+        courseNotice.textContent = 'تم حذف الدورة.';
+        fillCourseForm(null);
+        await loadCourses(currentTeacher._id);
+      } catch (error) {
+        courseNotice.textContent = 'تعذر حذف الدورة.';
+      }
+    });
 
     loadTeachers();
 

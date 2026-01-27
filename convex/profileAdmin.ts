@@ -1,31 +1,28 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
-import { requireSelf } from "./auth";
+import { requireRole } from "./auth";
 
-export const get = query({
+export const listProfiles = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireRole(ctx, ["owner", "admin"]);
+    return await ctx.db.query("profiles").order("desc").collect();
+  }
+});
+
+export const getProfileByUserId = query({
   args: { userId: v.string() },
   handler: async (ctx, args) => {
-    await requireSelf(ctx, args.userId);
+    await requireRole(ctx, ["owner", "admin"]);
     const profile = await ctx.db
       .query("profiles")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
       .first();
-    return profile
-      ? {
-          fullName: profile.fullName,
-          phone: profile.phone,
-          address: profile.address,
-          city: profile.city,
-          governorate: profile.governorate,
-          idNumber: profile.idNumber,
-          birthDate: profile.birthDate,
-          imageUrl: profile.imageUrl
-        }
-      : null;
+    return profile || null;
   }
 });
 
-export const set = mutation({
+export const setProfileByUserId = mutation({
   args: {
     userId: v.string(),
     fullName: v.string(),
@@ -38,7 +35,7 @@ export const set = mutation({
     imageUrl: v.optional(v.string())
   },
   handler: async (ctx, args) => {
-    await requireSelf(ctx, args.userId);
+    await requireRole(ctx, ["owner", "admin"]);
     const existing = await ctx.db
       .query("profiles")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))

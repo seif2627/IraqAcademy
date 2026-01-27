@@ -221,7 +221,7 @@ function canAccessStudents() {
 }
 
 function canAccessAccounts() {
-  return window.currentUserRole === "owner";
+  return window.currentUserRole === "owner" || window.currentUserRole === "admin";
 }
 
 function getRoleLabel(role) {
