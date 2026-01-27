@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { requireRole, requireSelf } from "./auth";
 
 export const upsert = mutation({
   args: {
@@ -9,6 +10,7 @@ export const upsert = mutation({
     role: v.string()
   },
   handler: async (ctx, args) => {
+    await requireSelf(ctx, args.userId);
     const existing = await ctx.db
       .query("users")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
@@ -34,6 +36,7 @@ export const upsert = mutation({
 export const list = query({
   args: { role: v.optional(v.string()) },
   handler: async (ctx, args) => {
+    await requireRole(ctx, ["owner"]);
     if (args.role) {
       return await ctx.db
         .query("users")

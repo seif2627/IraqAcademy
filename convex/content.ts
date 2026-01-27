@@ -1,10 +1,12 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { seedTeachers, seedCourses } from "./seedData";
+import { allowPublicRead, requireRole } from "./auth";
 
 export const getTeachers = query({
   args: {},
   handler: async (ctx) => {
+    allowPublicRead();
     return await ctx.db.query("teachers").collect();
   },
 });
@@ -12,6 +14,7 @@ export const getTeachers = query({
 export const getCourses = query({
   args: {},
   handler: async (ctx) => {
+    allowPublicRead();
     return await ctx.db.query("courses").collect();
   },
 });
@@ -19,6 +22,7 @@ export const getCourses = query({
 export const resetContent = mutation({
   args: {},
   handler: async (ctx) => {
+    await requireRole(ctx, ["owner", "admin"]);
     const teachers = await ctx.db.query("teachers").collect();
     for (const t of teachers) {
       await ctx.db.delete(t._id);

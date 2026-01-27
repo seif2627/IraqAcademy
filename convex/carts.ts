@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { requireSelf } from "./auth";
 
 const cartItems = v.array(
   v.object({
@@ -13,6 +14,7 @@ const cartItems = v.array(
 export const get = query({
   args: { userId: v.string() },
   handler: async (ctx, args) => {
+    await requireSelf(ctx, args.userId);
     const cart = await ctx.db
       .query("carts")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
@@ -27,6 +29,7 @@ export const set = mutation({
     items: cartItems
   },
   handler: async (ctx, args) => {
+    await requireSelf(ctx, args.userId);
     const existing = await ctx.db
       .query("carts")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
@@ -49,6 +52,7 @@ export const set = mutation({
 export const clear = mutation({
   args: { userId: v.string() },
   handler: async (ctx, args) => {
+    await requireSelf(ctx, args.userId);
     const existing = await ctx.db
       .query("carts")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))

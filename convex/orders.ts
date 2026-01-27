@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { requireSelf } from "./auth";
 
 const orderItems = v.array(
   v.object({
@@ -24,6 +25,7 @@ export const create = mutation({
     })
   },
   handler: async (ctx, args) => {
+    await requireSelf(ctx, args.userId);
     return await ctx.db.insert("orders", {
       userId: args.userId,
       items: args.items,
@@ -39,6 +41,7 @@ export const create = mutation({
 export const list = query({
   args: { userId: v.string() },
   handler: async (ctx, args) => {
+    await requireSelf(ctx, args.userId);
     return await ctx.db
       .query("orders")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
