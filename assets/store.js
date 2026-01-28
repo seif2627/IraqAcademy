@@ -231,57 +231,23 @@ const checkout = async (payload) => {
   if (!session?.user?.id) {
     throw new Error("Login required");
   }
-  const userId = session.user.id;
   const convex = getConvex();
-  const order = {
-    userId,
-    items: normalizeItems(payload.items || []),
-    total: Number(payload.total || 0),
-    paymentMethod: payload.paymentMethod || "bank_transfer",
-    paymentStatus: "pending",
-    paymentDetails: {
-      payerName: payload.payerName || "",
-      phone: payload.phone || "",
-      notes: payload.notes || ""
-    },
-    createdAt: Date.now()
-  };
-  if (!order.items.length) {
-    throw new Error("Cart is empty");
+  if (!convex || typeof convex.action !== "function") {
+    throw new Error("Payments unavailable");
   }
   checkoutInProgress = true;
   try {
-    if (convex) {
-      try {
-        await convex.mutation("orders:create", {
-          userId: order.userId,
-          items: order.items,
-          total: order.total,
-          paymentMethod: order.paymentMethod,
-          paymentStatus: order.paymentStatus,
-          paymentDetails: order.paymentDetails
-        });
-        for (const item of order.items) {
-          try {
-            await convex.mutation("enrollments:enroll", {
-              userId: order.userId,
-              courseId: item.courseId,
-              status: "active"
-            });
-          } catch (e) {
-          }
-        }
-        await clearCart();
-        return order;
-      } catch (error) {
-        await saveOrderLocal(userId, order);
-        await clearCart();
-        return order;
-      }
+    const origin = window.top?.location?.origin || window.location.origin;
+    const successUrl = `${origin}/courses?checkout=success&session_id={CHECKOUT_SESSION_ID}`;
+    const cancelUrl = `${origin}/courses?checkout=cancel`;
+    const result = await convex.action("payments:createCheckoutSession", {
+      successUrl,
+      cancelUrl
+    });
+    if (!result?.checkoutUrl) {
+      throw new Error("Unable to start checkout");
     }
-    await saveOrderLocal(userId, order);
-    await clearCart();
-    return order;
+    return result;
   } finally {
     checkoutInProgress = false;
   }

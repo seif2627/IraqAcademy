@@ -137,6 +137,7 @@
     let enrolledCourseIds = new Set();
     let isCheckingOut = false;
     let isLoggedIn = false;
+    let currentRole = null;
 
     const setCartNotice = (message, tone = 'muted') => {
       if (!cartNotice) return;
@@ -181,7 +182,7 @@
 
     const updateCheckoutState = () => {
       if (!checkoutBtn) return;
-      const shouldDisable = isCheckingOut || !isLoggedIn || cartCourseIds.size === 0;
+      const shouldDisable = isCheckingOut || !isLoggedIn || currentRole !== 'student' || cartCourseIds.size === 0;
       checkoutBtn.disabled = shouldDisable;
       checkoutBtn.textContent = isCheckingOut ? 'Processing...' : 'Checkout';
     };
@@ -290,6 +291,7 @@
       const { data: { session } } = await client.auth.getSession();
       if (!session) {
         isLoggedIn = false;
+        currentRole = null;
         enrolledCourseIds = new Set();
         if (enrollmentsPanel) enrollmentsPanel.classList.add('hidden');
         updateCheckoutState();
@@ -297,6 +299,7 @@
         return;
       }
       isLoggedIn = true;
+      currentRole = session?.user?.user_metadata?.role || 'student';
       try {
         const enrollments = await convex.query('enrollments:listByUser', { userId: session.user.id });
         enrollmentsPanel.classList.remove('hidden');
@@ -354,6 +357,11 @@
         updateCheckoutState();
         return;
       }
+      if (currentRole !== 'student') {
+        setCartNotice('Only students can checkout.', 'error');
+        updateCheckoutState();
+        return;
+      }
       const cart = await window.top.iaStore.getCart();
       if (!cart.items.length) {
         setCartNotice('Your cart is empty.', 'error');
@@ -387,10 +395,13 @@
         notes: 'Checkout submitted'
       };
       try {
-        await window.top.iaStore.checkout(payload);
-        await updateCartSummary();
-        setCartNotice('Checkout complete. You are enrolled!', 'success');
-        await loadEnrollments();
+        const result = await window.top.iaStore.checkout(payload);
+        setCartNotice('Redirecting to secure checkout...', 'success');
+        if (result?.checkoutUrl) {
+          window.top.location.href = result.checkoutUrl;
+          return;
+        }
+        throw new Error('Missing checkout URL');
       } catch (error) {
         setCartNotice('Checkout failed. Please try again.', 'error');
       } finally {
@@ -406,9 +417,69 @@
       renderCourses(filtered);
     });
 
+    const clearCheckoutParams = () => {
+      if (window.top?.history?.replaceState) {
+        window.top.history.replaceState(null, '', '/courses');
+      }
+    };
+
+    const pollOrderStatus = async (sessionId, attempts = 0) => {
+      const convex = window.top?.convexClient || window.convexClient;
+      if (!convex) return;
+      try {
+        const order = await convex.query('orders:getByStripeSessionId', { sessionId });
+        if (order.paymentStatus === 'paid') {
+          setCartNotice('Payment confirmed. You are enrolled!', 'success');
+          await updateCartSummary();
+          await loadEnrollments();
+          clearCheckoutParams();
+          return;
+        }
+        if (order.paymentStatus === 'failed' || order.paymentStatus === 'expired') {
+          setCartNotice('Payment failed or expired. Please try again.', 'error');
+          clearCheckoutParams();
+          return;
+        }
+        if (attempts < 5) {
+          setTimeout(() => pollOrderStatus(sessionId, attempts + 1), 2000);
+        } else {
+          setCartNotice('Payment is still processing. Please refresh in a moment.', 'error');
+        }
+      } catch (error) {
+        setCartNotice('Unable to verify payment status. Please refresh later.', 'error');
+      }
+    };
+
+    const handleCheckoutReturn = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('checkout');
+      const sessionId = params.get('session_id');
+      if (!status) return;
+      if (status === 'cancel') {
+        setCartNotice('Checkout cancelled. You can try again anytime.', 'error');
+        clearCheckoutParams();
+        return;
+      }
+      if (status === 'success') {
+        const client = window.top?.authClient || window.authClient;
+        const { data: { session } } = client ? await client.auth.getSession() : { data: { session: null } };
+        if (!session) {
+          setCartNotice('Log in to confirm your payment.', 'error');
+          return;
+        }
+        if (!sessionId) {
+          setCartNotice('Missing checkout session. Please contact support.', 'error');
+          return;
+        }
+        setCartNotice('Confirming payment...', 'success');
+        pollOrderStatus(sessionId, 0);
+      }
+    };
+
     loadCourses();
     updateCartSummary();
     loadEnrollments();
+    handleCheckoutReturn();
   </script>
 </body>
 </html>

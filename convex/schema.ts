@@ -32,15 +32,20 @@ export default defineSchema({
       })
     ),
     total: v.number(),
+    currency: v.optional(v.string()),
     paymentMethod: v.string(),
     paymentStatus: v.string(),
+    stripeSessionId: v.optional(v.string()),
+    stripePaymentIntentId: v.optional(v.string()),
     paymentDetails: v.object({
       payerName: v.string(),
       phone: v.string(),
       notes: v.string()
     }),
     createdAt: v.number()
-  }).index("by_userId", ["userId"]),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_stripeSessionId", ["stripeSessionId"]),
   paymentProfiles: defineTable({
     userId: v.string(),
     payerName: v.string(),

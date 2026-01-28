@@ -48,6 +48,17 @@ export const list = query({
   }
 });
 
+export const getByUserId = query({
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    await requireSelf(ctx, args.userId);
+    return await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+  }
+});
+
 export const listAll = query({
   args: {},
   handler: async (ctx) => {

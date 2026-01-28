@@ -167,8 +167,10 @@ function loadIntoFrame(page) {
   if (frame) {
     if (frame.getAttribute('data-loading') === '1') return;
     frame.setAttribute('data-loading', '1');
-    // Add cache buster to force reload
-    frame.src = mapping[page] + "?v=" + Date.now();
+    // Add cache buster and preserve query params (e.g., checkout session_id)
+    var params = new URLSearchParams(window.location.search);
+    params.set("v", Date.now().toString());
+    frame.src = mapping[page] + "?" + params.toString();
     frame.onload = function () {
       frame.removeAttribute('data-loading');
     };
