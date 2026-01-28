@@ -165,6 +165,18 @@
       }
     };
 
+    const withTimeout = async (promise, timeoutMs = 8000) => {
+      let timeoutId;
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error('Request timed out')), timeoutMs);
+      });
+      try {
+        return await Promise.race([promise, timeoutPromise]);
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    };
+
     const setCartNotice = (message, tone = 'muted') => {
       if (!cartNotice) return;
       cartNotice.textContent = message || '';
@@ -317,7 +329,16 @@
       }
 
       try {
-        const courses = await convex.query('content:getCourses', {});
+        let courses = await withTimeout(convex.query('content:getCourses', {}));
+        if (!Array.isArray(courses)) {
+          courses = [];
+        }
+        if (!courses.length) {
+          const fallback = await withTimeout(convex.query('content:getCoursesPublic', { limit: 200 }));
+          if (Array.isArray(fallback)) {
+            courses = fallback;
+          }
+        }
         cachedCourses = courses;
         const filtered = categoryFilter?.value
           ? courses.filter((course) => (course.category || '') === categoryFilter.value)

@@ -89,6 +89,24 @@ var translations = {
 var currentLang = "en";
 var frame = document.getElementById("pageFrame");
 var navButtons = document.querySelectorAll('.nav-link[data-page], .nav-auth a[href^="#/"]');
+var pageLoader = document.getElementById("pageLoader");
+var loaderTimer = null;
+
+function showPageLoader() {
+  if (!pageLoader) return;
+  if (loaderTimer) clearTimeout(loaderTimer);
+  loaderTimer = setTimeout(function () {
+    pageLoader.classList.add("is-visible");
+    pageLoader.setAttribute("aria-hidden", "false");
+  }, 150);
+}
+
+function hidePageLoader() {
+  if (!pageLoader) return;
+  if (loaderTimer) clearTimeout(loaderTimer);
+  pageLoader.classList.remove("is-visible");
+  pageLoader.setAttribute("aria-hidden", "true");
+}
 
 function getRoleLandingPage(role) {
   if (role === "teacher") return "teachers";
@@ -341,12 +359,18 @@ function loadIntoFrame(page) {
   if (frame) {
     if (frame.getAttribute('data-loading') === '1') return;
     frame.setAttribute('data-loading', '1');
+    showPageLoader();
     // Add cache buster and preserve query params (e.g., checkout session_id)
     var params = new URLSearchParams(window.location.search);
     params.set("v", Date.now().toString());
     frame.src = mapping[page] + "?" + params.toString();
     frame.onload = function () {
       frame.removeAttribute('data-loading');
+      hidePageLoader();
+    };
+    frame.onerror = function () {
+      frame.removeAttribute('data-loading');
+      hidePageLoader();
     };
   }
 }

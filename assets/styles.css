@@ -482,6 +482,53 @@ main {
   border-top: 1px solid var(--ia-border);
 }
 
+.page-loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 250, 252, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 40;
+}
+
+.page-loader.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.page-loader-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--ia-border);
+  background: #fff;
+  color: var(--ia-muted);
+  font-size: 0.85rem;
+  box-shadow: 0 10px 20px -18px rgba(15, 23, 42, 0.35);
+}
+
+.page-loader-spinner {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 2px solid #e2e8f0;
+  border-top-color: var(--ia-accent);
+  animation: page-loader-spin 0.9s linear infinite;
+}
+
+@keyframes page-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .shell-footer-inner {
   max-width: 80rem;
   margin: 0 auto;

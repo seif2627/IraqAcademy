@@ -223,6 +223,18 @@
       }
     };
 
+    const withTimeout = async (promise, timeoutMs = 8000) => {
+      let timeoutId;
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error('Request timed out')), timeoutMs);
+      });
+      try {
+        return await Promise.race([promise, timeoutPromise]);
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    };
+
     const registerButtonLabel = (button) => {
       if (!button || button.dataset.label) return;
       button.dataset.label = button.textContent;
@@ -354,7 +366,7 @@
         return;
       }
       try {
-        const courses = await convex.query('content:getCoursesPublic', { teacherId });
+        const courses = await withTimeout(convex.query('content:getCoursesPublic', { teacherId }));
         renderCourses(courses);
         enrollmentsList.textContent = 'Select a course to view enrollments.';
       } catch (error) {
@@ -369,7 +381,7 @@
         return;
       }
       try {
-        const enrollments = await convex.query('enrollments:listByCourse', { courseId });
+        const enrollments = await withTimeout(convex.query('enrollments:listByCourse', { courseId }));
         if (!enrollments.length) {
         enrollmentsList.textContent = 'No enrollments yet.';
           return;
@@ -405,7 +417,7 @@
       }
 
       try {
-        const teachers = await convex.query('content:getTeachersPublic', { limit: 200 });
+        const teachers = await withTimeout(convex.query('content:getTeachersPublic', { limit: 200 }));
         if (client) {
           const { data: { session } } = await client.auth.getSession();
           currentRole = session?.user?.user_metadata?.role || 'student';

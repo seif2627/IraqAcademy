@@ -84,8 +84,6 @@
         </svg>
       </button>
 
-      <div id="errorMessage" class="text-red-500 text-sm text-center hidden"></div>
-      <div id="successMessage" class="text-green-500 text-sm text-center hidden">Account created successfully.</div>
     </form>
 
     <div class="mt-6">
@@ -276,28 +274,18 @@
     };
 
     const handleProviderLogin = async (provider) => {
-        const errorDiv = document.getElementById('errorMessage');
-        const successDiv = document.getElementById('successMessage');
         try {
-            errorDiv.classList.add('hidden');
-            successDiv.classList.add('hidden');
             setLoadingState(true, 'Creating...');
             const { data, error } = await window.authClient.auth.signInWithProvider({ provider });
             if (error) {
                 const errorText = formatAuthError(error.message || error);
-                errorDiv.textContent = errorText;
-                errorDiv.classList.add('hidden');
                 showToast(errorText, 'error');
                 return;
             }
-            successDiv.textContent = 'Signed in successfully. Redirecting...';
-            successDiv.classList.add('hidden');
             showToast('Signed in successfully. Redirecting...', 'success');
             await redirectAfterAuth(data?.session);
         } catch (err) {
             const errorText = formatAuthError(err.message || err);
-            errorDiv.textContent = errorText;
-            errorDiv.classList.add('hidden');
             showToast(errorText, 'error');
         } finally {
             setLoadingState(false, 'Create Account');
@@ -312,12 +300,7 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirm-password').value;
-      const errorDiv = document.getElementById('errorMessage');
-      const successDiv = document.getElementById('successMessage');
-
       if (password !== confirmPassword) {
-        errorDiv.textContent = "Passwords do not match.";
-        errorDiv.classList.add('hidden');
         showToast('Passwords do not match.', 'error');
         return;
       }
@@ -325,8 +308,6 @@
       // Check password strength requirements
       for (const key in rules) {
         if (!rules[key].regex.test(password)) {
-            errorDiv.textContent = "Password does not meet all requirements.";
-            errorDiv.classList.add('hidden');
             showToast('Password does not meet all requirements.', 'error');
             return;
         }
@@ -339,22 +320,16 @@
         const { data, error } = await window.authClient.auth.signUp({ email, password });
         if (error) {
           const errorText = formatAuthError(error.message || error);
-          errorDiv.textContent = errorText;
-          errorDiv.classList.add('hidden');
           showToast(errorText, 'error');
           return;
         }
         if (window.firebaseAuth?.auth?.currentUser && window.firebaseAuth?.sendEmailVerification) {
           await window.firebaseAuth.sendEmailVerification(window.firebaseAuth.auth.currentUser);
         }
-        successDiv.textContent = 'Account created. Verify your email and complete your profile.';
-        successDiv.classList.add('hidden');
         showToast('Account created. Verify your email and complete your profile.', 'success');
         await redirectAfterAuth(data?.session);
       } catch (err) {
         const errorText = formatAuthError(err.message || err);
-        errorDiv.textContent = errorText;
-        errorDiv.classList.add('hidden');
         showToast(errorText, 'error');
       } finally {
         setLoadingState(false, 'Create Account');

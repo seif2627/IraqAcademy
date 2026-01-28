@@ -38,7 +38,7 @@
       <div>
         <div class="flex justify-between mb-1">
           <label for="password" class="block text-sm font-medium text-slate-700" data-i18n="login_password_label">Password</label>
-          <a href="#" class="text-sm font-medium text-accent hover:underline">Forgot Password?</a>
+          <a href="#" id="forgotPassword" class="text-sm font-medium text-accent hover:underline">Forgot Password?</a>
         </div>
         <input 
           type="password" 
@@ -70,8 +70,6 @@
         </svg>
       </button>
 
-      <div id="errorMessage" class="text-red-500 text-sm text-center hidden"></div>
-      <div id="successMessage" class="text-emerald-600 text-sm text-center hidden"></div>
     </form>
 
     <div class="mt-6">
@@ -109,6 +107,7 @@
     const loginForm = document.getElementById('loginForm');
     const submitBtn = loginForm.querySelector('button[type="submit"]');
     const providerButtons = [document.getElementById('googleLogin'), document.getElementById('microsoftLogin')];
+    const forgotPasswordLink = document.getElementById('forgotPassword');
 
     const formatAuthError = (message) => {
       const text = String(message || '').toLowerCase();
@@ -202,28 +201,18 @@
     };
 
     const handleProviderLogin = async (provider) => {
-      const errorDiv = document.getElementById('errorMessage');
-      const successDiv = document.getElementById('successMessage');
       try {
-        errorDiv.classList.add('hidden');
-        successDiv.classList.add('hidden');
         setLoadingState(true, 'Signing in...');
         const { data, error } = await window.authClient.auth.signInWithProvider({ provider });
         if (error) {
         const errorText = formatAuthError(error.message || error);
-        errorDiv.textContent = errorText;
-        errorDiv.classList.add('hidden');
         showToast(errorText, 'error');
         return;
       }
-      successDiv.textContent = 'Signed in successfully. Redirecting...';
-      successDiv.classList.add('hidden');
       showToast('Signed in successfully. Redirecting...', 'success');
       await redirectAfterAuth(data?.session);
     } catch (err) {
       const errorText = formatAuthError(err.message || err);
-      errorDiv.textContent = errorText;
-      errorDiv.classList.add('hidden');
       showToast(errorText, 'error');
     } finally {
       setLoadingState(false, 'Log In');
@@ -237,34 +226,47 @@
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      const errorDiv = document.getElementById('errorMessage');
-      const successDiv = document.getElementById('successMessage');
-      
       try {
-        errorDiv.classList.add('hidden');
-        successDiv.classList.add('hidden');
         setLoadingState(true, 'Signing in...');
         const { data, error } = await window.authClient.auth.signIn({ email, password });
         if (error) {
         const errorText = formatAuthError(error.message || error);
-        errorDiv.textContent = errorText;
-        errorDiv.classList.add('hidden');
         showToast(errorText, 'error');
         return;
       }
-      successDiv.textContent = 'Signed in successfully. Redirecting...';
-      successDiv.classList.add('hidden');
       showToast('Signed in successfully. Redirecting...', 'success');
       await redirectAfterAuth(data?.session);
     } catch (err) {
       const errorText = formatAuthError(err.message || err);
-      errorDiv.textContent = errorText;
-      errorDiv.classList.add('hidden');
       showToast(errorText, 'error');
     } finally {
       setLoadingState(false, 'Log In');
     }
   });
+
+    if (forgotPasswordLink) {
+      forgotPasswordLink.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        if (!email) {
+          showToast('Enter your email address first.', 'error');
+          return;
+        }
+        if (!window.firebaseAuth?.sendPasswordResetEmail || !window.firebaseAuth?.auth) {
+          showToast('Password reset is not available right now.', 'error');
+          return;
+        }
+        try {
+          setLoadingState(true, 'Sending...');
+          await window.firebaseAuth.sendPasswordResetEmail(window.firebaseAuth.auth, email);
+          showToast('Password reset email sent.', 'success');
+        } catch (err) {
+          showToast(formatAuthError(err?.message || err), 'error');
+        } finally {
+          setLoadingState(false, 'Log In');
+        }
+      });
+    }
 
     (async () => {
       const { data: { session } } = await window.authClient.auth.getSession();
