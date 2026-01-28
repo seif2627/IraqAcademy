@@ -1,7 +1,7 @@
 {
   "name": "iraqacademy",
   "version": "1.0.0",
-  "description": "",
+  "description": "Role-based learning platform prototype built with Cloudflare Pages, Firebase Auth, Convex, and Stripe Checkout.",
   "main": "test-flow.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

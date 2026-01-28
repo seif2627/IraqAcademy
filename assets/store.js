@@ -257,9 +257,19 @@ const syncUser = async (user) => {
   if (!user) return;
   const convex = getConvex();
   if (!convex) return;
-  const role = user.user_metadata?.role || "student";
+  let role = user.user_metadata?.role || "student";
   const fullName = user.user_metadata?.full_name || "";
   try {
+    if (user.id) {
+      try {
+        const existing = await convex.query("users:getByUserId", { userId: user.id });
+        if (existing?.role && role === "student") {
+          role = existing.role;
+        }
+      } catch (error) {
+        // ignore role lookup failures
+      }
+    }
     await convex.mutation("users:upsert", {
       userId: user.id,
       email: user.email || "",

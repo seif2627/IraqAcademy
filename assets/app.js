@@ -90,6 +90,74 @@ var currentLang = "en";
 var frame = document.getElementById("pageFrame");
 var navButtons = document.querySelectorAll('.nav-link[data-page], .nav-auth a[href^="#/"]');
 
+function getRoleLandingPage(role) {
+  if (role === "teacher") return "teachers";
+  if (role === "admin" || role === "owner") return "accounts";
+  return "students";
+}
+
+function getInitials(name, email) {
+  var source = String(name || "").trim();
+  if (!source && email) {
+    source = String(email).split("@")[0] || "";
+  }
+  if (!source) return "U";
+  var parts = source.split(/\s+/).filter(Boolean);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+async function resolveUserRole(session) {
+  var role = session?.user?.user_metadata?.role || "student";
+  var convex = window.convexClient || window.top?.convexClient;
+  if (!convex || !session?.user?.id) return role;
+  try {
+    var user = await convex.query("users:getByUserId", { userId: session.user.id });
+    if (user?.role) {
+      return user.role;
+    }
+  } catch (error) {
+    return role;
+  }
+  return role;
+}
+
+async function updateProfileAvatar(session) {
+  var profileButton = document.getElementById("profileButton");
+  var avatarImage = document.getElementById("profileAvatarImage");
+  var avatarFallback = document.getElementById("profileAvatarFallback");
+  if (!profileButton || !avatarFallback) return;
+  if (!session) {
+    profileButton.style.display = "none";
+    if (avatarImage) avatarImage.style.display = "none";
+    avatarFallback.style.display = "inline";
+    avatarFallback.textContent = "?";
+    return;
+  }
+  profileButton.style.display = "inline-flex";
+  var fullName = session.user?.user_metadata?.full_name || "";
+  var email = session.user?.email || "";
+  avatarFallback.textContent = getInitials(fullName, email);
+  avatarFallback.style.display = "inline";
+  if (avatarImage) {
+    avatarImage.src = "";
+    avatarImage.style.display = "none";
+  }
+  var convex = window.convexClient || window.top?.convexClient;
+  if (!convex || !session.user?.id) return;
+  try {
+    var profile = await convex.query("profiles:get", { userId: session.user.id });
+    var imageUrl = profile?.imageUrl || "";
+    if (imageUrl && avatarImage) {
+      avatarImage.src = imageUrl;
+      avatarImage.style.display = "block";
+      avatarFallback.style.display = "none";
+    }
+  } catch (error) {
+    return;
+  }
+}
+
 function updateUI() {
   var elements = document.querySelectorAll("[data-i18n]");
   elements.forEach(function(el) {
@@ -146,6 +214,9 @@ function getPageFromUrl() {
 function loadIntoFrame(page) {
   page = normalizePage(page);
   
+  if (window.isAuthenticated && (page === "login" || page === "signup")) {
+    page = getRoleLandingPage(window.currentUserRole || "student");
+  }
   if (page === "students" && !canAccessStudents()) {
     page = "home";
   }
@@ -193,10 +264,11 @@ async function checkAuthState() {
     const signupBtn = document.querySelector('.btn-signup[data-i18n="signup"]');
     const logoutBtn = document.getElementById('logoutBtn');
     const roleBadge = document.getElementById('roleBadge');
+    const profileButton = document.getElementById('profileButton');
 
     if (session) {
         window.isAuthenticated = true;
-        window.currentUserRole = session.user?.user_metadata?.role || 'student';
+        window.currentUserRole = await resolveUserRole(session);
         if (roleBadge) {
           roleBadge.textContent = getRoleLabel(window.currentUserRole);
           roleBadge.style.display = 'inline-flex';
@@ -207,9 +279,16 @@ async function checkAuthState() {
             logoutBtn.style.display = 'block';
             logoutBtn.onclick = async () => {
             await window.authClient.auth.signOut();
-            navigateTo('login');
+            window.location.href = '/login';
         };
         }
+        if (profileButton) {
+          profileButton.style.display = 'inline-flex';
+          profileButton.onclick = () => {
+            navigateTo(getRoleLandingPage(window.currentUserRole));
+          };
+        }
+        await updateProfileAvatar(session);
     } else {
         window.isAuthenticated = false;
         window.currentUserRole = 'student';
@@ -217,6 +296,8 @@ async function checkAuthState() {
         if (loginBtn) loginBtn.style.display = 'block';
         if (signupBtn) signupBtn.style.display = 'block';
         if (logoutBtn) logoutBtn.style.display = 'none';
+        if (profileButton) profileButton.style.display = 'none';
+        await updateProfileAvatar(null);
     }
 }
 

@@ -210,6 +210,38 @@ small {
   gap: 1rem;
 }
 
+.profile-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--ia-border);
+  background: #f1f5f9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.profile-button:hover {
+  border-color: var(--ia-accent);
+  box-shadow: 0 0 0 3px var(--ia-accent-light);
+}
+
+.profile-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.profile-avatar-fallback {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ia-muted);
+}
+
 .btn-login {
   font-size: 0.875rem;
   font-weight: 600;

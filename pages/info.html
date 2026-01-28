@@ -84,6 +84,8 @@
   <script src="../assets/store.js"></script>
   <script>
     const store = window.top?.iaStore || window.iaStore;
+    const convex = window.top?.convexClient || window.convexClient;
+    const client = window.top?.authClient || window.authClient;
     const form = document.getElementById('infoForm');
     const notice = document.getElementById('formNotice');
     const saveBtn = document.getElementById('saveBtn');
@@ -124,8 +126,29 @@
       }
     });
 
+    const resolveRole = async (session) => {
+      let role = session?.user?.user_metadata?.role || 'student';
+      if (!convex || !session?.user?.id) return role;
+      try {
+        const user = await convex.query('users:getByUserId', { userId: session.user.id });
+        if (user?.role) role = user.role;
+      } catch (error) {
+        return role;
+      }
+      return role;
+    };
+
+    const getRoleDestination = async () => {
+      const session = await client?.auth?.getSession?.();
+      const activeSession = session?.data?.session || null;
+      const role = await resolveRole(activeSession);
+      if (role === 'teacher') return 'teachers';
+      if (role === 'admin' || role === 'owner') return 'accounts';
+      return 'students';
+    };
+
     const loadProfile = async () => {
-      const session = await (window.top?.authClient || window.authClient)?.auth?.getSession?.();
+      const session = await client?.auth?.getSession?.();
       const email = session?.data?.session?.user?.email || getFirebaseUser()?.email || '';
       fields.email.value = email;
       const profile = await store.getProfile();
@@ -157,7 +180,8 @@
         birthDate: fields.birthDate.value.trim()
       });
       notice.textContent = 'Information saved successfully.';
-      window.parent.navigateTo('home');
+      const destination = await getRoleDestination();
+      window.parent.navigateTo(destination);
     });
 
     if (window.firebaseAuth?.onAuthStateChanged) {

@@ -22,7 +22,6 @@
           <div class="nav-links" role="navigation" aria-label="Sections">
             <button type="button" class="nav-link" data-page="home" data-i18n="nav_home">Home</button>
             <button type="button" class="nav-link" data-page="courses" data-i18n="nav_courses">Courses</button>
-            <button type="button" class="nav-link" data-page="students" data-i18n="nav_students">Students</button>
             <button type="button" class="nav-link" data-page="teachers" data-i18n="nav_teachers">Teachers</button>
             <button type="button" class="nav-link" data-page="help" data-i18n="nav_help">Help</button>
             <button type="button" class="nav-link" data-page="accounts" data-i18n="nav_accounts" style="display: none;">Manage Accounts</button>
@@ -50,6 +49,10 @@
             <span id="roleBadge" class="btn-login" style="display: none;"></span>
             <a href="/login" class="btn-login" data-i18n="login">Log In</a>
             <a href="/signup" class="btn-signup" data-i18n="signup">Sign Up</a>
+            <button id="profileButton" class="profile-button" type="button" aria-label="Open profile" style="display: none;">
+              <img id="profileAvatarImage" class="profile-avatar-image" alt="Profile" />
+              <span id="profileAvatarFallback" class="profile-avatar-fallback">?</span>
+            </button>
             <button id="logoutBtn" class="btn-login" style="display: none;">Log Out</button>
           </div>
         </nav>

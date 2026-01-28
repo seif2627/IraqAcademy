@@ -71,6 +71,7 @@
       </button>
 
       <div id="errorMessage" class="text-red-500 text-sm text-center hidden"></div>
+      <div id="successMessage" class="text-emerald-600 text-sm text-center hidden"></div>
     </form>
 
     <div class="mt-6">
@@ -103,20 +104,103 @@
   <script type="module" src="../assets/convex.js"></script>
   <script src="../assets/auth.js"></script>
   <script>
+    const convex = window.parent?.convexClient || window.convexClient;
+    const loginForm = document.getElementById('loginForm');
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    const providerButtons = [document.getElementById('googleLogin'), document.getElementById('microsoftLogin')];
+
+    const formatAuthError = (message) => {
+      const text = String(message || '').toLowerCase();
+      if (text.includes('email-already-in-use')) return 'An account with this email already exists. Please log in.';
+      if (text.includes('invalid-credential') || text.includes('wrong-password')) return 'Incorrect email or password.';
+      if (text.includes('user-not-found')) return 'No account found with this email.';
+      if (text.includes('too-many-requests')) return 'Too many attempts. Please try again later.';
+      if (text.includes('invalid-email')) return 'Please enter a valid email address.';
+      if (text.includes('popup-closed-by-user')) return 'Sign-in was cancelled.';
+      if (text.includes('account-exists-with-different-credential')) return 'Account exists with a different sign-in method.';
+      return message || 'Unable to sign in. Please try again.';
+    };
+
+    const setLoadingState = (isLoading, label) => {
+      if (submitBtn) {
+        if (!submitBtn.dataset.label) submitBtn.dataset.label = submitBtn.textContent.trim();
+        submitBtn.disabled = isLoading;
+        submitBtn.textContent = isLoading ? label : submitBtn.dataset.label;
+      }
+      providerButtons.forEach((btn) => {
+        if (!btn) return;
+        if (!btn.dataset.label) btn.dataset.label = btn.textContent.trim();
+        btn.disabled = isLoading;
+        btn.textContent = isLoading ? 'Connecting...' : btn.dataset.label;
+      });
+    };
+
+    const resolveUserRole = async (session) => {
+      let role = session?.user?.user_metadata?.role || 'student';
+      if (!convex || !session?.user?.id) return role;
+      try {
+        const user = await convex.query('users:getByUserId', { userId: session.user.id });
+        if (user?.role) role = user.role;
+      } catch (error) {
+        return role;
+      }
+      return role;
+    };
+
+    const needsProfileCompletion = async (session) => {
+      if (!convex || !session?.user?.id) return false;
+      try {
+        const profile = await convex.query('profiles:get', { userId: session.user.id });
+        return !profile?.fullName;
+      } catch (error) {
+        return false;
+      }
+    };
+
+    const getRoleDestination = (role) => {
+      if (role === 'teacher') return 'teachers';
+      if (role === 'admin' || role === 'owner') return 'accounts';
+      return 'students';
+    };
+
+    const redirectAfterAuth = async (session) => {
+      let activeSession = session;
+      if (!activeSession) {
+        const { data: { session: current } } = await window.authClient.auth.getSession();
+        activeSession = current;
+      }
+      if (!activeSession) {
+        window.parent.location.reload();
+        return;
+      }
+      const role = await resolveUserRole(activeSession);
+      const isVerified = window.firebaseAuth?.auth?.currentUser?.emailVerified !== false;
+      const needsProfile = await needsProfileCompletion(activeSession);
+      const destination = (!isVerified || needsProfile) ? 'info' : getRoleDestination(role);
+      window.parent.location.href = `/${destination}`;
+    };
+
     const handleProviderLogin = async (provider) => {
       const errorDiv = document.getElementById('errorMessage');
+      const successDiv = document.getElementById('successMessage');
       try {
         errorDiv.classList.add('hidden');
-        const { error } = await window.authClient.auth.signInWithProvider({ provider });
+        successDiv.classList.add('hidden');
+        setLoadingState(true, 'Signing in...');
+        const { data, error } = await window.authClient.auth.signInWithProvider({ provider });
         if (error) {
-          errorDiv.textContent = error.message || `Failed to login with ${provider}`;
+          errorDiv.textContent = formatAuthError(error.message || error);
           errorDiv.classList.remove('hidden');
           return;
         }
-        window.parent.location.reload();
+        successDiv.textContent = 'Signed in successfully. Redirecting...';
+        successDiv.classList.remove('hidden');
+        await redirectAfterAuth(data?.session);
       } catch (err) {
-        errorDiv.textContent = err.message || `Failed to login with ${provider}`;
+        errorDiv.textContent = formatAuthError(err.message || err);
         errorDiv.classList.remove('hidden');
+      } finally {
+        setLoadingState(false, 'Log In');
       }
     };
 
@@ -128,21 +212,35 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const errorDiv = document.getElementById('errorMessage');
+      const successDiv = document.getElementById('successMessage');
       
       try {
         errorDiv.classList.add('hidden');
-        const { error } = await window.authClient.auth.signIn({ email, password });
+        successDiv.classList.add('hidden');
+        setLoadingState(true, 'Signing in...');
+        const { data, error } = await window.authClient.auth.signIn({ email, password });
         if (error) {
-          errorDiv.textContent = error.message || 'Invalid login credentials.';
+          errorDiv.textContent = formatAuthError(error.message || error);
           errorDiv.classList.remove('hidden');
           return;
         }
-        window.parent.location.reload(); // Reload parent to update auth state
+        successDiv.textContent = 'Signed in successfully. Redirecting...';
+        successDiv.classList.remove('hidden');
+        await redirectAfterAuth(data?.session);
       } catch (err) {
-        errorDiv.textContent = err.message;
+        errorDiv.textContent = formatAuthError(err.message || err);
         errorDiv.classList.remove('hidden');
+      } finally {
+        setLoadingState(false, 'Log In');
       }
     });
+
+    (async () => {
+      const { data: { session } } = await window.authClient.auth.getSession();
+      if (session) {
+        await redirectAfterAuth(session);
+      }
+    })();
   </script>
 </body>
 </html>
