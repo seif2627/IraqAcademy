@@ -164,6 +164,16 @@ small {
   background: var(--ia-accent-light);
 }
 
+.nav-link:focus-visible,
+.profile-menu-item:focus-visible,
+.profile-button:focus-visible,
+.btn-login:focus-visible,
+.btn-signup:focus-visible,
+.nav-search-input:focus-visible {
+  outline: 2px solid var(--ia-accent);
+  outline-offset: 2px;
+}
+
 .nav-center {
   flex: 1;
   max-width: 20rem;

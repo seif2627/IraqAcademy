@@ -32,7 +32,7 @@
     <form id="infoForm" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
       <div id="verifyBanner" class="hidden border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 rounded-xl">
         Please verify your email address first. A verification email has been sent to your inbox.
-        <button id="resendVerification" class="mr-2 text-amber-800 font-bold hover:underline">Resend</button>
+        <button id="resendVerification" type="button" class="mr-2 text-amber-800 font-bold hover:underline">Resend</button>
       </div>
 
       <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
@@ -172,7 +172,8 @@
       }
     };
 
-    resendBtn.addEventListener('click', async () => {
+    resendBtn.addEventListener('click', async (event) => {
+      event.preventDefault();
       const user = getFirebaseUser();
       if (user) {
         await window.firebaseAuth.sendEmailVerification(user);

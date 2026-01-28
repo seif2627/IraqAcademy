@@ -12,16 +12,47 @@
 <body class="bg-white text-slate-900 font-sans p-6 lg:p-8">
   <div id="profileContent" class="max-w-4xl mx-auto mb-12">
     <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-      <h1 class="text-2xl font-bold mb-2">Update Your Profile</h1>
-      <p class="text-slate-600 mb-6">Update your basic information and profile image.</p>
-      <div class="grid md:grid-cols-2 gap-4">
-        <input id="studentFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
-        <input id="studentPhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone">
-        <input id="studentCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City">
-        <input id="studentGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate">
-        <input id="studentAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Address">
-        <input id="studentIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
-        <input id="studentBirthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+      <h1 class="text-2xl font-bold mb-2">Profile Settings</h1>
+      <p class="text-slate-600 mb-6">Keep your legal and contact information accurate.</p>
+      <div class="space-y-5">
+        <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
+          <div>
+            <h2 class="text-lg font-bold">Personal Information</h2>
+            <p class="text-sm text-slate-500">Your legal name must match your government ID.</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="studentFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
+            <input id="studentBirthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+          </div>
+        </div>
+        <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
+          <div>
+            <h2 class="text-lg font-bold">Contact Information</h2>
+            <p class="text-sm text-slate-500">We use this to reach you about your account.</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="studentEmail" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50" readonly placeholder="Email Address">
+            <input id="studentPhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone Number">
+          </div>
+        </div>
+        <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
+          <div>
+            <h2 class="text-lg font-bold">Legal Identification</h2>
+            <p class="text-sm text-slate-500">Required for enrollments and verification.</p>
+          </div>
+          <input id="studentIdNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Government ID Number">
+        </div>
+        <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
+          <div>
+            <h2 class="text-lg font-bold">Address Information</h2>
+            <p class="text-sm text-slate-500">Provide your current residential address.</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="studentAddress" class="md:col-span-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Address Line">
+            <input id="studentCity" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City">
+            <input id="studentGovernorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate">
+          </div>
+        </div>
       </div>
       <button id="saveStudentProfile" class="mt-6 bg-accent bg-accent-hover text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg">Save</button>
       <div id="studentProfileNotice" class="text-sm text-slate-600 mt-3"></div>
@@ -145,6 +176,7 @@
     const denied = document.getElementById('studentsAccessDenied');
     const profileContent = document.getElementById('profileContent');
     const studentFullName = document.getElementById('studentFullName');
+    const studentEmail = document.getElementById('studentEmail');
     const studentPhone = document.getElementById('studentPhone');
     const studentCity = document.getElementById('studentCity');
     const studentGovernorate = document.getElementById('studentGovernorate');
@@ -160,6 +192,23 @@
       saveStudentProfile.disabled = isSaving;
       saveStudentProfile.setAttribute('aria-busy', isSaving ? 'true' : 'false');
       saveStudentProfile.textContent = isSaving ? 'Saving...' : saveStudentProfileLabel;
+    };
+
+    const setProfileNotice = (message, tone = 'muted') => {
+      if (!studentProfileNotice) return;
+      studentProfileNotice.textContent = message || '';
+      studentProfileNotice.classList.remove('text-rose-600', 'text-emerald-600', 'text-slate-600');
+      if (!message) {
+        studentProfileNotice.classList.add('text-slate-600');
+        return;
+      }
+      if (tone === 'error') {
+        studentProfileNotice.classList.add('text-rose-600');
+      } else if (tone === 'success') {
+        studentProfileNotice.classList.add('text-emerald-600');
+      } else {
+        studentProfileNotice.classList.add('text-slate-600');
+      }
     };
 
     const showDenied = () => {
@@ -178,6 +227,40 @@
       studentBirthDate.value = profile?.birthDate || '';
     };
 
+    const validateProfile = () => {
+      const fullName = studentFullName.value.trim();
+      const nameParts = fullName.split(/\s+/).filter(Boolean);
+      if (nameParts.length < 3) {
+        setProfileNotice('First, middle, and last names are required.', 'error');
+        return false;
+      }
+      if (!studentPhone.value.trim()) {
+        setProfileNotice('Phone number is required.', 'error');
+        return false;
+      }
+      if (!studentBirthDate.value.trim()) {
+        setProfileNotice('Date of birth is required.', 'error');
+        return false;
+      }
+      if (!studentIdNumber.value.trim()) {
+        setProfileNotice('Government ID number is required.', 'error');
+        return false;
+      }
+      if (!studentAddress.value.trim()) {
+        setProfileNotice('Address line is required.', 'error');
+        return false;
+      }
+      if (!studentCity.value.trim()) {
+        setProfileNotice('City is required.', 'error');
+        return false;
+      }
+      if (!studentGovernorate.value.trim()) {
+        setProfileNotice('Governorate is required.', 'error');
+        return false;
+      }
+      return true;
+    };
+
     const checkAccess = async () => {
       if (!client) {
         showDenied();
@@ -188,6 +271,9 @@
       if (!session) {
         showDenied();
         return;
+      }
+      if (studentEmail) {
+        studentEmail.value = session?.user?.email || '';
       }
       if (role !== 'admin' && role !== 'owner') {
         if (content) content.classList.add('hidden');
@@ -203,12 +289,13 @@
     saveStudentProfile.addEventListener('click', async () => {
       if (!client || !convex) return;
       if (isSavingProfile) return;
-      studentProfileNotice.textContent = '';
+      setProfileNotice('');
       const { data: { session } } = await client.auth.getSession();
       if (!session) {
-        studentProfileNotice.textContent = 'Please log in first.';
+        setProfileNotice('Please log in first.', 'error');
         return;
       }
+      if (!validateProfile()) return;
       isSavingProfile = true;
       setProfileSavingState(true);
       try {
@@ -222,9 +309,9 @@
           idNumber: studentIdNumber.value.trim(),
           birthDate: studentBirthDate.value
         });
-        studentProfileNotice.textContent = 'Your data has been saved.';
+        setProfileNotice('Profile updated successfully.', 'success');
       } catch (error) {
-        studentProfileNotice.textContent = 'Unable to save data.';
+        setProfileNotice('Unable to save data.', 'error');
       } finally {
         isSavingProfile = false;
         setProfileSavingState(false);
