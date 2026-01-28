@@ -133,6 +133,16 @@
       }, 4000);
     };
 
+    const restoreProviderLabels = () => {
+      providerButtons.forEach((btn) => {
+        if (!btn) return;
+        const labelSpan = btn.querySelector('.provider-label');
+        if (!labelSpan) return;
+        if (!labelSpan.dataset.label) labelSpan.dataset.label = labelSpan.textContent.trim();
+        labelSpan.textContent = labelSpan.dataset.label;
+      });
+    };
+
     const setLoadingState = (isLoading, label) => {
       if (submitBtn) {
         const labelSpan = submitBtn.querySelector('span');
@@ -167,11 +177,21 @@
       return role;
     };
 
+    const isProfileComplete = (profile) => {
+      if (!profile) return false;
+      const fullName = String(profile.fullName || '').trim();
+      const nameParts = fullName.split(/\s+/).filter(Boolean);
+      if (nameParts.length < 3) return false;
+      if (!String(profile.phone || '').trim()) return false;
+      if (!String(profile.address || '').trim()) return false;
+      return true;
+    };
+
     const needsProfileCompletion = async (session) => {
       if (!convex || !session?.user?.id) return false;
       try {
         const profile = await convex.query('profiles:get', { userId: session.user.id });
-        return !profile?.fullName;
+        return !isProfileComplete(profile);
       } catch (error) {
         return false;
       }
@@ -200,9 +220,19 @@
       window.parent.location.href = `/${destination}`;
     };
 
+    let providerPending = false;
+
     const handleProviderLogin = async (provider) => {
+      if (providerPending) return;
+      providerPending = true;
+      let restoreTimer;
       try {
         setLoadingState(true, 'Signing in...');
+        restoreTimer = setTimeout(() => {
+          if (providerPending) {
+            restoreProviderLabels();
+          }
+        }, 2500);
         const { data, error } = await window.authClient.auth.signInWithProvider({ provider });
         if (error) {
         const errorText = formatAuthError(error.message || error);
@@ -215,6 +245,8 @@
       const errorText = formatAuthError(err.message || err);
       showToast(errorText, 'error');
     } finally {
+      providerPending = false;
+      if (restoreTimer) clearTimeout(restoreTimer);
       setLoadingState(false, 'Log In');
     }
   };
@@ -230,12 +262,26 @@
         setLoadingState(true, 'Signing in...');
         const { data, error } = await window.authClient.auth.signIn({ email, password });
         if (error) {
-        const errorText = formatAuthError(error.message || error);
-        showToast(errorText, 'error');
-        return;
-      }
-      showToast('Signed in successfully. Redirecting...', 'success');
-      await redirectAfterAuth(data?.session);
+          const message = String(error.message || error).toLowerCase();
+          if (message.includes('user-not-found')) {
+            const { error: signupError } = await window.authClient.auth.signUp({ email, password });
+            if (signupError) {
+              showToast(formatAuthError(signupError.message || signupError), 'error');
+              return;
+            }
+            if (window.firebaseAuth?.auth?.currentUser && window.firebaseAuth?.sendEmailVerification) {
+              await window.firebaseAuth.sendEmailVerification(window.firebaseAuth.auth.currentUser);
+            }
+            showToast('Account created. Verify your email and complete your profile.', 'success');
+            await redirectAfterAuth(null);
+            return;
+          }
+          const errorText = formatAuthError(error.message || error);
+          showToast(errorText, 'error');
+          return;
+        }
+        showToast('Signed in successfully. Redirecting...', 'success');
+        await redirectAfterAuth(data?.session);
     } catch (err) {
       const errorText = formatAuthError(err.message || err);
       showToast(errorText, 'error');

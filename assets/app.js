@@ -6,6 +6,7 @@ var mapping = {
   help: "pages/help.html",
   login: "pages/login.html",
   signup: "pages/signup.html",
+  enrollments: "pages/enrollments.html",
   accounts: "pages/accounts.html",
   info: "pages/info.html",
   privacy: "pages/privacy.html",
@@ -91,6 +92,8 @@ var frame = document.getElementById("pageFrame");
 var navButtons = document.querySelectorAll('.nav-link[data-page], .nav-auth a[href^="#/"]');
 var pageLoader = document.getElementById("pageLoader");
 var loaderTimer = null;
+var searchInput = document.querySelector(".nav-search-input");
+var searchIcon = document.querySelector(".nav-search-icon");
 
 function showPageLoader() {
   if (!pageLoader) return;
@@ -138,6 +141,34 @@ async function resolveUserRole(session) {
     return role;
   }
   return role;
+}
+
+function isProfileComplete(profile) {
+  if (!profile) return false;
+  var fullName = String(profile.fullName || "").trim();
+  var nameParts = fullName.split(/\s+/).filter(Boolean);
+  if (nameParts.length < 3) return false;
+  if (!String(profile.phone || "").trim()) return false;
+  if (!String(profile.address || "").trim()) return false;
+  return true;
+}
+
+async function needsOnboarding(session) {
+  var convex = window.convexClient || window.top?.convexClient;
+  if (!session?.user?.id) return false;
+  try {
+    if (convex) {
+      var profile = await convex.query("profiles:get", { userId: session.user.id });
+      return !isProfileComplete(profile);
+    }
+    if (window.iaStore?.getProfile) {
+      var localProfile = await window.iaStore.getProfile();
+      return !isProfileComplete(localProfile);
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
 }
 
 async function updateProfileAvatar(session) {
@@ -258,8 +289,12 @@ async function handleProfileMenuAction(action) {
     window.location.href = "/home";
     return;
   }
-  if (action === "student-courses" || action === "student-enrollments") {
+  if (action === "student-courses") {
     navigateTo("courses");
+    return;
+  }
+  if (action === "student-enrollments") {
+    navigateTo("enrollments");
     return;
   }
   if (action === "teacher-courses" || action === "teacher-management" || action === "teacher-profile") {
@@ -324,6 +359,30 @@ function normalizePage(page) {
   return page;
 }
 
+function getSearchTermFromUrl() {
+  var params = new URLSearchParams(window.location.search);
+  return params.get("search") || "";
+}
+
+function syncSearchInput() {
+  if (!searchInput) return;
+  searchInput.value = getSearchTermFromUrl();
+}
+
+function runSearch(term) {
+  term = String(term || "").trim();
+  var page = getPageFromUrl();
+  if (page !== "courses" && page !== "teachers") {
+    page = "courses";
+  }
+  var params = new URLSearchParams();
+  if (term) params.set("search", term);
+  var url = "/" + page + (params.toString() ? "?" + params.toString() : "");
+  history.pushState(null, "", url);
+  syncSearchInput();
+  loadIntoFrame(page);
+}
+
 function getPageFromUrl() {
   let page = location.pathname.substring(1);
   if (!page || page === "index.html") {
@@ -334,7 +393,11 @@ function getPageFromUrl() {
 
 function loadIntoFrame(page) {
   page = normalizePage(page);
-  
+
+  if (window.onboardingRequired && page !== "info") {
+    page = "info";
+  }
+
   if (window.isAuthenticated && (page === "login" || page === "signup")) {
     page = getRoleLandingPage(window.currentUserRole || "student");
   }
@@ -395,6 +458,7 @@ async function checkAuthState() {
     if (session) {
         window.isAuthenticated = true;
         window.currentUserRole = await resolveUserRole(session);
+        window.onboardingRequired = await needsOnboarding(session);
         if (roleBadge) {
           roleBadge.textContent = getRoleLabel(window.currentUserRole);
           roleBadge.style.display = 'inline-flex';
@@ -413,6 +477,7 @@ async function checkAuthState() {
     } else {
         window.isAuthenticated = false;
         window.currentUserRole = 'student';
+        window.onboardingRequired = false;
         if (roleBadge) roleBadge.style.display = 'none';
         if (loginBtn) loginBtn.style.display = 'block';
         if (signupBtn) signupBtn.style.display = 'block';
@@ -470,6 +535,7 @@ navButtons.forEach(function (btn) {
 
 window.addEventListener("popstate", function () {
   loadIntoFrame(getPageFromUrl());
+  syncSearchInput();
 });
 
 // Initialize
@@ -490,11 +556,27 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       
       loadIntoFrame(initial);
+      syncSearchInput();
       
       if (frame) {
         frame.style.visibility = 'visible';
       }
     });
+
+    if (searchInput) {
+      searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          runSearch(searchInput.value);
+        }
+      });
+    }
+    if (searchIcon) {
+      searchIcon.addEventListener("click", function () {
+        if (!searchInput) return;
+        runSearch(searchInput.value);
+      });
+    }
 
     const profileMenu = document.getElementById('profileMenu');
     if (profileMenu) {
@@ -518,3 +600,5 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
 });
+
+window.checkAuthState = checkAuthState;

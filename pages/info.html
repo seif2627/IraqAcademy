@@ -7,6 +7,7 @@
   <meta name="description" content="Learn about Iraq Academy, its mission, and its learning experience.">
   <link rel="icon" href="../Logo/LogoNoBackground.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../assets/styles.css">
   <style>
     :root {
       --ia-accent: #10b981;
@@ -28,54 +29,84 @@
       <p class="text-slate-600">Please complete your legal information before continuing to use the platform.</p>
     </div>
 
-    <div id="verifyBanner" class="hidden mb-4 border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 rounded-xl">
-      Please verify your email address first. A verification email has been sent to your inbox.
-      <button id="resendVerification" class="mr-2 text-amber-800 font-bold hover:underline">Resend</button>
-    </div>
-
-    <form id="infoForm" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
-      <div>
+    <form id="infoForm" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-8">
+      <div class="pb-6 border-b border-slate-100">
+        <h2 class="text-lg font-bold mb-2">Account</h2>
+        <p class="text-sm text-slate-500 mb-4">Your login email is tied to your account.</p>
         <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
         <input id="email" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50" readonly>
       </div>
-      <div class="grid md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-          <input id="fullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
+
+      <div class="pb-6 border-b border-slate-100">
+        <h2 class="text-lg font-bold mb-2">Profile</h2>
+        <p class="text-sm text-slate-500 mb-4">These legal details are required before you can proceed.</p>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">First Name</label>
+            <input id="firstName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="First Name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Middle Name</label>
+            <input id="middleName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Middle Name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Last Name</label>
+            <input id="lastName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Last Name">
+          </div>
         </div>
-        <div>
+        <div class="mt-4">
           <label class="block text-sm font-medium text-slate-700 mb-1">Phone Number</label>
           <input id="phone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone Number">
         </div>
       </div>
-      <div class="grid md:grid-cols-2 gap-4">
+
+      <div class="pb-6 border-b border-slate-100">
+        <h2 class="text-lg font-bold mb-2">Address</h2>
+        <p class="text-sm text-slate-500 mb-4">Use your current residential address.</p>
         <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Governorate</label>
-          <input id="governorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate">
+          <label class="block text-sm font-medium text-slate-700 mb-1">Full Address</label>
+          <input id="address" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Address">
         </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">City / Area</label>
-          <input id="city" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City or Area">
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">City / Area</label>
+            <input id="city" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City or Area">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Governorate</label>
+            <input id="governorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate">
+          </div>
         </div>
       </div>
+
+      <div class="pb-6 border-b border-slate-100">
+        <h2 class="text-lg font-bold mb-2">Security</h2>
+        <p class="text-sm text-slate-500 mb-4">Verify your email to activate your account.</p>
+        <div id="verifyBanner" class="hidden border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 rounded-xl">
+          Please verify your email address first. A verification email has been sent to your inbox.
+          <button id="resendVerification" class="mr-2 text-amber-800 font-bold hover:underline">Resend</button>
+        </div>
+      </div>
+
       <div>
-        <label class="block text-sm font-medium text-slate-700 mb-1">Full Address</label>
-        <input id="address" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Address">
-      </div>
-      <div class="grid md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">National ID Number</label>
-          <input id="idNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
+        <h2 class="text-lg font-bold mb-2">Identity (Optional)</h2>
+        <p class="text-sm text-slate-500 mb-4">Optional details to keep your profile complete.</p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">National ID Number</label>
+            <input id="idNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+            <input id="birthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+          </div>
         </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
-          <input id="birthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
-        </div>
       </div>
+
       <button id="saveBtn" class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Save Information</button>
-      <div id="formNotice" class="text-sm text-center text-slate-600"></div>
     </form>
   </div>
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
   <script src="../assets/config.js"></script>
   <script type="module" src="../assets/convex.js"></script>
@@ -87,14 +118,15 @@
     const convex = window.top?.convexClient || window.convexClient;
     const client = window.top?.authClient || window.authClient;
     const form = document.getElementById('infoForm');
-    const notice = document.getElementById('formNotice');
     const saveBtn = document.getElementById('saveBtn');
     const verifyBanner = document.getElementById('verifyBanner');
     const resendBtn = document.getElementById('resendVerification');
 
     const fields = {
       email: document.getElementById('email'),
-      fullName: document.getElementById('fullName'),
+      firstName: document.getElementById('firstName'),
+      middleName: document.getElementById('middleName'),
+      lastName: document.getElementById('lastName'),
       phone: document.getElementById('phone'),
       governorate: document.getElementById('governorate'),
       city: document.getElementById('city'),
@@ -104,6 +136,18 @@
     };
 
     const getFirebaseUser = () => window.firebaseAuth?.auth?.currentUser || null;
+
+    const showToast = (message, tone = 'error') => {
+      const container = document.getElementById('toastContainer');
+      if (!container || !message) return;
+      const toast = document.createElement('div');
+      toast.className = `toast toast--${tone}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 4000);
+    };
 
     const updateVerificationState = () => {
       const user = getFirebaseUser();
@@ -122,7 +166,7 @@
       const user = getFirebaseUser();
       if (user) {
         await window.firebaseAuth.sendEmailVerification(user);
-        notice.textContent = 'Verification email sent again.';
+        showToast('Verification email sent again.', 'success');
       }
     });
 
@@ -153,7 +197,10 @@
       fields.email.value = email;
       const profile = await store.getProfile();
       if (profile) {
-        fields.fullName.value = profile.fullName || '';
+        const parts = String(profile.fullName || '').trim().split(/\s+/).filter(Boolean);
+        fields.firstName.value = parts[0] || '';
+        fields.lastName.value = parts.length > 1 ? parts[parts.length - 1] : '';
+        fields.middleName.value = parts.length > 2 ? parts.slice(1, -1).join(' ') : '';
         fields.phone.value = profile.phone || '';
         fields.governorate.value = profile.governorate || '';
         fields.city.value = profile.city || '';
@@ -163,15 +210,37 @@
       }
     };
 
+    const validateRequiredFields = () => {
+      const firstName = fields.firstName.value.trim();
+      const middleName = fields.middleName.value.trim();
+      const lastName = fields.lastName.value.trim();
+      const phone = fields.phone.value.trim();
+      const address = fields.address.value.trim();
+      if (!firstName || !middleName || !lastName) {
+        showToast('First, middle, and last names are required.', 'error');
+        return false;
+      }
+      if (!phone) {
+        showToast('Phone number is required.', 'error');
+        return false;
+      }
+      if (!address) {
+        showToast('Full address is required.', 'error');
+        return false;
+      }
+      return true;
+    };
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      notice.textContent = '';
       if (saveBtn.disabled) {
-        notice.textContent = 'Please verify your email first.';
+        showToast('Please verify your email first.', 'error');
         return;
       }
+      if (!validateRequiredFields()) return;
+      const fullName = `${fields.firstName.value.trim()} ${fields.middleName.value.trim()} ${fields.lastName.value.trim()}`;
       await store.saveProfile({
-        fullName: fields.fullName.value.trim(),
+        fullName,
         phone: fields.phone.value.trim(),
         governorate: fields.governorate.value.trim(),
         city: fields.city.value.trim(),
@@ -179,7 +248,13 @@
         idNumber: fields.idNumber.value.trim(),
         birthDate: fields.birthDate.value.trim()
       });
-      notice.textContent = 'Information saved successfully.';
+      showToast('Information saved successfully.', 'success');
+      if (window.parent) {
+        window.parent.onboardingRequired = false;
+        if (typeof window.parent.checkAuthState === 'function') {
+          await window.parent.checkAuthState();
+        }
+      }
       const destination = await getRoleDestination();
       window.parent.navigateTo(destination);
     });

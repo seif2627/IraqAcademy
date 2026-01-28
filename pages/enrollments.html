@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enrollments | Iraq Academy</title>
+  <meta name="description" content="View your current enrollments at Iraq Academy.">
+  <link rel="icon" href="../Logo/LogoNoBackground.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="bg-white text-slate-900 font-sans p-6 lg:p-8">
+  <div class="max-w-5xl mx-auto">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2">My Enrollments</h1>
+      <p class="text-slate-600">Track your active courses and enrollment status.</p>
+    </div>
+
+    <div id="enrollmentsState" class="text-slate-500 text-sm">Loading enrollments...</div>
+    <div id="enrollmentsGrid" class="grid md:grid-cols-2 gap-4 mt-4 hidden"></div>
+  </div>
+
+  <script src="../assets/config.js"></script>
+  <script type="module" src="../assets/convex.js"></script>
+  <script type="module" src="../assets/firebase.js"></script>
+  <script src="../assets/auth.js"></script>
+  <script>
+    const stateEl = document.getElementById('enrollmentsState');
+    const gridEl = document.getElementById('enrollmentsGrid');
+
+    const waitForConvex = (timeoutMs = 5000) => new Promise((resolve, reject) => {
+      const start = Date.now();
+      const timer = setInterval(() => {
+        const client = window.top?.convexClient || window.convexClient;
+        if (client) {
+          clearInterval(timer);
+          resolve(client);
+          return;
+        }
+        if (Date.now() - start >= timeoutMs) {
+          clearInterval(timer);
+          reject(new Error('Convex client not ready'));
+        }
+      }, 50);
+    });
+
+    const getConvexClient = async () => {
+      const existing = window.top?.convexClient || window.convexClient;
+      if (existing) return existing;
+      try {
+        return await waitForConvex();
+      } catch (error) {
+        return null;
+      }
+    };
+
+    const withTimeout = async (promise, timeoutMs = 8000) => {
+      let timeoutId;
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error('Request timed out')), timeoutMs);
+      });
+      try {
+        return await Promise.race([promise, timeoutPromise]);
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    };
+
+    const renderEnrollments = (enrollments, courses) => {
+      const courseMap = new Map((courses || []).map((course) => [String(course._id), course]));
+      if (!enrollments.length) {
+        stateEl.textContent = 'No enrollments yet.';
+        gridEl.classList.add('hidden');
+        return;
+      }
+      stateEl.textContent = '';
+      gridEl.innerHTML = enrollments.map((enrollment) => {
+        const course = courseMap.get(String(enrollment.courseId));
+        const title = course?.title || 'Course';
+        const status = enrollment.status || 'active';
+        const teacher = course?.teacherName || 'Instructor';
+        return `
+          <div class="border border-slate-200 rounded-2xl p-5 bg-white shadow-sm">
+            <div class="text-lg font-bold text-slate-900 mb-1">${title}</div>
+            <div class="text-sm text-slate-500 mb-3">${teacher}</div>
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+              Status: ${status}
+            </div>
+          </div>
+        `;
+      }).join('');
+      gridEl.classList.remove('hidden');
+    };
+
+    const loadEnrollments = async () => {
+      const client = window.top?.authClient || window.authClient;
+      if (!client) {
+        stateEl.textContent = 'Please log in to view enrollments.';
+        return;
+      }
+      const { data: { session } } = await client.auth.getSession();
+      if (!session) {
+        stateEl.textContent = 'Please log in to view enrollments.';
+        return;
+      }
+      const convex = await getConvexClient();
+      if (!convex) {
+        stateEl.textContent = 'Unable to load enrollments. Please refresh.';
+        return;
+      }
+      try {
+        const [enrollments, courses] = await Promise.all([
+          withTimeout(convex.query('enrollments:listByUser', { userId: session.user.id })),
+          withTimeout(convex.query('content:getCoursesPublic', { limit: 200 }))
+        ]);
+        renderEnrollments(Array.isArray(enrollments) ? enrollments : [], Array.isArray(courses) ? courses : []);
+      } catch (error) {
+        stateEl.textContent = 'Unable to load enrollments. Please try again.';
+      }
+    };
+
+    loadEnrollments();
+  </script>
+</body>
+</html>

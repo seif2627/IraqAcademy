@@ -223,6 +223,11 @@
       }
     };
 
+    const getSearchTerm = () => {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get('search') || '').trim();
+    };
+
     const withTimeout = async (promise, timeoutMs = 8000) => {
       let timeoutId;
       const timeoutPromise = new Promise((_, reject) => {
@@ -413,11 +418,16 @@
           message.textContent = 'Unable to load teachers. Please refresh.';
         }
         if (grid) grid.style.display = 'none';
+        if (loading) loading.style.display = 'none';
         return;
       }
 
       try {
-        const teachers = await withTimeout(convex.query('content:getTeachersPublic', { limit: 200 }));
+        const searchTerm = getSearchTerm();
+        const teachers = await withTimeout(convex.query('content:getTeachersPublic', {
+          limit: 200,
+          search: searchTerm || undefined
+        }));
         if (client) {
           const { data: { session } } = await client.auth.getSession();
           currentRole = session?.user?.user_metadata?.role || 'student';
@@ -495,9 +505,11 @@
           }
         }
       } catch (error) {
-        const message = loading.querySelector('p');
-        if (message) message.textContent = 'Unable to load teachers.';
-        grid.style.display = 'none';
+        if (loading) loading.style.display = 'none';
+        if (grid) {
+          grid.style.display = 'block';
+          grid.innerHTML = '<div class="text-slate-500 text-sm">Unable to load teachers. Please try again.</div>';
+        }
       }
     }
 
