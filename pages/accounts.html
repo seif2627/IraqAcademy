@@ -138,7 +138,7 @@
     const profileBirthDate = document.getElementById('profileBirthDate');
     const saveProfileBtn = document.getElementById('saveProfileBtn');
     const enrollmentsList = document.getElementById('enrollmentsList');
-    const createAccountBtn = form.querySelector('button[type="submit"]');
+    const createAccountBtn = form.querySelector('button[type="submit"]') || form.querySelector('button');
     let selectedUserId = null;
     let selectedImageUrl = '';
     let cachedUsers = [];
