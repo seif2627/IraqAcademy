@@ -1,6 +1,7 @@
 import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth, requireSelf } from "./auth";
+import { internal } from "./_generated/api";
 
 const orderItems = v.array(
   v.object({
@@ -69,7 +70,7 @@ export const createStripe = mutation({
         phone: "",
         notes: ""
       },
-      createdAt: Date.now()
+      createdAt: Date.now(),
       ...(args.stripePaymentIntentId
         ? { stripePaymentIntentId: args.stripePaymentIntentId }
         : {})
@@ -130,9 +131,12 @@ export const finalizeStripeSession = internalMutation({
     };
     await ctx.db.patch(order._id, patch);
     if (args.paymentStatus === "paid") {
+      const courseTitles = [];
+      const teacherEmailMap = new Map();
       for (const item of order.items) {
         const course = await ctx.db.get(item.courseId as any);
         if (!course) continue;
+        courseTitles.push(course.title);
         const existing = await ctx.db
           .query("enrollments")
           .withIndex("by_userId", (q) => q.eq("userId", order.userId))
@@ -147,6 +151,18 @@ export const finalizeStripeSession = internalMutation({
             createdAt: Date.now()
           });
         }
+        const teacher = await ctx.db.get(course.teacherId);
+        if (teacher?.userId) {
+          const teacherUser = await ctx.db
+            .query("users")
+            .withIndex("by_userId", (q) => q.eq("userId", teacher.userId))
+            .first();
+          if (teacherUser?.email) {
+            const existingCourses = teacherEmailMap.get(teacherUser.email) || [];
+            existingCourses.push(course.title);
+            teacherEmailMap.set(teacherUser.email, existingCourses);
+          }
+        }
       }
       const cart = await ctx.db
         .query("carts")
@@ -158,6 +174,30 @@ export const finalizeStripeSession = internalMutation({
           updatedAt: Date.now()
         });
       }
+
+      const student = await ctx.db
+        .query("users")
+        .withIndex("by_userId", (q) => q.eq("userId", order.userId))
+        .first();
+      const adminEmails = await ctx.db
+        .query("users")
+        .filter((q) =>
+          q.or(q.eq(q.field("role"), "admin"), q.eq(q.field("role"), "owner"))
+        )
+        .collect()
+        .then((rows) => rows.map((row) => row.email).filter(Boolean));
+
+      await ctx.scheduler.runAfter(0, internal.emails.sendEnrollmentEmails, {
+        orderId: order._id,
+        studentEmail: student?.email,
+        studentName: student?.fullName,
+        studentUserId: order.userId,
+        courseTitles,
+        teacherNotifications: Array.from(teacherEmailMap.entries()).map(
+          ([email, courses]) => ({ email, courses })
+        ),
+        adminEmails
+      });
     }
     return order._id;
   }
