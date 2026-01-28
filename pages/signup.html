@@ -178,6 +178,7 @@
     });
 
     const convex = window.parent?.convexClient || window.convexClient;
+    const firebase = window.parent?.firebaseAuth || window.firebaseAuth;
     const signupForm = document.getElementById('signupForm');
     const submitBtn = signupForm.querySelector('button[type="submit"]');
     const providerButtons = [document.getElementById('googleLogin'), document.getElementById('microsoftLogin')];
@@ -292,10 +293,10 @@
     };
 
     const getFirebaseUser = () => {
-      const auth = window.firebaseAuth?.auth;
+      const auth = firebase?.auth;
       if (!auth) return Promise.resolve(null);
       if (auth.currentUser) return Promise.resolve(auth.currentUser);
-      if (!window.firebaseAuth?.onAuthStateChanged) return Promise.resolve(null);
+      if (!firebase?.onAuthStateChanged) return Promise.resolve(null);
       return new Promise((resolve) => {
         let settled = false;
         const timeout = setTimeout(() => {
@@ -303,7 +304,7 @@
           settled = true;
           resolve(auth.currentUser || null);
         }, 2000);
-        const unsubscribe = window.firebaseAuth.onAuthStateChanged(auth, (user) => {
+        const unsubscribe = firebase.onAuthStateChanged(auth, (user) => {
           if (settled) return;
           settled = true;
           clearTimeout(timeout);
@@ -361,8 +362,8 @@
       const firebaseUser = await getFirebaseUser();
       const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
       if (!isVerified) {
-        if (firebaseUser && window.firebaseAuth?.sendEmailVerification) {
-          await window.firebaseAuth.sendEmailVerification(firebaseUser);
+        if (firebaseUser && firebase?.sendEmailVerification) {
+          await firebase.sendEmailVerification(firebaseUser);
         }
         if (window.authClient?.auth?.signOut) {
           await window.authClient.auth.signOut();

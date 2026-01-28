@@ -1,4 +1,6 @@
 const OWNER_EMAIL = 'iraqacademy@mesopost.com';
+const rootWindow = window.top || window;
+const getFirebase = () => rootWindow.firebaseAuth || window.firebaseAuth || null;
 
 const normalizeRole = (role) => {
     const value = String(role || '').toLowerCase();
@@ -24,13 +26,14 @@ const buildFirebaseUserObject = (fbUser, roleOverride) => {
 };
 
 const getAuthUser = () => {
-    const auth = window.firebaseAuth?.auth;
-    if (!auth || !window.firebaseAuth?.onAuthStateChanged) {
+    const firebase = getFirebase();
+    const auth = firebase?.auth;
+    if (!auth || !firebase?.onAuthStateChanged) {
         return Promise.resolve(null);
     }
     if (auth.currentUser) return Promise.resolve(auth.currentUser);
     return new Promise((resolve) => {
-        const unsubscribe = window.firebaseAuth.onAuthStateChanged(auth, (user) => {
+        const unsubscribe = firebase.onAuthStateChanged(auth, (user) => {
             if (typeof unsubscribe === 'function') {
                 unsubscribe();
             }
@@ -42,8 +45,9 @@ const getAuthUser = () => {
 const buildAuthClient = () => ({
     auth: {
         async signUp({ email, password, options }) {
-            const auth = window.firebaseAuth?.auth;
-            const { createUserWithEmailAndPassword, updateProfile } = window.firebaseAuth || {};
+            const firebase = getFirebase();
+            const auth = firebase?.auth;
+            const { createUserWithEmailAndPassword, updateProfile } = firebase || {};
             if (!auth || !createUserWithEmailAndPassword) {
                 return { data: null, error: { message: 'Authentication not configured.' } };
             }
@@ -64,8 +68,9 @@ const buildAuthClient = () => ({
             }
         },
         async signInWithPassword({ email, password }) {
-            const auth = window.firebaseAuth?.auth;
-            const { signInWithEmailAndPassword } = window.firebaseAuth || {};
+            const firebase = getFirebase();
+            const auth = firebase?.auth;
+            const { signInWithEmailAndPassword } = firebase || {};
             if (!auth || !signInWithEmailAndPassword) {
                 return { data: null, error: { message: 'Authentication not configured.' } };
             }
@@ -85,8 +90,9 @@ const buildAuthClient = () => ({
             return await this.signInWithPassword({ email, password });
         },
         async signInWithProvider({ provider }) {
-            const auth = window.firebaseAuth?.auth;
-            const { signInWithPopup, googleProvider, microsoftProvider } = window.firebaseAuth || {};
+            const firebase = getFirebase();
+            const auth = firebase?.auth;
+            const { signInWithPopup, googleProvider, microsoftProvider } = firebase || {};
             if (!auth || !signInWithPopup) {
                 return { data: null, error: { message: 'Authentication not configured.' } };
             }
@@ -109,7 +115,7 @@ const buildAuthClient = () => ({
             }
         },
         async signOut() {
-            const auth = window.firebaseAuth?.auth;
+            const auth = getFirebase()?.auth;
             if (!auth) return { error: { message: 'Authentication not configured.' } };
             try {
                 await auth.signOut();
@@ -135,11 +141,19 @@ const buildAuthClient = () => ({
     }
 });
 
-window.authClient = buildAuthClient();
+if (window.top && window.top !== window && window.top.authClient) {
+    window.authClient = window.top.authClient;
+} else {
+    window.authClient = buildAuthClient();
+    if (window.top && window.top !== window) {
+        window.top.authClient = window.authClient;
+    }
+}
 window.authConfigError = '';
 
-if (window.firebaseAuth?.onAuthStateChanged && window.firebaseAuth?.auth) {
-    window.firebaseAuth.onAuthStateChanged(window.firebaseAuth.auth, async (fbUser) => {
+const firebase = getFirebase();
+if (firebase?.onAuthStateChanged && firebase?.auth) {
+    firebase.onAuthStateChanged(firebase.auth, async (fbUser) => {
         const user = buildFirebaseUserObject(fbUser);
         if (user && window.top?.iaStore) {
             await window.top.iaStore.syncUser(user);
