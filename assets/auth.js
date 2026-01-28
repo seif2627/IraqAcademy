@@ -158,9 +158,9 @@ if (window.top && window.top !== window && window.top.authClient) {
 }
 window.authConfigError = '';
 
-const firebase = getFirebase();
-if (firebase?.onAuthStateChanged && firebase?.auth) {
-    firebase.onAuthStateChanged(firebase.auth, async (fbUser) => {
+var firebaseRef = getFirebase();
+if (firebaseRef?.onAuthStateChanged && firebaseRef?.auth) {
+    firebaseRef.onAuthStateChanged(firebaseRef.auth, async (fbUser) => {
         const user = buildFirebaseUserObject(fbUser);
         if (user && window.top?.iaStore) {
             await window.top.iaStore.syncUser(user);
