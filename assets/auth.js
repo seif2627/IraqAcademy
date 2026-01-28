@@ -47,7 +47,7 @@ const buildAuthClient = () => ({
         async signUp({ email, password, options }) {
             const firebase = getFirebase();
             const auth = firebase?.auth;
-            const { createUserWithEmailAndPassword, updateProfile } = firebase || {};
+            const { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } = firebase || {};
             if (!auth || !createUserWithEmailAndPassword) {
                 return { data: null, error: { message: 'Authentication not configured.' } };
             }
@@ -56,6 +56,13 @@ const buildAuthClient = () => ({
                 const fullName = options?.data?.full_name || '';
                 if (fullName && updateProfile) {
                     await updateProfile(cred.user, { displayName: fullName });
+                }
+                if (sendEmailVerification && cred.user) {
+                    try {
+                        await sendEmailVerification(cred.user);
+                    } catch (err) {
+                        // ignore verification send failures
+                    }
                 }
                 const role = options?.data?.role;
                 const user = buildFirebaseUserObject(cred.user, role);

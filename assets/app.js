@@ -317,11 +317,6 @@ async function handleProfileMenuAction(action) {
     return;
   }
   if (action === "logout") {
-    if (window.onboardingRequired) {
-      await cleanupOnboardingAccount();
-      window.location.href = "/signup";
-      return;
-    }
     if (window.authClient) {
       await window.authClient.auth.signOut();
     }

@@ -357,8 +357,8 @@
               showToast(formatAuthError(signupError.message || signupError), 'error');
               return;
             }
-            if (window.firebaseAuth?.auth?.currentUser && window.firebaseAuth?.sendEmailVerification) {
-              await window.firebaseAuth.sendEmailVerification(window.firebaseAuth.auth.currentUser);
+            if (firebase?.auth?.currentUser && firebase?.sendEmailVerification) {
+              await firebase.sendEmailVerification(firebase.auth.currentUser);
             }
             if (window.authClient?.auth?.signOut) {
               await window.authClient.auth.signOut();
