@@ -182,7 +182,12 @@
         const errorDiv = document.getElementById('errorMessage');
         try {
             errorDiv.classList.add('hidden');
-            await window.authClient.auth.signInWithProvider({ provider });
+            const { error } = await window.authClient.auth.signInWithProvider({ provider });
+            if (error) {
+                errorDiv.textContent = error.message || `Failed to sign up with ${provider}`;
+                errorDiv.classList.remove('hidden');
+                return;
+            }
             // Redirect to login or home
             window.parent.navigateTo('login');
         } catch (err) {
@@ -219,7 +224,12 @@
 
       try {
         errorDiv.classList.add('hidden');
-        await window.authClient.auth.signUp({ email, password });
+        const { error } = await window.authClient.auth.signUp({ email, password });
+        if (error) {
+          errorDiv.textContent = error.message || 'Unable to create account.';
+          errorDiv.classList.remove('hidden');
+          return;
+        }
         successDiv.classList.remove('hidden');
         setTimeout(() => {
              window.parent.navigateTo('login');

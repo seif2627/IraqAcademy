@@ -195,6 +195,7 @@ async function checkAuthState() {
     const roleBadge = document.getElementById('roleBadge');
 
     if (session) {
+        window.isAuthenticated = true;
         window.currentUserRole = session.user?.user_metadata?.role || 'student';
         if (roleBadge) {
           roleBadge.textContent = getRoleLabel(window.currentUserRole);
@@ -210,6 +211,7 @@ async function checkAuthState() {
         };
         }
     } else {
+        window.isAuthenticated = false;
         window.currentUserRole = 'student';
         if (roleBadge) roleBadge.style.display = 'none';
         if (loginBtn) loginBtn.style.display = 'block';
@@ -219,7 +221,7 @@ async function checkAuthState() {
 }
 
 function canAccessStudents() {
-  return window.currentUserRole === "admin" || window.currentUserRole === "owner";
+  return window.isAuthenticated === true;
 }
 
 function canAccessAccounts() {

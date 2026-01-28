@@ -243,9 +243,26 @@
         addBtn.addEventListener('click', async () => {
           if (!window.top?.iaStore) return;
           if (addBtn.disabled) return;
+          setCartNotice('');
+          const client = window.top?.authClient || window.authClient;
+          const { data: { session } } = client ? await client.auth.getSession() : { data: { session: null } };
+          if (!session) {
+            isLoggedIn = false;
+            currentRole = null;
+            updateCheckoutState();
+            setCartNotice('Please log in to add courses to your cart.', 'error');
+            return;
+          }
+          const role = session?.user?.user_metadata?.role || 'student';
+          isLoggedIn = true;
+          currentRole = role;
+          updateCheckoutState();
+          if (role !== 'student') {
+            setCartNotice('Only students can add courses to the cart.', 'error');
+            return;
+          }
           addBtn.disabled = true;
           addBtn.textContent = 'Adding...';
-          setCartNotice('');
           const item = {
             courseId: course._id,
             title: course.title || '',

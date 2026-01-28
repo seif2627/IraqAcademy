@@ -107,7 +107,12 @@
       const errorDiv = document.getElementById('errorMessage');
       try {
         errorDiv.classList.add('hidden');
-        await window.authClient.auth.signInWithProvider({ provider });
+        const { error } = await window.authClient.auth.signInWithProvider({ provider });
+        if (error) {
+          errorDiv.textContent = error.message || `Failed to login with ${provider}`;
+          errorDiv.classList.remove('hidden');
+          return;
+        }
         window.parent.location.reload();
       } catch (err) {
         errorDiv.textContent = err.message || `Failed to login with ${provider}`;
@@ -126,7 +131,12 @@
       
       try {
         errorDiv.classList.add('hidden');
-        await window.authClient.auth.signIn({ email, password });
+        const { error } = await window.authClient.auth.signIn({ email, password });
+        if (error) {
+          errorDiv.textContent = error.message || 'Invalid login credentials.';
+          errorDiv.classList.remove('hidden');
+          return;
+        }
         window.parent.location.reload(); // Reload parent to update auth state
       } catch (err) {
         errorDiv.textContent = err.message;
