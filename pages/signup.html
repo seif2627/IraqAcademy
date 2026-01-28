@@ -357,8 +357,6 @@
       }
 
       try {
-        errorDiv.classList.add('hidden');
-        successDiv.classList.add('hidden');
         setLoadingState(true, 'Creating...');
         const { data, error } = await window.authClient.auth.signUp({ email, password });
         if (error) {
