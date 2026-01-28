@@ -75,6 +75,7 @@
         <button id="checkoutBtn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">Checkout</button>
       </div>
     </div>
+    <div id="cartNotice" class="text-sm text-slate-500 mb-4"></div>
     <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 courses-grid"></div>
 
     <div id="enrollmentsPanel" class="mt-12 hidden">
@@ -127,10 +128,63 @@
     const coursesGrid = document.querySelector('.courses-grid');
     const cartSummary = document.getElementById('cartSummary');
     const checkoutBtn = document.getElementById('checkoutBtn');
+    const cartNotice = document.getElementById('cartNotice');
     const categoryFilter = document.getElementById('categoryFilter');
     const enrollmentsPanel = document.getElementById('enrollmentsPanel');
     const enrollmentsList = document.getElementById('enrollmentsList');
     let cachedCourses = [];
+    let cartCourseIds = new Set();
+    let enrolledCourseIds = new Set();
+    let isCheckingOut = false;
+    let isLoggedIn = false;
+
+    const setCartNotice = (message, tone = 'muted') => {
+      if (!cartNotice) return;
+      cartNotice.textContent = message || '';
+      cartNotice.classList.remove('text-rose-600', 'text-emerald-600', 'text-slate-500');
+      if (!message) {
+        cartNotice.classList.add('text-slate-500');
+        return;
+      }
+      if (tone === 'error') {
+        cartNotice.classList.add('text-rose-600');
+      } else if (tone === 'success') {
+        cartNotice.classList.add('text-emerald-600');
+      } else {
+        cartNotice.classList.add('text-slate-500');
+      }
+    };
+
+    const applyCourseButtonState = (button, courseId) => {
+      if (!button) return;
+      if (enrolledCourseIds.has(courseId)) {
+        button.textContent = 'Enrolled';
+        button.disabled = true;
+        return;
+      }
+      if (cartCourseIds.has(courseId)) {
+        button.textContent = 'In Cart';
+        button.disabled = true;
+        return;
+      }
+      button.textContent = 'Add to Cart';
+      button.disabled = false;
+    };
+
+    const syncCourseButtons = () => {
+      if (!coursesGrid) return;
+      coursesGrid.querySelectorAll('.add-to-cart').forEach((button) => {
+        const courseId = button.getAttribute('data-course-id');
+        if (courseId) applyCourseButtonState(button, courseId);
+      });
+    };
+
+    const updateCheckoutState = () => {
+      if (!checkoutBtn) return;
+      const shouldDisable = isCheckingOut || !isLoggedIn || cartCourseIds.size === 0;
+      checkoutBtn.disabled = shouldDisable;
+      checkoutBtn.textContent = isCheckingOut ? 'Processing...' : 'Checkout';
+    };
 
     const renderCourses = (courses) => {
       coursesGrid.innerHTML = '';
@@ -176,7 +230,7 @@
               <div class="text-accent font-bold">${status}</div>
             </div>
             <div class="mt-4">
-              <button class="add-to-cart px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">Add to Cart</button>
+              <button class="add-to-cart px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-course-id="${course._id}">Add to Cart</button>
             </div>
           </div>
         `;
@@ -184,15 +238,27 @@
         coursesGrid.appendChild(card);
         
         const addBtn = card.querySelector('.add-to-cart');
+        applyCourseButtonState(addBtn, course._id);
         addBtn.addEventListener('click', async () => {
           if (!window.top?.iaStore) return;
+          if (addBtn.disabled) return;
+          addBtn.disabled = true;
+          addBtn.textContent = 'Adding...';
+          setCartNotice('');
           const item = {
             courseId: course._id,
             title: course.title || '',
             price: Number(course.price || 0)
           };
-          await window.top.iaStore.addToCart(item);
-          await updateCartSummary();
+          try {
+            await window.top.iaStore.addToCart(item);
+            await updateCartSummary();
+            applyCourseButtonState(addBtn, course._id);
+            setCartNotice('Course added to cart.', 'success');
+          } catch (error) {
+            setCartNotice('Unable to add to cart. Please try again.', 'error');
+            applyCourseButtonState(addBtn, course._id);
+          }
         });
       });
     };
@@ -222,12 +288,23 @@
       const client = window.top?.authClient || window.authClient;
       if (!convex || !client) return;
       const { data: { session } } = await client.auth.getSession();
-      if (!session) return;
+      if (!session) {
+        isLoggedIn = false;
+        enrolledCourseIds = new Set();
+        if (enrollmentsPanel) enrollmentsPanel.classList.add('hidden');
+        updateCheckoutState();
+        syncCourseButtons();
+        return;
+      }
+      isLoggedIn = true;
       try {
         const enrollments = await convex.query('enrollments:listByUser', { userId: session.user.id });
         enrollmentsPanel.classList.remove('hidden');
+        enrolledCourseIds = new Set(enrollments.map((enrollment) => String(enrollment.courseId)));
         if (!enrollments.length) {
           enrollmentsList.innerHTML = '<div class="text-slate-500 text-sm">No enrollments yet.</div>';
+          syncCourseButtons();
+          updateCheckoutState();
           return;
         }
         enrollmentsList.innerHTML = enrollments.map((enrollment) => {
@@ -241,40 +318,85 @@
             </div>
           `;
         }).join('');
+        syncCourseButtons();
+        updateCheckoutState();
       } catch (error) {
         enrollmentsPanel.classList.remove('hidden');
         enrollmentsList.innerHTML = '<div class="text-slate-500 text-sm">Unable to load enrollments.</div>';
+        updateCheckoutState();
       }
     }
 
-    async function updateCartSummary() {
+    async function updateCartSummary(cartOverride) {
       if (!window.top?.iaStore || !cartSummary) return;
-      const cart = await window.top.iaStore.getCart();
+      const cart = cartOverride || await window.top.iaStore.getCart();
+      cartCourseIds = new Set(cart.items.map((item) => String(item.courseId)));
+      syncCourseButtons();
       const count = cart.items.reduce((sum, i) => sum + (i.qty || 1), 0);
       const total = cart.items.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.qty || 1), 0);
       if (count === 0) {
         cartSummary.textContent = 'Your cart is empty.';
+        updateCheckoutState();
         return;
       }
-      cartSummary.textContent = `Cart: ${count} items — Total: ${total.toFixed(2)}`;
+      cartSummary.textContent = `Cart: ${count} items - Total: ${total.toFixed(2)}`;
+      updateCheckoutState();
     }
 
     checkoutBtn.addEventListener('click', async () => {
       if (!window.top?.iaStore) return;
+      if (isCheckingOut) return;
+      setCartNotice('');
+      const client = window.top?.authClient || window.authClient;
+      const { data: { session } } = client ? await client.auth.getSession() : { data: { session: null } };
+      if (!session) {
+        setCartNotice('Please log in to checkout.', 'error');
+        updateCheckoutState();
+        return;
+      }
       const cart = await window.top.iaStore.getCart();
-      if (!cart.items.length) return;
+      if (!cart.items.length) {
+        setCartNotice('Your cart is empty.', 'error');
+        updateCheckoutState();
+        return;
+      }
+      const filteredItems = cart.items.filter((item) => !enrolledCourseIds.has(String(item.courseId)));
+      if (!filteredItems.length) {
+        setCartNotice('You are already enrolled in these courses.', 'error');
+        await updateCartSummary(cart);
+        syncCourseButtons();
+        return;
+      }
+      if (filteredItems.length !== cart.items.length) {
+        for (const item of cart.items) {
+          if (enrolledCourseIds.has(String(item.courseId))) {
+            await window.top.iaStore.removeFromCart(item.courseId);
+          }
+        }
+        await updateCartSummary();
+        setCartNotice('Removed already enrolled courses from your cart.', 'success');
+      }
+      isCheckingOut = true;
+      updateCheckoutState();
       const payload = {
-        items: cart.items,
-        total: cart.items.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.qty || 1), 0),
+        items: filteredItems,
+        total: filteredItems.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.qty || 1), 0),
         paymentMethod: 'card',
         payerName: '',
         phone: '',
         notes: 'Checkout submitted'
       };
-      await window.top.iaStore.checkout(payload);
-      await updateCartSummary();
-      alert('Checkout complete. You are enrolled!');
-      await loadEnrollments();
+      try {
+        await window.top.iaStore.checkout(payload);
+        await updateCartSummary();
+        setCartNotice('Checkout complete. You are enrolled!', 'success');
+        await loadEnrollments();
+      } catch (error) {
+        setCartNotice('Checkout failed. Please try again.', 'error');
+      } finally {
+        isCheckingOut = false;
+        updateCheckoutState();
+      }
     });
 
     categoryFilter?.addEventListener('change', () => {

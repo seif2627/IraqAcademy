@@ -39,6 +39,14 @@ body {
   width: 100%;
 }
 
+button:disabled,
+select:disabled,
+input:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 *,
 *::before,
 *::after {

@@ -163,6 +163,14 @@
     const saveStudentProfile = document.getElementById('saveStudentProfile');
     const studentProfileNotice = document.getElementById('studentProfileNotice');
     let studentImageUrl = '';
+    let isSavingProfile = false;
+    const saveStudentProfileLabel = saveStudentProfile.textContent;
+
+    const setProfileSavingState = (isSaving) => {
+      saveStudentProfile.disabled = isSaving;
+      saveStudentProfile.setAttribute('aria-busy', isSaving ? 'true' : 'false');
+      saveStudentProfile.textContent = isSaving ? 'Saving...' : saveStudentProfileLabel;
+    };
 
     const showDenied = () => {
       if (content) content.classList.add('hidden');
@@ -239,12 +247,15 @@
 
     saveStudentProfile.addEventListener('click', async () => {
       if (!client || !convex) return;
+      if (isSavingProfile) return;
       studentProfileNotice.textContent = '';
       const { data: { session } } = await client.auth.getSession();
       if (!session) {
         studentProfileNotice.textContent = 'Please log in first.';
         return;
       }
+      isSavingProfile = true;
+      setProfileSavingState(true);
       try {
         await convex.mutation('profiles:set', {
           userId: session.user.id,
@@ -260,6 +271,9 @@
         studentProfileNotice.textContent = 'Your data has been saved.';
       } catch (error) {
         studentProfileNotice.textContent = 'Unable to save data.';
+      } finally {
+        isSavingProfile = false;
+        setProfileSavingState(false);
       }
     });
 

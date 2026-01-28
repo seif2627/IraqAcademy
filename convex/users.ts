@@ -1,6 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
-import { requireRole, requireSelf } from "./auth";
+import { requireAuth, requireRole, requireSelf } from "./auth";
 
 export const upsert = mutation({
   args: {
@@ -59,13 +59,28 @@ export const listAll = query({
 export const updateRole = mutation({
   args: { userId: v.string(), role: v.string() },
   handler: async (ctx, args) => {
-    await requireRole(ctx, ["owner", "admin"]);
+    const { userId: actorId, user: actor } = await requireAuth(ctx);
+    if (!["owner", "admin"].includes(actor.role)) {
+      throw new Error("Forbidden");
+    }
     const existing = await ctx.db
       .query("users")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
       .first();
     if (!existing) {
       throw new Error("Not found");
+    }
+    if (existing.role === "owner" && args.role !== "owner") {
+      if (existing.userId === actorId) {
+        throw new Error("Owner cannot demote self");
+      }
+      const owners = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("role"), "owner"))
+        .collect();
+      if (owners.length <= 1) {
+        throw new Error("Cannot remove last owner");
+      }
     }
     await ctx.db.patch(existing._id, { role: args.role });
     return existing._id;

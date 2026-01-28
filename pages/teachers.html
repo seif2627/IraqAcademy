@@ -47,7 +47,6 @@
           <p class="text-slate-600">Manage teacher profile and courses based on permissions.</p>
         </div>
         <div id="teacherManageRole" class="text-sm text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl"></div>
-        <div id="teacherManageRole" class="text-sm text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl"></div>
       </div>
       <div class="grid lg:grid-cols-2 gap-8">
         <div class="space-y-4">
@@ -192,6 +191,24 @@
     let currentTeacherImage = '';
     let currentCourseId = null;
     let currentRole = 'student';
+    let isCreatingTeacher = false;
+    let isSavingTeacher = false;
+    let isDeletingTeacher = false;
+    let isSavingCourse = false;
+    let isDeletingCourse = false;
+
+    const registerButtonLabel = (button) => {
+      if (!button || button.dataset.label) return;
+      button.dataset.label = button.textContent;
+    };
+
+    const setButtonBusy = (button, busy, busyLabel) => {
+      if (!button) return;
+      registerButtonLabel(button);
+      button.disabled = busy;
+      button.setAttribute('aria-busy', busy ? 'true' : 'false');
+      button.textContent = busy ? busyLabel : button.dataset.label;
+    };
 
 
 
@@ -306,57 +323,35 @@
     };
 
     async function loadTeachers() {
-
-
-
       const convex = window.top?.convexClient || window.convexClient;
       const client = window.top?.authClient || window.authClient;
 
-
-
       if (!convex) {
-
-
-
         const message = loading.querySelector('p');
-
-
-
         if (message) {
-
-
-
           message.textContent = 'Unable to load teachers.';
         }
-
-
-
         return;
-
-
-
       }
 
-
-
-
-
-
+      if (loading) {
+        loading.style.display = 'block';
+        const message = loading.querySelector('p');
+        if (message) message.textContent = 'Loading teachers...';
+      }
 
       try {
+        const teachers = await convex.query('content:getTeachersPublic', { limit: 200 });
         if (client) {
           const { data: { session } } = await client.auth.getSession();
           currentRole = session?.user?.user_metadata?.role || 'student';
           if (session && (currentRole === 'teacher' || currentRole === 'admin' || currentRole === 'owner')) {
             management.classList.remove('hidden');
             manageRole.textContent = currentRole === 'teacher' ? 'Teacher permissions' : 'Admin permissions';
+          } else {
+            management.classList.add('hidden');
           }
         }
-
-
-
-
-
 
         grid.innerHTML = '';
         if (!teachers.length) {
@@ -365,85 +360,29 @@
         }
 
         teachers.forEach((teacher) => {
-
-
-
           const wrapper = document.createElement('div');
-
-
-
           wrapper.className = 'teacher-card bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300';
-
-
-
           const imageUrl = teacher.imageUrl || '../assets/images/teachers/placeholder.jpg';
-
-
-
           const bio = teacher.bio || '';
-
-
-
           wrapper.innerHTML = `
-
-
-
             <div class="relative w-32 h-32 mx-auto mb-6">
-
-
-
               <img src="${imageUrl}" alt="${teacher.name}" class="w-full h-full rounded-full object-cover border-4 border-slate-50">
-
-
-
               <div class="absolute bottom-0 right-0 w-8 h-8 bg-accent rounded-full flex items-center justify-center text-white border-4 border-white">
-
-
-
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-
-
-
               </div>
-
-
-
             </div>
-
-
-
             <h3 class="text-xl font-bold mb-1">${teacher.name}</h3>
-
-
-
             <p class="text-accent font-medium text-sm mb-4">${teacher.subject}</p>
-
-
-
             <p class="text-slate-500 text-sm mb-6 teacher-bio line-clamp-2">${bio}</p>
-
-
-
             <button class="w-full py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium hover:border-accent hover:text-accent transition-colors">
               View Profile
             </button>
           `;
-
-
-
           grid.appendChild(wrapper);
-
-
-
         });
 
-
-
-
-
-
-
-        grid.style.display = 'grid';
+        grid.style.display = teachers.length ? 'grid' : 'block';
+        if (loading) loading.style.display = 'none';
 
         if (management && !management.classList.contains('hidden')) {
           if (currentRole === 'teacher') {
@@ -454,6 +393,7 @@
               createTeacherBtn.classList.remove('hidden');
               saveTeacherBtn.classList.add('hidden');
               deleteTeacherBtn.classList.add('hidden');
+              coursesList.innerHTML = '<div class="text-sm text-slate-500">No courses yet.</div>';
             } else {
               fillTeacherForm(own);
               createTeacherBtn.classList.add('hidden');
@@ -470,38 +410,18 @@
               loadCourses(selected._id);
               createTeacherBtn.classList.add('hidden');
               saveTeacherBtn.classList.remove('hidden');
+            } else {
+              fillTeacherForm(null);
+              coursesList.innerHTML = '<div class="text-sm text-slate-500">No courses yet.</div>';
             }
           }
         }
-
-
-
-
-
+      } catch (error) {
         const message = loading.querySelector('p');
-
-
-
-        if (message) {
-
-
-
-          message.textContent = 'Failed to load teachers.';
-        }
-
-
-
+        if (message) message.textContent = 'Unable to load teachers.';
+        grid.style.display = 'none';
       }
-
-
-
     }
-
-
-
-
-
-
 
     teacherImageInput.addEventListener('change', async (event) => {
       const file = event.target.files && event.target.files[0];
@@ -526,7 +446,10 @@
     createTeacherBtn.addEventListener('click', async () => {
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex) return;
+      if (isCreatingTeacher) return;
       teacherNotice.textContent = '';
+      isCreatingTeacher = true;
+      setButtonBusy(createTeacherBtn, true, 'Creating...');
       try {
         await convex.mutation('teachers:create', {
           name: teacherNameInput.value.trim(),
@@ -539,13 +462,19 @@
         await loadTeachers();
       } catch (error) {
         teacherNotice.textContent = 'Unable to create profile.';
+      } finally {
+        isCreatingTeacher = false;
+        setButtonBusy(createTeacherBtn, false, 'Creating...');
       }
     });
 
     saveTeacherBtn.addEventListener('click', async () => {
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex || !currentTeacher) return;
+      if (isSavingTeacher) return;
       teacherNotice.textContent = '';
+      isSavingTeacher = true;
+      setButtonBusy(saveTeacherBtn, true, 'Saving...');
       try {
         await convex.mutation('teachers:update', {
           id: currentTeacher._id,
@@ -559,13 +488,21 @@
         await loadTeachers();
       } catch (error) {
         teacherNotice.textContent = 'Unable to save changes.';
+      } finally {
+        isSavingTeacher = false;
+        setButtonBusy(saveTeacherBtn, false, 'Saving...');
       }
     });
 
     deleteTeacherBtn.addEventListener('click', async () => {
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex || !currentTeacher) return;
+      if (isDeletingTeacher) return;
+      const confirmed = confirm('Delete this teacher profile? This will remove all related courses.');
+      if (!confirmed) return;
       teacherNotice.textContent = '';
+      isDeletingTeacher = true;
+      setButtonBusy(deleteTeacherBtn, true, 'Deleting...');
       try {
         await convex.mutation('teachers:remove', { id: currentTeacher._id });
         teacherNotice.textContent = 'Teacher deleted.';
@@ -574,6 +511,9 @@
         await loadTeachers();
       } catch (error) {
         teacherNotice.textContent = 'Unable to delete teacher.';
+      } finally {
+        isDeletingTeacher = false;
+        setButtonBusy(deleteTeacherBtn, false, 'Deleting...');
       }
     });
 
@@ -597,7 +537,10 @@
     saveCourseBtn.addEventListener('click', async () => {
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex || !currentTeacher) return;
+      if (isSavingCourse) return;
       courseNotice.textContent = '';
+      isSavingCourse = true;
+      setButtonBusy(saveCourseBtn, true, 'Saving...');
       const payload = {
         teacherId: currentTeacher._id,
         title: courseTitle.value.trim(),
@@ -621,13 +564,21 @@
         await loadCourses(currentTeacher._id);
       } catch (error) {
         courseNotice.textContent = 'Unable to save course.';
+      } finally {
+        isSavingCourse = false;
+        setButtonBusy(saveCourseBtn, false, 'Saving...');
       }
     });
 
     deleteCourseBtn.addEventListener('click', async () => {
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex || !currentCourseId) return;
+      if (isDeletingCourse) return;
+      const confirmed = confirm('Delete this course? This action cannot be undone.');
+      if (!confirmed) return;
       courseNotice.textContent = '';
+      isDeletingCourse = true;
+      setButtonBusy(deleteCourseBtn, true, 'Deleting...');
       try {
         await convex.mutation('courses:remove', { id: currentCourseId });
         courseNotice.textContent = 'Course deleted.';
@@ -636,6 +587,9 @@
         loadEnrollmentsForCourse(null);
       } catch (error) {
         courseNotice.textContent = 'Unable to delete course.';
+      } finally {
+        isDeletingCourse = false;
+        setButtonBusy(deleteCourseBtn, false, 'Deleting...');
       }
     });
 

@@ -138,8 +138,28 @@
     const profileBirthDate = document.getElementById('profileBirthDate');
     const saveProfileBtn = document.getElementById('saveProfileBtn');
     const enrollmentsList = document.getElementById('enrollmentsList');
+    const createAccountBtn = form.querySelector('button[type="submit"]');
     let selectedUserId = null;
     let selectedImageUrl = '';
+    let cachedUsers = [];
+    let currentSession = null;
+    let isCreatingAccount = false;
+    let isSavingProfile = false;
+    const createAccountLabel = createAccountBtn ? createAccountBtn.textContent : 'Create Account';
+    const saveProfileLabel = saveProfileBtn ? saveProfileBtn.textContent : 'Save Profile';
+
+    const setAccountSubmitting = (isSubmitting) => {
+      if (!createAccountBtn) return;
+      createAccountBtn.disabled = isSubmitting;
+      createAccountBtn.textContent = isSubmitting ? 'Creating...' : createAccountLabel;
+    };
+
+    const setProfileSaving = (isSaving) => {
+      if (!saveProfileBtn) return;
+      saveProfileBtn.disabled = isSaving;
+      saveProfileBtn.setAttribute('aria-busy', isSaving ? 'true' : 'false');
+      saveProfileBtn.textContent = isSaving ? 'Saving...' : saveProfileLabel;
+    };
 
     const showDenied = () => {
       if (accountsContent) accountsContent.classList.add('hidden');
@@ -179,7 +199,7 @@
             <div class="text-sm text-slate-500">${user.email || user.user_metadata?.email || ''}</div>
           </div>
           <div class="flex items-center gap-3">
-            <select class="role-select border border-slate-200 rounded-lg px-3 py-2 text-sm" data-user-id="${user.userId}">
+            <select class="role-select border border-slate-200 rounded-lg px-3 py-2 text-sm" data-user-id="${user.userId}" data-current-role="${user.role}">
               <option value="student" ${user.role === 'student' ? 'selected' : ''}>Student</option>
               <option value="teacher" ${user.role === 'teacher' ? 'selected' : ''}>Teacher</option>
               <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
@@ -195,14 +215,19 @@
       if (convex) {
         try {
           const users = await convex.query('users:listAll', {});
+          cachedUsers = users;
           renderAccounts(users);
           return;
         } catch (error) {
-          renderAccounts(getLocalUsers());
+          const localUsers = getLocalUsers();
+          cachedUsers = localUsers;
+          renderAccounts(localUsers);
           return;
         }
       }
-      renderAccounts(getLocalUsers());
+      const localUsers = getLocalUsers();
+      cachedUsers = localUsers;
+      renderAccounts(localUsers);
     };
 
     const loadEnrollments = async () => {
@@ -271,6 +296,7 @@
         return;
       }
       const { data: { session } } = await client.auth.getSession();
+      currentSession = session;
       const role = session?.user?.user_metadata?.role || 'student';
       if (role !== 'owner' && role !== 'admin') {
         showDenied();
@@ -282,6 +308,7 @@
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (isCreatingAccount) return;
       notice.textContent = '';
       const fullName = nameInput.value.trim();
       const email = emailInput.value.trim();
@@ -291,46 +318,85 @@
         notice.textContent = 'Please fill all fields.';
         return;
       }
-      const { data, error } = await client.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-            role
+      isCreatingAccount = true;
+      setAccountSubmitting(true);
+      try {
+        const { data, error } = await client.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: fullName,
+              role
+            }
           }
+        });
+        if (error) {
+          notice.textContent = error.message;
+          return;
         }
-      });
-      if (error) {
-        notice.textContent = error.message;
-        return;
+        if (window.top?.iaStore) {
+          await window.top.iaStore.syncUser(data?.user);
+        }
+        notice.textContent = `Account created. Temporary password: ${password}`;
+        nameInput.value = '';
+        emailInput.value = '';
+        generatePassword();
+        await loadAccounts();
+      } finally {
+        isCreatingAccount = false;
+        setAccountSubmitting(false);
       }
-      if (window.top?.iaStore) {
-        await window.top.iaStore.syncUser(data?.user);
-      }
-      notice.textContent = `Account created. Temporary password: ${password}`;
-      nameInput.value = '';
-      emailInput.value = '';
-      generatePassword();
-      await loadAccounts();
     });
 
     accountsList.addEventListener('change', async (event) => {
       if (!event.target.classList.contains('role-select')) return;
-      const userId = event.target.getAttribute('data-user-id');
-      const role = event.target.value;
+      const select = event.target;
+      const userId = select.getAttribute('data-user-id');
+      const nextRole = select.value;
+      const previousRole = select.getAttribute('data-current-role') || 'student';
       if (!userId || !convex) return;
-      if (role === 'owner' || role === 'admin') {
-        const confirmed = confirm('Confirm privileged role change?');
-        if (!confirmed) {
-          await loadAccounts();
+      const ownerCount = cachedUsers.filter((user) => user.role === 'owner').length;
+      const isSelf = currentSession?.user?.id && userId === currentSession.user.id;
+      notice.textContent = '';
+
+      if (previousRole === 'owner' && nextRole !== 'owner') {
+        if (isSelf) {
+          notice.textContent = 'Owner cannot demote their own account.';
+          select.value = previousRole;
+          return;
+        }
+        if (ownerCount <= 1) {
+          notice.textContent = 'Cannot remove the last owner.';
+          select.value = previousRole;
+          return;
+        }
+        const confirmedDemotion = confirm('Confirm removing owner privileges?');
+        if (!confirmedDemotion) {
+          select.value = previousRole;
           return;
         }
       }
+
+      if (nextRole === 'owner' || nextRole === 'admin') {
+        const confirmed = confirm('Confirm privileged role change?');
+        if (!confirmed) {
+          select.value = previousRole;
+          return;
+        }
+      }
+
+      select.disabled = true;
       try {
-        await convex.mutation('users:updateRole', { userId, role });
+        await convex.mutation('users:updateRole', { userId, role: nextRole });
+        select.setAttribute('data-current-role', nextRole);
+        cachedUsers = cachedUsers.map((user) => user.userId === userId ? { ...user, role: nextRole } : user);
+        notice.textContent = 'Role updated successfully.';
       } catch (error) {
         notice.textContent = 'Unable to update role.';
+        select.value = previousRole;
+      } finally {
+        select.disabled = false;
       }
     });
 
@@ -362,7 +428,10 @@
         profileNotice.textContent = 'Select a user first.';
         return;
       }
+      if (isSavingProfile) return;
       profileNotice.textContent = '';
+      isSavingProfile = true;
+      setProfileSaving(true);
       try {
         await convex.mutation('profileAdmin:setProfileByUserId', {
           userId: selectedUserId,
@@ -378,6 +447,9 @@
         profileNotice.textContent = 'Profile saved successfully.';
       } catch (error) {
         profileNotice.textContent = 'Unable to save profile.';
+      } finally {
+        isSavingProfile = false;
+        setProfileSaving(false);
       }
     });
 

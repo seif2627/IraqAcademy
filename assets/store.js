@@ -2,6 +2,7 @@ const CART_KEY = "ia_cart";
 const PAYMENT_KEY = "ia_payment";
 const ORDERS_KEY = "ia_orders";
 const PROFILE_KEY = "ia_profile";
+let checkoutInProgress = false;
 
 const safeParse = (value, fallback) => {
   try {
@@ -30,14 +31,20 @@ const getConvex = () => window.top?.convexClient || window.convexClient || null;
 
 const normalizeItems = (items) => {
   if (!Array.isArray(items)) return [];
-  return items
+  const normalized = new Map();
+  items
     .filter((item) => item && item.courseId && item.title)
-    .map((item) => ({
-      courseId: String(item.courseId),
-      title: String(item.title),
-      price: Number(item.price || 0),
-      qty: Number(item.qty || 1)
-    }));
+    .forEach((item) => {
+      const courseId = String(item.courseId);
+      if (normalized.has(courseId)) return;
+      normalized.set(courseId, {
+        courseId,
+        title: String(item.title),
+        price: Number(item.price || 0),
+        qty: 1
+      });
+    });
+  return Array.from(normalized.values());
 };
 
 const getCartLocal = async (userId) => {
@@ -90,18 +97,15 @@ const addToCart = async (course) => {
   const items = [...cart.items];
   const existing = items.find((item) => item.courseId === course.courseId);
   if (existing) {
-    existing.qty += 1;
-  } else {
-    items.push({ ...course, qty: 1 });
+    return { userId: cart.userId, items };
   }
+  items.push({ ...course, qty: 1 });
   return await saveCart(items);
 };
 
 const removeFromCart = async (courseId) => {
   const cart = await getCart();
-  const items = cart.items
-    .map((item) => item.courseId === courseId ? { ...item, qty: item.qty - 1 } : item)
-    .filter((item) => item.qty > 0);
+  const items = cart.items.filter((item) => item.courseId !== courseId);
   return await saveCart(items);
 };
 
@@ -220,7 +224,14 @@ const saveOrderLocal = async (userId, order) => {
 };
 
 const checkout = async (payload) => {
-  const userId = await getUserId();
+  if (checkoutInProgress) {
+    throw new Error("Checkout already in progress");
+  }
+  const session = await getSession();
+  if (!session?.user?.id) {
+    throw new Error("Login required");
+  }
+  const userId = session.user.id;
   const convex = getConvex();
   const order = {
     userId,
@@ -235,37 +246,45 @@ const checkout = async (payload) => {
     },
     createdAt: Date.now()
   };
-  if (convex) {
-    try {
-      await convex.mutation("orders:create", {
-        userId: order.userId,
-        items: order.items,
-        total: order.total,
-        paymentMethod: order.paymentMethod,
-        paymentStatus: order.paymentStatus,
-        paymentDetails: order.paymentDetails
-      });
-      for (const item of order.items) {
-        try {
-          await convex.mutation("enrollments:enroll", {
-            userId: order.userId,
-            courseId: item.courseId,
-            status: "active"
-          });
-        } catch (e) {
-        }
-      }
-      await clearCart();
-      return order;
-    } catch (error) {
-      await saveOrderLocal(userId, order);
-      await clearCart();
-      return order;
-    }
+  if (!order.items.length) {
+    throw new Error("Cart is empty");
   }
-  await saveOrderLocal(userId, order);
-  await clearCart();
-  return order;
+  checkoutInProgress = true;
+  try {
+    if (convex) {
+      try {
+        await convex.mutation("orders:create", {
+          userId: order.userId,
+          items: order.items,
+          total: order.total,
+          paymentMethod: order.paymentMethod,
+          paymentStatus: order.paymentStatus,
+          paymentDetails: order.paymentDetails
+        });
+        for (const item of order.items) {
+          try {
+            await convex.mutation("enrollments:enroll", {
+              userId: order.userId,
+              courseId: item.courseId,
+              status: "active"
+            });
+          } catch (e) {
+          }
+        }
+        await clearCart();
+        return order;
+      } catch (error) {
+        await saveOrderLocal(userId, order);
+        await clearCart();
+        return order;
+      }
+    }
+    await saveOrderLocal(userId, order);
+    await clearCart();
+    return order;
+  } finally {
+    checkoutInProgress = false;
+  }
 };
 
 const syncUser = async (user) => {
