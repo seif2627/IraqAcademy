@@ -12,6 +12,9 @@
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses | Iraq Academy</title>
+  <meta name="description" content="Browse Iraq Academy courses by category, teacher, and grade.">
+  <link rel="icon" href="../Logo/LogoNoBackground.png" type="image/png">
 
 
 
@@ -67,9 +70,9 @@
 
 
     <div class="flex items-center justify-between mb-4 flex-wrap gap-4">
-      <div id="cartSummary" class="text-sm text-slate-600"></div>
+      <div id="cartSummary" class="text-sm text-slate-600">Loading your cart...</div>
       <div class="flex gap-2">
-        <button id="checkoutBtn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">Checkout (Demo)</button>
+        <button id="checkoutBtn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors">Checkout</button>
       </div>
     </div>
     <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 courses-grid"></div>
@@ -131,6 +134,10 @@
 
     const renderCourses = (courses) => {
       coursesGrid.innerHTML = '';
+      if (!courses.length) {
+        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">No courses found.</div>';
+        return;
+      }
       courses.forEach((course) => {
         const card = document.createElement('div');
         card.className = 'group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300';
@@ -196,6 +203,7 @@
         return;
       }
 
+      coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">Loading courses...</div>';
       try {
         const courses = await convex.query('content:getCourses', {});
         cachedCourses = courses;
@@ -205,7 +213,7 @@
 
         renderCourses(filtered);
       } catch (error) {
-        console.error('Failed to load courses', error);
+        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We could not load courses. Please try again.</div>';
       }
     }
 
@@ -217,8 +225,11 @@
       if (!session) return;
       try {
         const enrollments = await convex.query('enrollments:listByUser', { userId: session.user.id });
-        if (!enrollments.length) return;
         enrollmentsPanel.classList.remove('hidden');
+        if (!enrollments.length) {
+          enrollmentsList.innerHTML = '<div class="text-slate-500 text-sm">No enrollments yet.</div>';
+          return;
+        }
         enrollmentsList.innerHTML = enrollments.map((enrollment) => {
           const course = cachedCourses.find((c) => c._id === enrollment.courseId);
           const title = course?.title || 'Course';
@@ -231,7 +242,8 @@
           `;
         }).join('');
       } catch (error) {
-        return;
+        enrollmentsPanel.classList.remove('hidden');
+        enrollmentsList.innerHTML = '<div class="text-slate-500 text-sm">Unable to load enrollments.</div>';
       }
     }
 
@@ -240,7 +252,11 @@
       const cart = await window.top.iaStore.getCart();
       const count = cart.items.reduce((sum, i) => sum + (i.qty || 1), 0);
       const total = cart.items.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.qty || 1), 0);
-      cartSummary.textContent = `Cart: ${count} items — Total: ${total.toFixed(2)} (demo)`;
+      if (count === 0) {
+        cartSummary.textContent = 'Your cart is empty.';
+        return;
+      }
+      cartSummary.textContent = `Cart: ${count} items — Total: ${total.toFixed(2)}`;
     }
 
     checkoutBtn.addEventListener('click', async () => {
@@ -250,14 +266,14 @@
       const payload = {
         items: cart.items,
         total: cart.items.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.qty || 1), 0),
-        paymentMethod: 'demo',
+        paymentMethod: 'card',
         payerName: '',
         phone: '',
-        notes: 'Demo checkout'
+        notes: 'Checkout submitted'
       };
       await window.top.iaStore.checkout(payload);
       await updateCartSummary();
-      alert('Demo checkout complete. You are enrolled!');
+      alert('Checkout complete. You are enrolled!');
       await loadEnrollments();
     });
 

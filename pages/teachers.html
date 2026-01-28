@@ -12,6 +12,9 @@
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers | Iraq Academy</title>
+  <meta name="description" content="Meet Iraq Academy teachers and browse their courses.">
+  <link rel="icon" href="../Logo/LogoNoBackground.png" type="image/png">
 
 
 
@@ -288,7 +291,7 @@
       try {
         const enrollments = await convex.query('enrollments:listByCourse', { courseId });
         if (!enrollments.length) {
-          enrollmentsList.textContent = 'No enrollments yet.';
+        enrollmentsList.textContent = 'No enrollments yet.';
           return;
         }
         enrollmentsList.innerHTML = enrollments.map((enrollment) => `
@@ -298,7 +301,7 @@
           </div>
         `).join('');
       } catch (error) {
-        enrollmentsList.textContent = 'Unable to load enrollments.';
+        enrollmentsList.textContent = 'Unable to load enrollments. Please try again.';
       }
     };
 
@@ -356,12 +359,10 @@
 
 
         grid.innerHTML = '';
-
-
-
-
-
-
+        if (!teachers.length) {
+          grid.innerHTML = '<div class="text-slate-500 text-sm">No teachers available yet.</div>';
+          grid.style.display = 'block';
+        }
 
         teachers.forEach((teacher) => {
 
@@ -651,4 +652,3 @@
 
 
 </html>
-
