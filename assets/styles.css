@@ -329,6 +329,16 @@ small {
   color: var(--ia-text);
 }
 
+#roleBadge {
+  pointer-events: none;
+  cursor: default;
+  transition: none;
+}
+
+#roleBadge:hover {
+  color: var(--ia-muted);
+}
+
 .btn-lang {
   display: flex;
   align-items: center;

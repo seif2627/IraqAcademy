@@ -27,6 +27,9 @@
         background-size: 24px 24px;
         background-opacity: 0.1;
       }
+      #chatwoot-widget-container {
+        z-index: 60;
+      }
     </style>
   </head>
   <body class="min-h-dvh bg-pattern text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
@@ -127,5 +130,20 @@
         </a>
       </div>
     </div>
+    <script>
+      (function(d,t) {
+        var BASE_URL="https://app.chatwoot.com";
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=BASE_URL+"/packs/js/sdk.js";
+        g.async = true;
+        s.parentNode.insertBefore(g,s);
+        g.onload=function(){
+          window.chatwootSDK.run({
+            websiteToken: 'H2eKm8upjoWvhRtmnYVJ4j4q',
+            baseUrl: BASE_URL
+          })
+        }
+      })(document,"script");
+    </script>
   </body>
 </html>

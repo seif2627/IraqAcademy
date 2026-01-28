@@ -236,6 +236,38 @@
       button.textContent = busy ? busyLabel : button.dataset.label;
     };
 
+    const avatarSvgs = {
+      male: `
+        <svg class="w-16 h-16" viewBox="0 0 80 80" aria-hidden="true">
+          <circle cx="40" cy="30" r="16" fill="#f5d0b5"></circle>
+          <path d="M22 30c4-12 32-12 36 0v6H22z" fill="#1f2937"></path>
+          <path d="M16 72c4-18 18-26 24-26s20 8 24 26" fill="#e2e8f0"></path>
+        </svg>
+      `,
+      female: `
+        <svg class="w-16 h-16" viewBox="0 0 80 80" aria-hidden="true">
+          <circle cx="40" cy="32" r="15" fill="#f5d0b5"></circle>
+          <path d="M18 36c2-18 14-26 22-26s20 8 22 26v12H18z" fill="#312e81"></path>
+          <path d="M14 72c4-18 18-26 26-26s22 8 26 26" fill="#fde68a"></path>
+        </svg>
+      `,
+      neutral: `
+        <svg class="w-16 h-16" viewBox="0 0 80 80" aria-hidden="true">
+          <circle cx="40" cy="30" r="16" fill="#fde4cf"></circle>
+          <path d="M18 72c4-18 18-26 22-26s18 8 22 26" fill="#e5e7eb"></path>
+          <circle cx="30" cy="28" r="3" fill="#0f172a"></circle>
+          <circle cx="50" cy="28" r="3" fill="#0f172a"></circle>
+        </svg>
+      `
+    };
+
+    const getTeacherAvatarSvg = (genderValue) => {
+      const normalized = String(genderValue || '').trim().toLowerCase();
+      if (['female', 'f', 'woman', 'girl'].includes(normalized)) return avatarSvgs.female;
+      if (['male', 'm', 'man', 'boy'].includes(normalized)) return avatarSvgs.male;
+      return avatarSvgs.neutral;
+    };
+
 
 
 
@@ -394,11 +426,13 @@
         teachers.forEach((teacher) => {
           const wrapper = document.createElement('div');
           wrapper.className = 'teacher-card bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300';
-          const imageUrl = teacher.imageUrl || '../assets/images/teachers/placeholder.jpg';
+          const avatarSvg = getTeacherAvatarSvg(teacher.gender);
           const bio = teacher.bio || '';
           wrapper.innerHTML = `
             <div class="relative w-32 h-32 mx-auto mb-6">
-              <img src="${imageUrl}" alt="${teacher.name}" class="w-full h-full rounded-full object-cover border-4 border-slate-50">
+              <div class="w-full h-full rounded-full border-4 border-slate-50 bg-white flex items-center justify-center">
+                ${avatarSvg}
+              </div>
               <div class="absolute bottom-0 right-0 w-8 h-8 bg-accent rounded-full flex items-center justify-center text-white border-4 border-white">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
               </div>
