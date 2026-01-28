@@ -435,8 +435,13 @@
           clearCheckoutParams();
           return;
         }
-        if (order.paymentStatus === 'failed' || order.paymentStatus === 'expired') {
-          setCartNotice('Payment failed or expired. Please try again.', 'error');
+        if (order.paymentStatus === 'failed') {
+          setCartNotice('Payment failed. Please try again.', 'error');
+          clearCheckoutParams();
+          return;
+        }
+        if (order.paymentStatus === 'expired') {
+          setCartNotice('Payment expired. Please try again.', 'error');
           clearCheckoutParams();
           return;
         }
@@ -456,7 +461,7 @@
       const sessionId = params.get('session_id');
       if (!status) return;
       if (status === 'cancel') {
-        setCartNotice('Checkout cancelled. You can try again anytime.', 'error');
+        setCartNotice('Payment canceled. You can try again.', 'error');
         clearCheckoutParams();
         return;
       }

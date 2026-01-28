@@ -67,11 +67,14 @@ const getStripeCurrency = () => {
 };
 
 const getAllowedOrigin = () => {
-  return process.env.APP_BASE_URL || "";
+  const baseUrl = process.env.APP_BASE_URL;
+  if (!baseUrl) {
+    throw new Error("APP_BASE_URL not configured");
+  }
+  return new URL(baseUrl).origin;
 };
 
 const ensureAllowedOrigin = (url, allowedOrigin) => {
-  if (!allowedOrigin) return;
   const parsed = new URL(url);
   if (parsed.origin !== allowedOrigin) {
     throw new Error("Invalid return URL");
@@ -268,7 +271,16 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
         stripePaymentIntentId: session?.payment_intent || undefined
       });
     }
-  } else if (type === "checkout.session.expired" || type === "checkout.session.async_payment_failed") {
+  } else if (type === "checkout.session.expired") {
+    const sessionId = session?.id;
+    if (sessionId) {
+      await ctx.runMutation(api.orders.finalizeStripeSession, {
+        sessionId,
+        paymentStatus: "expired",
+        stripePaymentIntentId: session?.payment_intent || undefined
+      });
+    }
+  } else if (type === "checkout.session.async_payment_failed") {
     const sessionId = session?.id;
     if (sessionId) {
       await ctx.runMutation(api.orders.finalizeStripeSession, {
