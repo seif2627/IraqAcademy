@@ -53,7 +53,36 @@
               <img id="profileAvatarImage" class="profile-avatar-image" alt="Profile" />
               <span id="profileAvatarFallback" class="profile-avatar-fallback">?</span>
             </button>
-            <button id="logoutBtn" class="btn-login" style="display: none;">Log Out</button>
+            <div id="profileMenu" class="profile-menu hidden" role="menu" aria-hidden="true">
+              <div class="profile-menu-header">
+                <div id="profileMenuName" class="profile-menu-name">Account</div>
+                <div id="profileMenuEmail" class="profile-menu-email"></div>
+              </div>
+              <div class="profile-menu-section">
+                <button type="button" class="profile-menu-item" data-action="profile" data-roles="all">Profile</button>
+                <button type="button" class="profile-menu-item" data-action="settings" data-roles="all">Settings</button>
+                <button type="button" class="profile-menu-item" data-action="switch-account" data-roles="all">Switch account</button>
+                <button type="button" class="profile-menu-item" data-action="logout" data-roles="all">Log out</button>
+              </div>
+              <div class="profile-menu-section" data-section="student">
+                <div class="profile-menu-label">Student</div>
+                <button type="button" class="profile-menu-item" data-action="student-courses" data-roles="student">My Courses</button>
+                <button type="button" class="profile-menu-item" data-action="student-enrollments" data-roles="student">Enrollments</button>
+              </div>
+              <div class="profile-menu-section" data-section="teacher">
+                <div class="profile-menu-label">Teacher</div>
+                <button type="button" class="profile-menu-item" data-action="teacher-courses" data-roles="teacher">My Courses</button>
+                <button type="button" class="profile-menu-item" data-action="teacher-management" data-roles="teacher">Course Management</button>
+                <button type="button" class="profile-menu-item" data-action="teacher-profile" data-roles="teacher">Teacher Profile</button>
+              </div>
+              <div class="profile-menu-section" data-section="admin">
+                <div class="profile-menu-label">Admin</div>
+                <button type="button" class="profile-menu-item" data-action="admin-dashboard" data-roles="admin,owner">Admin Dashboard</button>
+                <button type="button" class="profile-menu-item" data-action="admin-users" data-roles="admin,owner">User Management</button>
+                <button type="button" class="profile-menu-item" data-action="admin-courses" data-roles="admin,owner">Course Management</button>
+                <button type="button" class="profile-menu-item" data-action="owner-settings" data-roles="owner">Platform Settings</button>
+              </div>
+            </div>
           </div>
         </nav>
       </div>

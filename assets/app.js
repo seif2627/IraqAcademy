@@ -158,6 +158,109 @@ async function updateProfileAvatar(session) {
   }
 }
 
+function updateProfileMenu(session, role) {
+  var menu = document.getElementById("profileMenu");
+  if (!menu) return;
+  var nameEl = document.getElementById("profileMenuName");
+  var emailEl = document.getElementById("profileMenuEmail");
+  if (!session) {
+    menu.classList.add("hidden");
+    menu.setAttribute("aria-hidden", "true");
+    if (nameEl) nameEl.textContent = "Account";
+    if (emailEl) emailEl.textContent = "";
+    return;
+  }
+  var fullName = session.user?.user_metadata?.full_name || "";
+  var email = session.user?.email || "";
+  if (nameEl) nameEl.textContent = fullName || (getRoleLabel(role) + " Account");
+  if (emailEl) emailEl.textContent = email || "";
+
+  var items = menu.querySelectorAll(".profile-menu-item");
+  items.forEach(function (item) {
+    var roles = String(item.getAttribute("data-roles") || "all").toLowerCase();
+    if (roles === "all") {
+      item.style.display = "flex";
+      return;
+    }
+    var allowed = roles.split(",").map(function (value) { return value.trim(); }).includes(String(role || "").toLowerCase());
+    item.style.display = allowed ? "flex" : "none";
+  });
+
+  menu.querySelectorAll(".profile-menu-section").forEach(function (section) {
+    var hasVisibleItems = Array.from(section.querySelectorAll(".profile-menu-item"))
+      .some(function (item) { return item.style.display !== "none"; });
+    section.style.display = hasVisibleItems ? "flex" : "none";
+  });
+}
+
+function closeProfileMenu() {
+  var menu = document.getElementById("profileMenu");
+  var button = document.getElementById("profileButton");
+  if (!menu) return;
+  menu.classList.add("hidden");
+  menu.setAttribute("aria-hidden", "true");
+  if (button) button.setAttribute("aria-expanded", "false");
+}
+
+function toggleProfileMenu() {
+  var menu = document.getElementById("profileMenu");
+  var button = document.getElementById("profileButton");
+  if (!menu || !button) return;
+  var isHidden = menu.classList.contains("hidden");
+  if (isHidden) {
+    menu.classList.remove("hidden");
+    menu.setAttribute("aria-hidden", "false");
+    button.setAttribute("aria-expanded", "true");
+  } else {
+    closeProfileMenu();
+  }
+}
+
+async function handleProfileMenuAction(action) {
+  if (!action) return;
+  if (action === "profile") {
+    navigateTo(getRoleLandingPage(window.currentUserRole || "student"));
+    return;
+  }
+  if (action === "settings") {
+    navigateTo("info");
+    return;
+  }
+  if (action === "switch-account") {
+    if (window.authClient) {
+      await window.authClient.auth.signOut();
+    }
+    window.location.href = "/login";
+    return;
+  }
+  if (action === "logout") {
+    if (window.authClient) {
+      await window.authClient.auth.signOut();
+    }
+    window.location.href = "/home";
+    return;
+  }
+  if (action === "student-courses" || action === "student-enrollments") {
+    navigateTo("courses");
+    return;
+  }
+  if (action === "teacher-courses" || action === "teacher-management" || action === "teacher-profile") {
+    navigateTo("teachers");
+    return;
+  }
+  if (action === "admin-dashboard" || action === "admin-users") {
+    navigateTo("accounts");
+    return;
+  }
+  if (action === "admin-courses") {
+    navigateTo("teachers");
+    return;
+  }
+  if (action === "owner-settings") {
+    navigateTo("accounts");
+  }
+}
+
 function updateUI() {
   var elements = document.querySelectorAll("[data-i18n]");
   elements.forEach(function(el) {
@@ -262,7 +365,6 @@ async function checkAuthState() {
     const { data: { session } } = await window.authClient.auth.getSession();
     const loginBtn = document.querySelector('.btn-login[data-i18n="login"]');
     const signupBtn = document.querySelector('.btn-signup[data-i18n="signup"]');
-    const logoutBtn = document.getElementById('logoutBtn');
     const roleBadge = document.getElementById('roleBadge');
     const profileButton = document.getElementById('profileButton');
 
@@ -275,29 +377,25 @@ async function checkAuthState() {
         }
         if (loginBtn) loginBtn.style.display = 'none';
         if (signupBtn) signupBtn.style.display = 'none';
-        if (logoutBtn) {
-            logoutBtn.style.display = 'block';
-            logoutBtn.onclick = async () => {
-            await window.authClient.auth.signOut();
-            window.location.href = '/login';
-        };
-        }
         if (profileButton) {
           profileButton.style.display = 'inline-flex';
-          profileButton.onclick = () => {
-            navigateTo(getRoleLandingPage(window.currentUserRole));
+          profileButton.onclick = (event) => {
+            event.stopPropagation();
+            toggleProfileMenu();
           };
         }
         await updateProfileAvatar(session);
+        updateProfileMenu(session, window.currentUserRole);
     } else {
         window.isAuthenticated = false;
         window.currentUserRole = 'student';
         if (roleBadge) roleBadge.style.display = 'none';
         if (loginBtn) loginBtn.style.display = 'block';
         if (signupBtn) signupBtn.style.display = 'block';
-        if (logoutBtn) logoutBtn.style.display = 'none';
         if (profileButton) profileButton.style.display = 'none';
         await updateProfileAvatar(null);
+        updateProfileMenu(null, "student");
+        closeProfileMenu();
     }
 }
 
@@ -371,6 +469,28 @@ window.addEventListener('DOMContentLoaded', () => {
       
       if (frame) {
         frame.style.visibility = 'visible';
+      }
+    });
+
+    const profileMenu = document.getElementById('profileMenu');
+    if (profileMenu) {
+      profileMenu.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const item = event.target.closest('.profile-menu-item');
+        if (!item) return;
+        const action = item.getAttribute('data-action');
+        closeProfileMenu();
+        handleProfileMenuAction(action);
+      });
+    }
+
+    document.addEventListener('click', () => {
+      closeProfileMenu();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeProfileMenu();
       }
     });
 });

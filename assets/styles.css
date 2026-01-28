@@ -208,6 +208,7 @@ small {
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: relative;
 }
 
 .profile-button {
@@ -240,6 +241,80 @@ small {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--ia-muted);
+}
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  width: 240px;
+  background: var(--ia-surface);
+  border: 1px solid var(--ia-border);
+  border-radius: 14px;
+  box-shadow: var(--ia-shadow-md);
+  padding: 0.75rem;
+  z-index: 60;
+}
+
+.profile-menu.hidden {
+  display: none;
+}
+
+.profile-menu-header {
+  border-bottom: 1px solid var(--ia-border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.profile-menu-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ia-text);
+}
+
+.profile-menu-email {
+  font-size: 0.8rem;
+  color: var(--ia-muted);
+  margin-top: 0.2rem;
+  word-break: break-all;
+}
+
+.profile-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.65rem;
+}
+
+.profile-menu-section:last-child {
+  margin-bottom: 0;
+}
+
+.profile-menu-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ia-muted);
+  margin-bottom: 0.2rem;
+}
+
+.profile-menu-item {
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ia-text);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.profile-menu-item:hover {
+  background: #f1f5f9;
+  color: var(--ia-accent);
 }
 
 .btn-login {
