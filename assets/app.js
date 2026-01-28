@@ -98,10 +98,8 @@ var searchIcon = document.querySelector(".nav-search-icon");
 function showPageLoader() {
   if (!pageLoader) return;
   if (loaderTimer) clearTimeout(loaderTimer);
-  loaderTimer = setTimeout(function () {
-    pageLoader.classList.add("is-visible");
-    pageLoader.setAttribute("aria-hidden", "false");
-  }, 150);
+  pageLoader.classList.add("is-visible");
+  pageLoader.setAttribute("aria-hidden", "false");
 }
 
 function hidePageLoader() {
@@ -109,6 +107,18 @@ function hidePageLoader() {
   if (loaderTimer) clearTimeout(loaderTimer);
   pageLoader.classList.remove("is-visible");
   pageLoader.setAttribute("aria-hidden", "true");
+}
+
+function setAuthNotice(message, tone) {
+  try {
+    sessionStorage.setItem("iaAuthNotice", JSON.stringify({
+      message: message || "",
+      tone: tone || "info",
+      ts: Date.now()
+    }));
+  } catch (error) {
+    // ignore storage failures
+  }
 }
 
 function getRoleLandingPage(role) {
@@ -149,7 +159,11 @@ function isProfileComplete(profile) {
   var nameParts = fullName.split(/\s+/).filter(Boolean);
   if (nameParts.length < 3) return false;
   if (!String(profile.phone || "").trim()) return false;
+  if (!String(profile.birthDate || "").trim()) return false;
+  if (!String(profile.idNumber || "").trim()) return false;
   if (!String(profile.address || "").trim()) return false;
+  if (!String(profile.city || "").trim()) return false;
+  if (!String(profile.governorate || "").trim()) return false;
   return true;
 }
 
@@ -165,9 +179,17 @@ async function needsOnboarding(session) {
       var localProfile = await window.iaStore.getProfile();
       return !isProfileComplete(localProfile);
     }
-    return false;
+    return true;
   } catch (error) {
-    return false;
+    if (window.iaStore?.getProfile) {
+      try {
+        var fallbackProfile = await window.iaStore.getProfile();
+        return !isProfileComplete(fallbackProfile);
+      } catch (innerError) {
+        return true;
+      }
+    }
+    return true;
   }
 }
 
@@ -275,6 +297,10 @@ function toggleProfileMenu() {
 
 async function handleProfileMenuAction(action) {
   if (!action) return;
+  if (window.onboardingRequired && action !== "settings" && action !== "logout") {
+    navigateTo("info");
+    return;
+  }
   if (action === "profile") {
     navigateTo(getRoleLandingPage(window.currentUserRole || "student"));
     return;
@@ -383,6 +409,9 @@ function syncSearchInput() {
 }
 
 function runSearch(term) {
+  if (window.onboardingRequired || window.emailVerificationRequired) {
+    return;
+  }
   term = String(term || "").trim();
   var page = getPageFromUrl();
   if (page !== "courses" && page !== "teachers") {
@@ -407,8 +436,14 @@ function getPageFromUrl() {
 function loadIntoFrame(page) {
   page = normalizePage(page);
 
+  if (window.emailVerificationRequired && page !== "login") {
+    page = "login";
+    history.replaceState(null, "", "/login");
+  }
+
   if (window.onboardingRequired && page !== "info") {
     page = "info";
+    history.replaceState(null, "", "/info");
   }
 
   if (window.isAuthenticated && (page === "login" || page === "signup")) {
@@ -453,6 +488,12 @@ function loadIntoFrame(page) {
 
 function navigateTo(page) {
   page = normalizePage(page);
+  if (window.emailVerificationRequired && page !== "login") {
+    page = "login";
+  }
+  if (window.onboardingRequired && page !== "info") {
+    page = "info";
+  }
   if (location.pathname.substring(1) !== page) {
     history.pushState(null, "", "/" + page);
   }
@@ -467,6 +508,31 @@ async function checkAuthState() {
     const signupBtn = document.querySelector('.btn-signup[data-i18n="signup"]');
     const roleBadge = document.getElementById('roleBadge');
     const profileButton = document.getElementById('profileButton');
+
+    const firebaseUser = window.firebaseAuth?.auth?.currentUser || null;
+    const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
+
+    if (session && !isVerified) {
+        window.emailVerificationRequired = true;
+        window.isAuthenticated = false;
+        window.currentUserRole = 'student';
+        window.onboardingRequired = false;
+        if (roleBadge) roleBadge.style.display = 'none';
+        if (loginBtn) loginBtn.style.display = 'block';
+        if (signupBtn) signupBtn.style.display = 'block';
+        if (profileButton) profileButton.style.display = 'none';
+        await updateProfileAvatar(null);
+        updateProfileMenu(null, "student");
+        closeProfileMenu();
+        setNavLocked(true);
+        setAuthNotice("Please verify your email before signing in.", "info");
+        if (window.authClient?.auth?.signOut) {
+          await window.authClient.auth.signOut();
+        }
+        return;
+    }
+
+    window.emailVerificationRequired = false;
 
     if (session) {
         window.isAuthenticated = true;
@@ -494,10 +560,12 @@ async function checkAuthState() {
         }
         await updateProfileAvatar(session);
         updateProfileMenu(session, window.currentUserRole);
+        setNavLocked(window.onboardingRequired);
     } else {
         window.isAuthenticated = false;
         window.currentUserRole = 'student';
         window.onboardingRequired = false;
+        window.emailVerificationRequired = false;
         if (roleBadge) roleBadge.style.display = 'none';
         if (loginBtn) loginBtn.style.display = 'block';
         if (signupBtn) signupBtn.style.display = 'block';
@@ -505,6 +573,7 @@ async function checkAuthState() {
         await updateProfileAvatar(null);
         updateProfileMenu(null, "student");
         closeProfileMenu();
+        setNavLocked(false);
     }
 }
 
@@ -531,6 +600,26 @@ function updateNavAccess() {
   var accountsBtn = document.querySelector('.nav-link[data-page="accounts"]');
   if (accountsBtn) {
     accountsBtn.style.display = canAccessAccounts() ? 'inline-flex' : 'none';
+  }
+}
+
+function setNavLocked(isLocked) {
+  navButtons.forEach(function (btn) {
+    if (btn.tagName === "BUTTON") {
+      btn.disabled = isLocked;
+    } else {
+      btn.setAttribute("aria-disabled", isLocked ? "true" : "false");
+      btn.style.pointerEvents = isLocked ? "none" : "";
+    }
+    btn.style.opacity = isLocked ? "0.6" : "";
+  });
+  if (searchInput) {
+    searchInput.disabled = isLocked;
+    searchInput.style.opacity = isLocked ? "0.6" : "";
+  }
+  if (searchIcon) {
+    searchIcon.style.pointerEvents = isLocked ? "none" : "";
+    searchIcon.style.opacity = isLocked ? "0.6" : "";
   }
 }
 
@@ -582,6 +671,15 @@ window.addEventListener('DOMContentLoaded', () => {
         frame.style.visibility = 'visible';
       }
     });
+
+    if (window.firebaseAuth?.onAuthStateChanged && window.firebaseAuth?.auth) {
+      window.firebaseAuth.onAuthStateChanged(window.firebaseAuth.auth, async () => {
+        await checkAuthState();
+        updateNavAccess();
+        loadIntoFrame(getPageFromUrl());
+        syncSearchInput();
+      });
+    }
 
     if (searchInput) {
       searchInput.addEventListener("keydown", function (event) {

@@ -183,12 +183,17 @@
       const nameParts = fullName.split(/\s+/).filter(Boolean);
       if (nameParts.length < 3) return false;
       if (!String(profile.phone || '').trim()) return false;
+      if (!String(profile.birthDate || '').trim()) return false;
+      if (!String(profile.idNumber || '').trim()) return false;
       if (!String(profile.address || '').trim()) return false;
+      if (!String(profile.city || '').trim()) return false;
+      if (!String(profile.governorate || '').trim()) return false;
       return true;
     };
 
     const needsProfileCompletion = async (session) => {
-      if (!convex || !session?.user?.id) return false;
+      if (!session?.user?.id) return false;
+      if (!convex) return true;
       try {
         const profile = await convex.query('profiles:get', { userId: session.user.id });
         return !isProfileComplete(profile);
@@ -197,8 +202,32 @@
           const localProfile = await window.top.iaStore.getProfile();
           return !isProfileComplete(localProfile);
         }
-        return false;
+        return true;
       }
+    };
+
+    const setAuthNotice = (message, tone = 'info') => {
+      try {
+        sessionStorage.setItem('iaAuthNotice', JSON.stringify({
+          message,
+          tone,
+          ts: Date.now()
+        }));
+      } catch (error) {
+        // ignore storage failures
+      }
+    };
+
+    const navigateFromAuth = async (destination) => {
+      const parent = window.parent || window;
+      if (parent.checkAuthState) {
+        await parent.checkAuthState();
+      }
+      if (parent.navigateTo) {
+        parent.navigateTo(destination);
+        return;
+      }
+      parent.location.href = `/${destination}`;
     };
 
     const getRoleDestination = (role) => {
@@ -214,7 +243,7 @@
         activeSession = current;
       }
       if (!activeSession) {
-        window.parent.location.reload();
+        await navigateFromAuth('login');
         return;
       }
       if (window.top?.iaStore?.syncUser) {
@@ -224,11 +253,24 @@
           // ignore sync errors
         }
       }
+      const firebaseUser = window.firebaseAuth?.auth?.currentUser || null;
+      const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
+      if (!isVerified) {
+        if (firebaseUser && window.firebaseAuth?.sendEmailVerification) {
+          await window.firebaseAuth.sendEmailVerification(firebaseUser);
+        }
+        if (window.authClient?.auth?.signOut) {
+          await window.authClient.auth.signOut();
+        }
+        setAuthNotice('Please verify your email before logging in.', 'info');
+        await navigateFromAuth('login');
+        return;
+      }
       const role = await resolveUserRole(activeSession);
-      const isVerified = window.firebaseAuth?.auth?.currentUser?.emailVerified !== false;
       const needsProfile = await needsProfileCompletion(activeSession);
-      const destination = (!isVerified || needsProfile) ? 'info' : getRoleDestination(role);
-      window.parent.location.href = `/${destination}`;
+      const destination = needsProfile ? 'info' : getRoleDestination(role);
+      showToast('Signed in successfully. Redirecting...', 'success');
+      await navigateFromAuth(destination);
     };
 
     let providerPending = false;
@@ -250,7 +292,6 @@
         showToast(errorText, 'error');
         return;
       }
-      showToast('Signed in successfully. Redirecting...', 'success');
       await redirectAfterAuth(data?.session);
     } catch (err) {
       const errorText = formatAuthError(err.message || err);
@@ -283,15 +324,17 @@
             if (window.firebaseAuth?.auth?.currentUser && window.firebaseAuth?.sendEmailVerification) {
               await window.firebaseAuth.sendEmailVerification(window.firebaseAuth.auth.currentUser);
             }
-            showToast('Account created. Verify your email and complete your profile.', 'success');
-            await redirectAfterAuth(null);
+            if (window.authClient?.auth?.signOut) {
+              await window.authClient.auth.signOut();
+            }
+            setAuthNotice('Account created. Please verify your email, then log in.', 'success');
+            await navigateFromAuth('login');
             return;
           }
           const errorText = formatAuthError(error.message || error);
           showToast(errorText, 'error');
           return;
         }
-        showToast('Signed in successfully. Redirecting...', 'success');
         await redirectAfterAuth(data?.session);
     } catch (err) {
       const errorText = formatAuthError(err.message || err);
@@ -323,6 +366,18 @@
           setLoadingState(false, 'Log In');
         }
       });
+    }
+
+    const notice = (() => {
+      try {
+        return JSON.parse(sessionStorage.getItem('iaAuthNotice') || 'null');
+      } catch (error) {
+        return null;
+      }
+    })();
+    if (notice?.message) {
+      showToast(notice.message, notice.tone || 'info');
+      sessionStorage.removeItem('iaAuthNotice');
     }
 
     (async () => {

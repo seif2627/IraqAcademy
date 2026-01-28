@@ -496,7 +496,7 @@ main {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: none;
   z-index: 40;
 }
 
@@ -524,13 +524,7 @@ main {
   border-radius: 999px;
   border: 2px solid #e2e8f0;
   border-top-color: var(--ia-accent);
-  animation: page-loader-spin 0.9s linear infinite;
-}
-
-@keyframes page-loader-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  animation: none;
 }
 
 .shell-footer-inner {

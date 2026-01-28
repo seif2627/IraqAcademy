@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Iraq Academy</title>
-  <meta name="description" content="Learn about Iraq Academy, its mission, and its learning experience.">
+  <title>Complete Profile | Iraq Academy</title>
+  <meta name="description" content="Complete your legal profile information to access Iraq Academy.">
   <link rel="icon" href="../Logo/LogoNoBackground.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../assets/styles.css">
@@ -29,17 +29,17 @@
       <p class="text-slate-600">Please complete your legal information before continuing to use the platform.</p>
     </div>
 
-    <form id="infoForm" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-8">
-      <div class="pb-6 border-b border-slate-100">
-        <h2 class="text-lg font-bold mb-2">Account</h2>
-        <p class="text-sm text-slate-500 mb-4">Your login email is tied to your account.</p>
-        <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-        <input id="email" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50" readonly>
+    <form id="infoForm" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+      <div id="verifyBanner" class="hidden border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 rounded-xl">
+        Please verify your email address first. A verification email has been sent to your inbox.
+        <button id="resendVerification" class="mr-2 text-amber-800 font-bold hover:underline">Resend</button>
       </div>
 
-      <div class="pb-6 border-b border-slate-100">
-        <h2 class="text-lg font-bold mb-2">Profile</h2>
-        <p class="text-sm text-slate-500 mb-4">These legal details are required before you can proceed.</p>
+      <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
+        <div>
+          <h2 class="text-lg font-bold">Personal Information</h2>
+          <p class="text-sm text-slate-500">Your legal name must match your government-issued ID.</p>
+        </div>
         <div class="grid md:grid-cols-3 gap-4">
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">First Name</label>
@@ -54,22 +54,52 @@
             <input id="lastName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Last Name">
           </div>
         </div>
-        <div class="mt-4">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+            <input id="birthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
+        <div>
+          <h2 class="text-lg font-bold">Contact Information</h2>
+          <p class="text-sm text-slate-500">We use this information to reach you about your account.</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+          <input id="email" type="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-slate-50" readonly>
+        </div>
+        <div>
           <label class="block text-sm font-medium text-slate-700 mb-1">Phone Number</label>
           <input id="phone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone Number">
         </div>
       </div>
 
-      <div class="pb-6 border-b border-slate-100">
-        <h2 class="text-lg font-bold mb-2">Address</h2>
-        <p class="text-sm text-slate-500 mb-4">Use your current residential address.</p>
+      <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
         <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Full Address</label>
-          <input id="address" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Address">
+          <h2 class="text-lg font-bold">Legal Identification</h2>
+          <p class="text-sm text-slate-500">These details are required for enrollment verification.</p>
         </div>
-        <div class="grid md:grid-cols-2 gap-4 mt-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Government ID Number</label>
+          <input id="idNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
+        </div>
+      </div>
+
+      <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
+        <div>
+          <h2 class="text-lg font-bold">Address Information</h2>
+          <p class="text-sm text-slate-500">Provide your full residential address.</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Address Line</label>
+          <input id="address" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Street, building, and neighborhood">
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">City / Area</label>
+            <label class="block text-sm font-medium text-slate-700 mb-1">City</label>
             <input id="city" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City or Area">
           </div>
           <div>
@@ -79,32 +109,10 @@
         </div>
       </div>
 
-      <div class="pb-6 border-b border-slate-100">
-        <h2 class="text-lg font-bold mb-2">Security</h2>
-        <p class="text-sm text-slate-500 mb-4">Verify your email to activate your account.</p>
-        <div id="verifyBanner" class="hidden border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 rounded-xl">
-          Please verify your email address first. A verification email has been sent to your inbox.
-          <button id="resendVerification" class="mr-2 text-amber-800 font-bold hover:underline">Resend</button>
-        </div>
+      <div class="space-y-3">
+        <button id="saveBtn" class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Save Information</button>
+        <button id="cancelOnboarding" type="button" class="w-full border border-rose-200 text-rose-600 rounded-xl py-3 font-semibold hover:bg-rose-50 transition-all">Cancel setup and delete account</button>
       </div>
-
-      <div>
-        <h2 class="text-lg font-bold mb-2">Identity (Optional)</h2>
-        <p class="text-sm text-slate-500 mb-4">Optional details to keep your profile complete.</p>
-        <div class="grid md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">National ID Number</label>
-            <input id="idNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
-            <input id="birthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
-          </div>
-        </div>
-      </div>
-
-      <button id="saveBtn" class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Save Information</button>
-      <button id="cancelOnboarding" type="button" class="w-full border border-rose-200 text-rose-600 rounded-xl py-3 font-semibold hover:bg-rose-50 transition-all">Cancel setup and delete account</button>
     </form>
   </div>
   <div id="toastContainer" class="toast-container" aria-live="polite"></div>
@@ -217,7 +225,11 @@
       const middleName = fields.middleName.value.trim();
       const lastName = fields.lastName.value.trim();
       const phone = fields.phone.value.trim();
+      const birthDate = fields.birthDate.value.trim();
+      const idNumber = fields.idNumber.value.trim();
       const address = fields.address.value.trim();
+      const city = fields.city.value.trim();
+      const governorate = fields.governorate.value.trim();
       if (!firstName || !middleName || !lastName) {
         showToast('First, middle, and last names are required.', 'error');
         return false;
@@ -226,8 +238,24 @@
         showToast('Phone number is required.', 'error');
         return false;
       }
+      if (!birthDate) {
+        showToast('Date of birth is required.', 'error');
+        return false;
+      }
+      if (!idNumber) {
+        showToast('Government ID number is required.', 'error');
+        return false;
+      }
       if (!address) {
-        showToast('Full address is required.', 'error');
+        showToast('Address line is required.', 'error');
+        return false;
+      }
+      if (!city) {
+        showToast('City is required.', 'error');
+        return false;
+      }
+      if (!governorate) {
+        showToast('Governorate is required.', 'error');
         return false;
       }
       return true;

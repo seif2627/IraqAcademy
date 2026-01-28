@@ -47,8 +47,20 @@ export const set = mutation({
     if (!args.phone.trim()) {
       throw new Error("Phone number is required.");
     }
+    if (!args.birthDate.trim()) {
+      throw new Error("Date of birth is required.");
+    }
+    if (!args.idNumber.trim()) {
+      throw new Error("Government ID number is required.");
+    }
     if (!args.address.trim()) {
       throw new Error("Full address is required.");
+    }
+    if (!args.city.trim()) {
+      throw new Error("City is required.");
+    }
+    if (!args.governorate.trim()) {
+      throw new Error("Governorate is required.");
     }
     const existing = await ctx.db
       .query("profiles")
