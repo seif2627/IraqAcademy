@@ -445,6 +445,9 @@ function loadIntoFrame(page) {
     page = "info";
     history.replaceState(null, "", "/info");
   }
+  if (window.emailVerificationRequired || window.onboardingRequired) {
+    setNavLocked(true);
+  }
 
   if (window.isAuthenticated && (page === "login" || page === "signup")) {
     page = getRoleLandingPage(window.currentUserRole || "student");
@@ -457,6 +460,7 @@ function loadIntoFrame(page) {
   }
   
   if (!mapping[page]) return;
+  syncSearchInput();
 
   // Update active state in nav
   document.querySelectorAll(".nav-link").forEach(function (btn) {
@@ -509,7 +513,7 @@ async function checkAuthState() {
     const roleBadge = document.getElementById('roleBadge');
     const profileButton = document.getElementById('profileButton');
 
-    const firebaseUser = window.firebaseAuth?.auth?.currentUser || null;
+    const firebaseUser = await getFirebaseUser();
     const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
 
     if (session && !isVerified) {
@@ -590,6 +594,28 @@ function getRoleLabel(role) {
   if (role === "admin") return "Admin";
   if (role === "teacher") return "Teacher";
   return "Student";
+}
+
+async function getFirebaseUser() {
+  var auth = window.firebaseAuth?.auth;
+  if (!auth) return null;
+  if (auth.currentUser) return auth.currentUser;
+  if (!window.firebaseAuth?.onAuthStateChanged) return null;
+  return new Promise((resolve) => {
+    var settled = false;
+    var timeout = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      resolve(auth.currentUser || null);
+    }, 2000);
+    var unsubscribe = window.firebaseAuth.onAuthStateChanged(auth, function (user) {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      if (typeof unsubscribe === "function") unsubscribe();
+      resolve(user || null);
+    });
+  });
 }
 
 function updateNavAccess() {

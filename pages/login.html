@@ -218,13 +218,45 @@
       }
     };
 
+    const getFirebaseUser = () => {
+      const auth = window.firebaseAuth?.auth;
+      if (!auth) return Promise.resolve(null);
+      if (auth.currentUser) return Promise.resolve(auth.currentUser);
+      if (!window.firebaseAuth?.onAuthStateChanged) return Promise.resolve(null);
+      return new Promise((resolve) => {
+        let settled = false;
+        const timeout = setTimeout(() => {
+          if (settled) return;
+          settled = true;
+          resolve(auth.currentUser || null);
+        }, 2000);
+        const unsubscribe = window.firebaseAuth.onAuthStateChanged(auth, (user) => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          if (typeof unsubscribe === 'function') unsubscribe();
+          resolve(user || null);
+        });
+      });
+    };
+
     const navigateFromAuth = async (destination) => {
       const parent = window.parent || window;
       if (parent.checkAuthState) {
-        await parent.checkAuthState();
+        try {
+          await parent.checkAuthState();
+        } catch (error) {
+          // ignore auth sync failures
+        }
       }
       if (parent.navigateTo) {
         parent.navigateTo(destination);
+        setTimeout(() => {
+          const path = parent.location?.pathname || '';
+          if (path === '/login' || path === '/signup') {
+            parent.location.href = `/${destination}`;
+          }
+        }, 400);
         return;
       }
       parent.location.href = `/${destination}`;
@@ -253,7 +285,7 @@
           // ignore sync errors
         }
       }
-      const firebaseUser = window.firebaseAuth?.auth?.currentUser || null;
+      const firebaseUser = await getFirebaseUser();
       const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
       if (!isVerified) {
         if (firebaseUser && window.firebaseAuth?.sendEmailVerification) {
@@ -268,6 +300,9 @@
       }
       const role = await resolveUserRole(activeSession);
       const needsProfile = await needsProfileCompletion(activeSession);
+      if (window.parent) {
+        window.parent.onboardingRequired = needsProfile;
+      }
       const destination = needsProfile ? 'info' : getRoleDestination(role);
       showToast('Signed in successfully. Redirecting...', 'success');
       await navigateFromAuth(destination);

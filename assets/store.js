@@ -5,8 +5,10 @@ const PROFILE_KEY = "ia_profile";
 let checkoutInProgress = false;
 
 const safeParse = (value, fallback) => {
+  if (value === null || value === undefined || value === "") return fallback;
   try {
-    return JSON.parse(value);
+    const parsed = JSON.parse(value);
+    return parsed === null ? fallback : parsed;
   } catch (error) {
     return fallback;
   }
