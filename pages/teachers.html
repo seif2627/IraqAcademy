@@ -213,11 +213,42 @@
       }, 50);
     });
 
+    const waitForAuthReady = (timeoutMs = 5000) => {
+      const authReady = window.top?.iaAuthReady || window.iaAuthReady;
+      if (!authReady || typeof authReady.then !== 'function') {
+        return Promise.resolve();
+      }
+      return new Promise((resolve) => {
+        let settled = false;
+        const timer = setTimeout(() => {
+          if (settled) return;
+          settled = true;
+          resolve();
+        }, timeoutMs);
+        authReady.then(() => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          resolve();
+        }).catch(() => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          resolve();
+        });
+      });
+    };
+
     const getConvexClient = async () => {
       const existing = window.top?.convexClient || window.convexClient;
-      if (existing) return existing;
+      if (existing) {
+        await waitForAuthReady();
+        return existing;
+      }
       try {
-        return await waitForConvex();
+        const client = await waitForConvex();
+        await waitForAuthReady();
+        return client;
       } catch (error) {
         return null;
       }

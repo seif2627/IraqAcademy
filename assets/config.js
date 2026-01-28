@@ -1,3 +1,3 @@
 window.IA_CONFIG = {
-  convexUrl: "https://iraqacademy-saif-alrifaie.convex.cloud"
+  convexUrl: "https://astute-walrus-62.convex.cloud"
 };
