@@ -139,6 +139,32 @@
     let isLoggedIn = false;
     let currentRole = null;
 
+    const waitForConvex = (timeoutMs = 5000) => new Promise((resolve, reject) => {
+      const start = Date.now();
+      const timer = setInterval(() => {
+        const client = window.top?.convexClient || window.convexClient;
+        if (client) {
+          clearInterval(timer);
+          resolve(client);
+          return;
+        }
+        if (Date.now() - start >= timeoutMs) {
+          clearInterval(timer);
+          reject(new Error('Convex client not ready'));
+        }
+      }, 50);
+    });
+
+    const getConvexClient = async () => {
+      const existing = window.top?.convexClient || window.convexClient;
+      if (existing) return existing;
+      try {
+        return await waitForConvex();
+      } catch (error) {
+        return null;
+      }
+    };
+
     const setCartNotice = (message, tone = 'muted') => {
       if (!cartNotice) return;
       cartNotice.textContent = message || '';
@@ -282,12 +308,14 @@
     };
 
     async function loadCourses() {
-      const convex = window.top?.convexClient || window.convexClient;
-      if (!convex || !coursesGrid) {
+      if (!coursesGrid) return;
+      coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">Loading courses...</div>';
+      const convex = await getConvexClient();
+      if (!convex) {
+        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We could not load courses. Please refresh.</div>';
         return;
       }
 
-      coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">Loading courses...</div>';
       try {
         const courses = await convex.query('content:getCourses', {});
         cachedCourses = courses;
@@ -302,7 +330,7 @@
     }
 
     async function loadEnrollments() {
-      const convex = window.top?.convexClient || window.convexClient;
+      const convex = await getConvexClient();
       const client = window.top?.authClient || window.authClient;
       if (!convex || !client) return;
       const { data: { session } } = await client.auth.getSession();
@@ -441,7 +469,7 @@
     };
 
     const pollOrderStatus = async (sessionId, attempts = 0) => {
-      const convex = window.top?.convexClient || window.convexClient;
+      const convex = await getConvexClient();
       if (!convex) return;
       try {
         const order = await convex.query('orders:getByStripeSessionId', { sessionId });

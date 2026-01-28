@@ -425,8 +425,13 @@ main {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.875rem;
   color: var(--ia-muted);
+}
+
+.shell-footer-inner p {
+  margin: 0;
 }
 
 .teacher-bio,

@@ -197,6 +197,32 @@
     let isSavingCourse = false;
     let isDeletingCourse = false;
 
+    const waitForConvex = (timeoutMs = 5000) => new Promise((resolve, reject) => {
+      const start = Date.now();
+      const timer = setInterval(() => {
+        const client = window.top?.convexClient || window.convexClient;
+        if (client) {
+          clearInterval(timer);
+          resolve(client);
+          return;
+        }
+        if (Date.now() - start >= timeoutMs) {
+          clearInterval(timer);
+          reject(new Error('Convex client not ready'));
+        }
+      }, 50);
+    });
+
+    const getConvexClient = async () => {
+      const existing = window.top?.convexClient || window.convexClient;
+      if (existing) return existing;
+      try {
+        return await waitForConvex();
+      } catch (error) {
+        return null;
+      }
+    };
+
     const registerButtonLabel = (button) => {
       if (!button || button.dataset.label) return;
       button.dataset.label = button.textContent;
@@ -288,8 +314,13 @@
     };
 
     const loadCourses = async (teacherId) => {
-      const convex = window.top?.convexClient || window.convexClient;
-      if (!convex || !teacherId) return;
+      const convex = await getConvexClient();
+      if (!convex || !teacherId) {
+        if (teacherId) {
+          coursesList.innerHTML = '<div class="text-sm text-slate-500">Unable to load courses.</div>';
+        }
+        return;
+      }
       try {
         const courses = await convex.query('content:getCoursesPublic', { teacherId });
         renderCourses(courses);
@@ -300,7 +331,7 @@
     };
 
     const loadEnrollmentsForCourse = async (courseId) => {
-      const convex = window.top?.convexClient || window.convexClient;
+      const convex = await getConvexClient();
       if (!convex || !courseId) {
         enrollmentsList.textContent = 'Select a course to view enrollments.';
         return;
@@ -323,21 +354,22 @@
     };
 
     async function loadTeachers() {
-      const convex = window.top?.convexClient || window.convexClient;
+      if (loading) {
+        loading.style.display = 'block';
+        const message = loading.querySelector('p');
+        if (message) message.textContent = 'Loading teachers...';
+      }
+
+      const convex = await getConvexClient();
       const client = window.top?.authClient || window.authClient;
 
       if (!convex) {
         const message = loading.querySelector('p');
         if (message) {
-          message.textContent = 'Unable to load teachers.';
+          message.textContent = 'Unable to load teachers. Please refresh.';
         }
+        if (grid) grid.style.display = 'none';
         return;
-      }
-
-      if (loading) {
-        loading.style.display = 'block';
-        const message = loading.querySelector('p');
-        if (message) message.textContent = 'Loading teachers...';
       }
 
       try {
