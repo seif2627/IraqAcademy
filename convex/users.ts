@@ -10,7 +10,10 @@ export const upsert = mutation({
     role: v.string()
   },
   handler: async (ctx, args) => {
-    await requireSelf(ctx, args.userId);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity || identity.subject !== args.userId) {
+      throw new Error("Unauthorized");
+    }
     const existing = await ctx.db
       .query("users")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
@@ -30,6 +33,66 @@ export const upsert = mutation({
       role: args.role,
       createdAt: Date.now()
     });
+  }
+});
+
+export const cleanupOnboarding = mutation({
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity || identity.subject !== args.userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+    if (user) {
+      await ctx.db.delete(user._id);
+    }
+
+    const profile = await ctx.db
+      .query("profiles")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+    if (profile) {
+      await ctx.db.delete(profile._id);
+    }
+
+    const cart = await ctx.db
+      .query("carts")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+    if (cart) {
+      await ctx.db.delete(cart._id);
+    }
+
+    const paymentProfile = await ctx.db
+      .query("paymentProfiles")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+    if (paymentProfile) {
+      await ctx.db.delete(paymentProfile._id);
+    }
+
+    const orders = await ctx.db
+      .query("orders")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .collect();
+    for (const order of orders) {
+      await ctx.db.delete(order._id);
+    }
+
+    const enrollments = await ctx.db
+      .query("enrollments")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .collect();
+    for (const enrollment of enrollments) {
+      await ctx.db.delete(enrollment._id);
+    }
+
+    return true;
   }
 });
 

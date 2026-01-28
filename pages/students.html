@@ -14,13 +14,6 @@
     <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
       <h1 class="text-2xl font-bold mb-2">Update Your Profile</h1>
       <p class="text-slate-600 mb-6">Update your basic information and profile image.</p>
-      <div class="flex items-center gap-4 mb-6">
-        <img id="studentProfileImage" src="" alt="Profile" class="w-16 h-16 rounded-full border border-slate-200 object-cover hidden">
-        <div>
-          <input id="studentImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
-          <div class="text-xs text-slate-500 mt-1">Image is cropped automatically.</div>
-        </div>
-      </div>
       <div class="grid md:grid-cols-2 gap-4">
         <input id="studentFullName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Full Name">
         <input id="studentPhone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone">
@@ -151,8 +144,6 @@
     const content = document.getElementById('studentsContent');
     const denied = document.getElementById('studentsAccessDenied');
     const profileContent = document.getElementById('profileContent');
-    const studentProfileImage = document.getElementById('studentProfileImage');
-    const studentImageInput = document.getElementById('studentImageInput');
     const studentFullName = document.getElementById('studentFullName');
     const studentPhone = document.getElementById('studentPhone');
     const studentCity = document.getElementById('studentCity');
@@ -162,7 +153,6 @@
     const studentBirthDate = document.getElementById('studentBirthDate');
     const saveStudentProfile = document.getElementById('saveStudentProfile');
     const studentProfileNotice = document.getElementById('studentProfileNotice');
-    let studentImageUrl = '';
     let isSavingProfile = false;
     const saveStudentProfileLabel = saveStudentProfile.textContent;
 
@@ -178,27 +168,6 @@
       if (denied) denied.classList.remove('hidden');
     };
 
-    const cropImage = (file) => new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = new Image();
-        img.onload = () => {
-          const size = 320;
-          const canvas = document.createElement('canvas');
-          canvas.width = size;
-          canvas.height = size;
-          const ctx = canvas.getContext('2d');
-          const min = Math.min(img.width, img.height);
-          const sx = (img.width - min) / 2;
-          const sy = (img.height - min) / 2;
-          ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
-          resolve(canvas.toDataURL('image/jpeg', 0.85));
-        };
-        img.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    });
-
     const fillProfile = (profile) => {
       studentFullName.value = profile?.fullName || '';
       studentPhone.value = profile?.phone || '';
@@ -207,13 +176,6 @@
       studentAddress.value = profile?.address || '';
       studentIdNumber.value = profile?.idNumber || '';
       studentBirthDate.value = profile?.birthDate || '';
-      studentImageUrl = profile?.imageUrl || '';
-      if (studentImageUrl) {
-        studentProfileImage.src = studentImageUrl;
-        studentProfileImage.classList.remove('hidden');
-      } else {
-        studentProfileImage.classList.add('hidden');
-      }
     };
 
     const checkAccess = async () => {
@@ -238,14 +200,6 @@
       }
     };
 
-    studentImageInput.addEventListener('change', async (event) => {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      studentImageUrl = await cropImage(file);
-      studentProfileImage.src = studentImageUrl;
-      studentProfileImage.classList.remove('hidden');
-    });
-
     saveStudentProfile.addEventListener('click', async () => {
       if (!client || !convex) return;
       if (isSavingProfile) return;
@@ -266,8 +220,7 @@
           city: studentCity.value.trim(),
           governorate: studentGovernorate.value.trim(),
           idNumber: studentIdNumber.value.trim(),
-          birthDate: studentBirthDate.value,
-          imageUrl: studentImageUrl || undefined
+          birthDate: studentBirthDate.value
         });
         studentProfileNotice.textContent = 'Your data has been saved.';
       } catch (error) {

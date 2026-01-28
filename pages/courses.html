@@ -355,7 +355,14 @@
           : courses;
         renderCourses(filtered);
       } catch (error) {
-        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We could not load courses. Please try again.</div>';
+        try {
+          const fallback = await withTimeout(convex.query('content:getCourses', {}));
+          const courses = Array.isArray(fallback) ? fallback : [];
+          cachedCourses = courses;
+          renderCourses(courses);
+        } catch (fallbackError) {
+          coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We could not load courses. Please try again.</div>';
+        }
       }
     }
 

@@ -193,6 +193,10 @@
         const profile = await convex.query('profiles:get', { userId: session.user.id });
         return !isProfileComplete(profile);
       } catch (error) {
+        if (window.top?.iaStore?.getProfile) {
+          const localProfile = await window.top.iaStore.getProfile();
+          return !isProfileComplete(localProfile);
+        }
         return false;
       }
     };
@@ -212,6 +216,13 @@
       if (!activeSession) {
         window.parent.location.reload();
         return;
+      }
+      if (window.top?.iaStore?.syncUser) {
+        try {
+          await window.top.iaStore.syncUser(activeSession.user);
+        } catch (error) {
+          // ignore sync errors
+        }
       }
       const role = await resolveUserRole(activeSession);
       const isVerified = window.firebaseAuth?.auth?.currentUser?.emailVerified !== false;

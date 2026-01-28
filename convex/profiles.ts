@@ -39,6 +39,17 @@ export const set = mutation({
   },
   handler: async (ctx, args) => {
     await requireSelf(ctx, args.userId);
+    const fullName = args.fullName.trim();
+    const nameParts = fullName.split(/\s+/).filter(Boolean);
+    if (nameParts.length < 3) {
+      throw new Error("Full legal name is required.");
+    }
+    if (!args.phone.trim()) {
+      throw new Error("Phone number is required.");
+    }
+    if (!args.address.trim()) {
+      throw new Error("Full address is required.");
+    }
     const existing = await ctx.db
       .query("profiles")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))

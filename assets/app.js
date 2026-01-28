@@ -179,31 +179,16 @@ async function updateProfileAvatar(session) {
   if (!session) {
     profileButton.style.display = "none";
     if (avatarImage) avatarImage.style.display = "none";
-    avatarFallback.style.display = "inline";
-    avatarFallback.textContent = "?";
+    avatarFallback.style.display = "inline-flex";
+    avatarFallback.innerHTML = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"w-4 h-4\"><path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path><circle cx=\"12\" cy=\"7\" r=\"4\"></circle></svg>";
     return;
   }
   profileButton.style.display = "inline-flex";
-  var fullName = session.user?.user_metadata?.full_name || "";
-  var email = session.user?.email || "";
-  avatarFallback.textContent = getInitials(fullName, email);
-  avatarFallback.style.display = "inline";
+  avatarFallback.style.display = "inline-flex";
+  avatarFallback.innerHTML = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"w-4 h-4\"><path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path><circle cx=\"12\" cy=\"7\" r=\"4\"></circle></svg>";
   if (avatarImage) {
     avatarImage.src = "";
     avatarImage.style.display = "none";
-  }
-  var convex = window.convexClient || window.top?.convexClient;
-  if (!convex || !session.user?.id) return;
-  try {
-    var profile = await convex.query("profiles:get", { userId: session.user.id });
-    var imageUrl = profile?.imageUrl || "";
-    if (imageUrl && avatarImage) {
-      avatarImage.src = imageUrl;
-      avatarImage.style.display = "block";
-      avatarFallback.style.display = "none";
-    }
-  } catch (error) {
-    return;
   }
 }
 
@@ -240,6 +225,29 @@ function updateProfileMenu(session, role) {
       .some(function (item) { return item.style.display !== "none"; });
     section.style.display = hasVisibleItems ? "flex" : "none";
   });
+}
+
+async function cleanupOnboardingAccount() {
+  var client = window.authClient;
+  var convex = window.convexClient || window.top?.convexClient;
+  if (!client) return;
+  var sessionData = await client.auth.getSession();
+  var session = sessionData?.data?.session || null;
+  if (session?.user?.id && convex) {
+    try {
+      await convex.mutation("users:cleanupOnboarding", { userId: session.user.id });
+    } catch (error) {
+      // best-effort cleanup
+    }
+  }
+  if (window.firebaseAuth?.auth?.currentUser && window.firebaseAuth?.deleteUser) {
+    try {
+      await window.firebaseAuth.deleteUser(window.firebaseAuth.auth.currentUser);
+    } catch (error) {
+      // ignore delete failures
+    }
+  }
+  await client.auth.signOut();
 }
 
 function closeProfileMenu() {
@@ -283,6 +291,11 @@ async function handleProfileMenuAction(action) {
     return;
   }
   if (action === "logout") {
+    if (window.onboardingRequired) {
+      await cleanupOnboardingAccount();
+      window.location.href = "/signup";
+      return;
+    }
     if (window.authClient) {
       await window.authClient.auth.signOut();
     }
@@ -457,6 +470,13 @@ async function checkAuthState() {
 
     if (session) {
         window.isAuthenticated = true;
+        if (window.iaStore?.syncUser && session.user) {
+          try {
+            await window.iaStore.syncUser(session.user);
+          } catch (error) {
+            // ignore sync failures
+          }
+        }
         window.currentUserRole = await resolveUserRole(session);
         window.onboardingRequired = await needsOnboarding(session);
         if (roleBadge) {
