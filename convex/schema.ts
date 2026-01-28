@@ -95,7 +95,7 @@ export default defineSchema({
   })
     .index("by_teacherId", ["teacherId"])
     .index("by_category", ["category"])
-    .index("by_status", ["status"])
+    .index("by_status", ["status"]),
   enrollments: defineTable({
     userId: v.string(),
     courseId: v.id("courses"),

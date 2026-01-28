@@ -2,7 +2,39 @@ import { action, httpAction, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { api } from "./_generated/api";
 import { requireSelf } from "./auth";
-import crypto from "crypto";
+
+const encoder = new TextEncoder();
+
+const toHex = (buffer: ArrayBuffer) =>
+  Array.from(new Uint8Array(buffer))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+const sha256Hex = async (value: string) => {
+  const hash = await crypto.subtle.digest("SHA-256", encoder.encode(value));
+  return toHex(hash);
+};
+
+const hmacSha256Hex = async (secret: string, message: string) => {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, encoder.encode(message));
+  return toHex(sig);
+};
+
+const timingSafeEqualHex = (a: string, b: string) => {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i += 1) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+};
 
 export const getProfile = query({
   args: { userId: v.string() },
@@ -81,13 +113,13 @@ const ensureAllowedOrigin = (url, allowedOrigin) => {
   }
 };
 
-const buildCartSignature = (items) => {
+const buildCartSignature = async (items) => {
   const normalized = items
     .map((item) => ({
       courseId: String(item.courseId)
     }))
     .sort((a, b) => a.courseId.localeCompare(b.courseId));
-  return crypto.createHash("sha256").update(JSON.stringify(normalized)).digest("hex");
+  return await sha256Hex(JSON.stringify(normalized));
 };
 
 const addLineItemParams = (params, index, item, currency) => {
@@ -158,11 +190,8 @@ export const createCheckoutSession = action({
       throw new Error("Cart is empty");
     }
 
-    const cartSignature = buildCartSignature(cart.items);
-    const idempotencyKey = crypto
-      .createHash("sha256")
-      .update(`${userId}:${cartSignature}`)
-      .digest("hex");
+    const cartSignature = await buildCartSignature(cart.items);
+    const idempotencyKey = await sha256Hex(`${userId}:${cartSignature}`);
 
     const params = new URLSearchParams();
     const currency = getStripeCurrency();
@@ -222,7 +251,7 @@ export const createCheckoutSession = action({
   }
 });
 
-const verifyStripeSignature = (body, signatureHeader, secret) => {
+const verifyStripeSignature = async (body, signatureHeader, secret) => {
   if (!signatureHeader) return false;
   const parts = signatureHeader.split(",").map((part) => part.trim());
   const timestamp = parts.find((part) => part.startsWith("t="))?.slice(2);
@@ -231,14 +260,8 @@ const verifyStripeSignature = (body, signatureHeader, secret) => {
     .map((part) => part.slice(3));
   if (!timestamp || !signatures.length) return false;
   const signedPayload = `${timestamp}.${body}`;
-  const expected = crypto.createHmac("sha256", secret).update(signedPayload).digest("hex");
-  return signatures.some((sig) => {
-    try {
-      return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
-    } catch (error) {
-      return false;
-    }
-  });
+  const expected = await hmacSha256Hex(secret, signedPayload);
+  return signatures.some((sig) => timingSafeEqualHex(sig, expected));
 };
 
 export const stripeWebhook = httpAction(async (ctx, request) => {
@@ -248,7 +271,7 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
   }
   const body = await request.text();
   const signature = request.headers.get("stripe-signature") || "";
-  const valid = verifyStripeSignature(body, signature, secret);
+  const valid = await verifyStripeSignature(body, signature, secret);
   if (!valid) {
     return new Response("Invalid signature", { status: 400 });
   }
