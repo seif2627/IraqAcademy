@@ -104,7 +104,7 @@
   <script src="../assets/auth.js"></script>
   <script>
     const convex = window.parent?.convexClient || window.convexClient;
-    const firebase = window.parent?.firebaseAuth || window.firebaseAuth;
+    var firebaseRef = window.parent?.firebaseAuth || window.firebaseAuth;
     const loginForm = document.getElementById('loginForm');
     const submitBtn = loginForm.querySelector('button[type="submit"]');
     const providerButtons = [document.getElementById('googleLogin'), document.getElementById('microsoftLogin')];
@@ -220,10 +220,10 @@
     };
 
     const getFirebaseUser = () => {
-      const auth = firebase?.auth;
+      const auth = firebaseRef?.auth;
       if (!auth) return Promise.resolve(null);
       if (auth.currentUser) return Promise.resolve(auth.currentUser);
-      if (!firebase?.onAuthStateChanged) return Promise.resolve(null);
+      if (!firebaseRef?.onAuthStateChanged) return Promise.resolve(null);
       return new Promise((resolve) => {
         let settled = false;
         const timeout = setTimeout(() => {
@@ -231,7 +231,7 @@
           settled = true;
           resolve(auth.currentUser || null);
         }, 2000);
-        const unsubscribe = firebase.onAuthStateChanged(auth, (user) => {
+        const unsubscribe = firebaseRef.onAuthStateChanged(auth, (user) => {
           if (settled) return;
           settled = true;
           clearTimeout(timeout);
@@ -289,8 +289,8 @@
       const firebaseUser = await getFirebaseUser();
       const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
       if (!isVerified) {
-        if (firebaseUser && firebase?.sendEmailVerification) {
-          await firebase.sendEmailVerification(firebaseUser);
+        if (firebaseUser && firebaseRef?.sendEmailVerification) {
+          await firebaseRef.sendEmailVerification(firebaseUser);
         }
         if (window.authClient?.auth?.signOut) {
           await window.authClient.auth.signOut();
@@ -357,8 +357,8 @@
               showToast(formatAuthError(signupError.message || signupError), 'error');
               return;
             }
-            if (firebase?.auth?.currentUser && firebase?.sendEmailVerification) {
-              await firebase.sendEmailVerification(firebase.auth.currentUser);
+            if (firebaseRef?.auth?.currentUser && firebaseRef?.sendEmailVerification) {
+              await firebaseRef.sendEmailVerification(firebaseRef.auth.currentUser);
             }
             if (window.authClient?.auth?.signOut) {
               await window.authClient.auth.signOut();
@@ -388,13 +388,13 @@
           showToast('Enter your email address first.', 'error');
           return;
         }
-        if (!firebase?.sendPasswordResetEmail || !firebase?.auth) {
+        if (!firebaseRef?.sendPasswordResetEmail || !firebaseRef?.auth) {
           showToast('Password reset is not available right now.', 'error');
           return;
         }
         try {
           setLoadingState(true, 'Sending...');
-          await firebase.sendPasswordResetEmail(firebase.auth, email);
+          await firebaseRef.sendPasswordResetEmail(firebaseRef.auth, email);
           showToast('Password reset email sent.', 'success');
         } catch (err) {
           showToast(formatAuthError(err?.message || err), 'error');
