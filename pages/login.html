@@ -117,9 +117,9 @@
       if (text.includes('user-not-found')) return 'No account found with this email.';
       if (text.includes('too-many-requests')) return 'Too many attempts. Please try again later.';
       if (text.includes('invalid-email')) return 'Please enter a valid email address.';
-      if (text.includes('popup-closed-by-user')) return 'Sign-in was cancelled.';
-      if (text.includes('account-exists-with-different-credential')) return 'Account exists with a different sign-in method.';
-      return message || 'Unable to sign in. Please try again.';
+      if (text.includes('popup-closed-by-user')) return 'Sign-in was canceled.';
+      if (text.includes('account-exists-with-different-credential')) return 'This email is linked to a different sign-in method.';
+      return message || 'We could not sign you in. Please try again.';
     };
 
     const showToast = (message, tone = 'error') => {
@@ -159,7 +159,7 @@
         const labelSpan = btn.querySelector('.provider-label');
         if (labelSpan) {
           if (!labelSpan.dataset.label) labelSpan.dataset.label = labelSpan.textContent.trim();
-          labelSpan.textContent = isLoading ? 'Connecting...' : labelSpan.dataset.label;
+          labelSpan.textContent = isLoading ? 'Signing in...' : labelSpan.dataset.label;
         }
         btn.disabled = isLoading;
         btn.setAttribute('aria-busy', isLoading ? 'true' : 'false');
