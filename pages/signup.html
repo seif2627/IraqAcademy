@@ -41,7 +41,7 @@
           type="password" 
           id="password" 
           name="password" 
-          placeholder="••••••••"
+          placeholder="********"
           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all hover:border-accent/50"
           required
         >
@@ -67,7 +67,7 @@
           type="password" 
           id="confirm-password" 
           name="confirm-password" 
-          placeholder="••••••••"
+          placeholder="********"
           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all hover:border-accent/50"
           required
         >
@@ -379,7 +379,7 @@
         if (window.authClient?.auth?.signOut) {
           await window.authClient.auth.signOut();
         }
-        setAuthNotice('Account created. Please verify your email, then log in.', 'success');
+        setAuthNotice('Account created. Please verify your email to finish setup, then log in.', 'success');
         await navigateFromAuth('login');
         return;
       }

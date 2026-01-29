@@ -264,7 +264,7 @@
     const renderCourses = (courses) => {
       coursesGrid.innerHTML = '';
       if (!courses.length) {
-        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">No courses found.</div>';
+        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">No courses available yet.</div>';
         return;
       }
       courses.forEach((course) => {
@@ -285,7 +285,7 @@
         if (imageUrl) {
           imageHtml = `<img src="${imageUrl}" alt="${title}" class="w-full h-full object-cover" data-fallback="true">`;
         } else {
-          imageHtml = '<div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100"><span>No image available</span></div>';
+          imageHtml = '<div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100"><span>Image coming soon</span></div>';
         }
 
         card.innerHTML = `
@@ -318,7 +318,7 @@
           img.addEventListener('error', () => {
             const wrapper = img.parentElement;
             if (wrapper) {
-              wrapper.innerHTML = '<div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100"><span>No image available</span></div>';
+              wrapper.innerHTML = '<div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100"><span>Image coming soon</span></div>';
             }
           });
         }
@@ -369,7 +369,7 @@
       coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">Loading courses...</div>';
       const convex = await getConvexClient();
       if (!convex) {
-        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We could not load courses. Please refresh.</div>';
+        coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We are having trouble loading courses right now. Please try again.</div>';
         return;
       }
 
@@ -392,7 +392,7 @@
           cachedCourses = courses;
           renderCourses(courses);
         } catch (fallbackError) {
-          coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We could not load courses. Please try again.</div>';
+          coursesGrid.innerHTML = '<div class="text-slate-500 text-sm">We are having trouble loading courses. Please try again shortly.</div>';
         }
       }
     }
@@ -561,7 +561,7 @@
         if (attempts < 5) {
           setTimeout(() => pollOrderStatus(sessionId, attempts + 1), 2000);
         } else {
-          setCartNotice('Payment is still processing. Please refresh in a moment.', 'error');
+          setCartNotice('Payment is still processing. Please check again shortly.', 'error');
         }
       } catch (error) {
         setCartNotice('Unable to verify payment status. Please refresh later.', 'error');

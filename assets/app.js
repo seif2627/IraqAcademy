@@ -525,7 +525,7 @@ async function checkAuthState() {
         updateProfileMenu(null, "student");
         closeProfileMenu();
         setNavLocked(true);
-        setAuthNotice("Please verify your email before signing in.", "info");
+        setAuthNotice("Please verify your email to finish setup, then sign in.", "info");
         if (window.authClient?.auth?.signOut) {
           await window.authClient.auth.signOut();
         }

@@ -397,7 +397,7 @@
       const convex = await getConvexClient();
       if (!convex || !teacherId) {
         if (teacherId) {
-          coursesList.innerHTML = '<div class="text-sm text-slate-500">Unable to load courses.</div>';
+          coursesList.innerHTML = '<div class="text-sm text-slate-500">We could not load courses right now.</div>';
         }
         return;
       }
@@ -406,7 +406,7 @@
         renderCourses(courses);
         enrollmentsList.textContent = 'Select a course to view enrollments.';
       } catch (error) {
-        coursesList.innerHTML = '<div class="text-sm text-slate-500">Unable to load courses.</div>';
+        coursesList.innerHTML = '<div class="text-sm text-slate-500">We could not load courses right now.</div>';
       }
     };
 
@@ -446,7 +446,7 @@
       if (!convex) {
         const message = loading.querySelector('p');
         if (message) {
-          message.textContent = 'Unable to load teachers. Please refresh.';
+          message.textContent = 'We are having trouble loading teachers right now. Please try again.';
         }
         if (grid) grid.style.display = 'none';
         if (loading) loading.style.display = 'none';
@@ -572,7 +572,7 @@
         } catch (fallbackError) {
           if (grid) {
             grid.style.display = 'block';
-            grid.innerHTML = '<div class="text-slate-500 text-sm">Unable to load teachers. Please try again.</div>';
+            grid.innerHTML = '<div class="text-slate-500 text-sm">We are having trouble loading teachers. Please try again shortly.</div>';
           }
         } finally {
           if (loading) loading.style.display = 'none';

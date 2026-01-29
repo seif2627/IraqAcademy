@@ -95,17 +95,17 @@
     const loadEnrollments = async () => {
       const client = window.top?.authClient || window.authClient;
       if (!client) {
-        stateEl.textContent = 'Please log in to view enrollments.';
+        stateEl.textContent = 'Sign in to view your enrollments.';
         return;
       }
       const { data: { session } } = await client.auth.getSession();
       if (!session) {
-        stateEl.textContent = 'Please log in to view enrollments.';
+        stateEl.textContent = 'Sign in to view your enrollments.';
         return;
       }
       const convex = await getConvexClient();
       if (!convex) {
-        stateEl.textContent = 'Unable to load enrollments. Please refresh.';
+        stateEl.textContent = 'We are having trouble loading enrollments right now. Please try again.';
         return;
       }
       try {
@@ -115,7 +115,7 @@
         ]);
         renderEnrollments(Array.isArray(enrollments) ? enrollments : [], Array.isArray(courses) ? courses : []);
       } catch (error) {
-        stateEl.textContent = 'Unable to load enrollments. Please try again.';
+        stateEl.textContent = 'We are having trouble loading enrollments. Please try again shortly.';
       }
     };
 
