@@ -314,6 +314,16 @@
       });
     };
 
+    const requiresEmailVerification = (user) => {
+      if (!user) return false;
+      const providers = Array.isArray(user.providerData)
+        ? user.providerData.map((entry) => entry?.providerId)
+        : [];
+      const hasPassword = providers.includes('password');
+      const hasOAuth = providers.includes('google.com') || providers.includes('microsoft.com');
+      return hasPassword && !hasOAuth;
+    };
+
     const navigateFromAuth = async (destination) => {
       const parent = window.parent || window;
       if (parent.checkAuthState) {
@@ -360,8 +370,9 @@
         }
       }
       const firebaseUser = await getFirebaseUser();
-      const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
-      if (!isVerified) {
+      const needsVerification = requiresEmailVerification(firebaseUser);
+      const isVerified = !needsVerification || firebaseUser?.emailVerified === true;
+      if (needsVerification && !isVerified) {
         if (firebaseUser && firebaseRef?.sendEmailVerification) {
           await firebaseRef.sendEmailVerification(firebaseUser);
         }

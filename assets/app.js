@@ -509,9 +509,10 @@ async function checkAuthState() {
     const profileButton = document.getElementById('profileButton');
 
     const firebaseUser = await getFirebaseUser();
-    const isVerified = firebaseUser ? firebaseUser.emailVerified === true : false;
+    const needsVerification = requiresEmailVerification(firebaseUser);
+    const isVerified = !needsVerification || firebaseUser?.emailVerified === true;
 
-    if (session && !isVerified) {
+    if (session && needsVerification && !isVerified) {
         window.emailVerificationRequired = true;
         window.isAuthenticated = false;
         window.currentUserRole = 'student';
@@ -589,6 +590,16 @@ function getRoleLabel(role) {
   if (role === "admin") return "Admin";
   if (role === "teacher") return "Teacher";
   return "Student";
+}
+
+function requiresEmailVerification(user) {
+  if (!user) return false;
+  var providers = Array.isArray(user.providerData)
+    ? user.providerData.map(function (entry) { return entry?.providerId; })
+    : [];
+  var hasPassword = providers.includes("password");
+  var hasOAuth = providers.includes("google.com") || providers.includes("microsoft.com");
+  return hasPassword && !hasOAuth;
 }
 
 async function getFirebaseUser() {

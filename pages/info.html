@@ -159,9 +159,20 @@
       }, 4000);
     };
 
+    const requiresEmailVerification = (user) => {
+      if (!user) return false;
+      const providers = Array.isArray(user.providerData)
+        ? user.providerData.map((entry) => entry?.providerId)
+        : [];
+      const hasPassword = providers.includes('password');
+      const hasOAuth = providers.includes('google.com') || providers.includes('microsoft.com');
+      return hasPassword && !hasOAuth;
+    };
+
     const updateVerificationState = () => {
       const user = getFirebaseUser();
-      if (user && !user.emailVerified) {
+      const needsVerification = requiresEmailVerification(user);
+      if (user && needsVerification && !user.emailVerified) {
         verifyBanner.classList.remove('hidden');
         saveBtn.disabled = true;
         saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
@@ -175,7 +186,7 @@
     resendBtn.addEventListener('click', async (event) => {
       event.preventDefault();
       const user = getFirebaseUser();
-      if (user) {
+      if (user && requiresEmailVerification(user)) {
         await window.firebaseAuth.sendEmailVerification(user);
         showToast('Verification email sent again.', 'success');
       }
