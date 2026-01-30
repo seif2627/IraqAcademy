@@ -463,6 +463,9 @@ function loadIntoFrame(page) {
 
   if (window.isAuthenticated && (page === "login" || page === "signup")) {
     page = getRoleLandingPage(window.currentUserRole || "student");
+    if (location.pathname.substring(1) !== page) {
+      history.replaceState(null, "", "/" + page);
+    }
   }
   if (page === "students" && !canAccessStudents()) {
     page = "home";
