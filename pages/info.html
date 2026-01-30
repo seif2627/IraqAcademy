@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Complete Profile | Iraq Academy</title>
-  <meta name="description" content="Complete your legal profile information to access Iraq Academy.">
+  <title>Profile & Legal Information | Iraq Academy</title>
+  <meta name="description" content="Manage your profile and legal information for Iraq Academy.">
   <link rel="icon" href="../Logo/LogoNoBackground.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../assets/styles.css">
@@ -25,14 +25,15 @@
 <body class="bg-slate-50 text-slate-900 font-sans min-h-screen p-8" dir="ltr">
   <div class="max-w-4xl mx-auto">
     <div class="mb-10 text-center">
-      <h1 class="text-3xl font-bold mb-2">Account Information</h1>
-      <p class="text-slate-600">Please complete your legal information before continuing to use the platform.</p>
+      <p id="modeTag" class="text-sm font-semibold uppercase tracking-wide text-emerald-600">Profile Setup</p>
+      <h1 id="pageTitle" class="text-3xl font-bold mb-2">Complete Your Profile</h1>
+      <p id="pageSubtitle" class="text-slate-600">Please complete your legal information before continuing to use the platform.</p>
     </div>
 
     <form id="infoForm" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
       <div id="verifyBanner" class="hidden border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 rounded-xl">
-        Please verify your email to complete setup. We'll resend the verification email if needed.
-        <button id="resendVerification" type="button" class="mr-2 text-amber-800 font-bold hover:underline">Resend email</button>
+        <span id="verifyMessage">Please verify your email to complete setup. We'll resend the verification email if needed.</span>
+        <button id="resendVerification" type="button" class="ml-2 text-amber-800 font-bold hover:underline">Resend email</button>
       </div>
 
       <div class="border border-slate-200 rounded-2xl p-5 space-y-4">
@@ -43,21 +44,25 @@
         <div class="grid md:grid-cols-3 gap-4">
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">First Name</label>
-            <input id="firstName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="First Name">
+            <input id="firstName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="First Name" required>
+            <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="firstName"></p>
           </div>
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Middle Name</label>
-            <input id="middleName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Middle Name">
+            <input id="middleName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Middle Name" required>
+            <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="middleName"></p>
           </div>
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Last Name</label>
-            <input id="lastName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Last Name">
+            <input id="lastName" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Last Name" required>
+            <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="lastName"></p>
           </div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
-            <input id="birthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+            <input id="birthDate" type="date" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" required>
+            <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="birthDate"></p>
           </div>
         </div>
       </div>
@@ -73,7 +78,8 @@
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1">Phone Number</label>
-          <input id="phone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone Number">
+          <input id="phone" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Phone Number" required>
+          <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="phone"></p>
         </div>
       </div>
 
@@ -84,7 +90,8 @@
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1">Government ID Number</label>
-          <input id="idNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number">
+          <input id="idNumber" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="ID Number" required>
+          <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="idNumber"></p>
         </div>
       </div>
 
@@ -95,22 +102,27 @@
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1">Address Line</label>
-          <input id="address" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Street, building, and neighborhood">
+          <input id="address" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Street, building, and neighborhood" required>
+          <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="address"></p>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">City</label>
-            <input id="city" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City or Area">
+            <input id="city" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="City or Area" required>
+            <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="city"></p>
           </div>
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Governorate</label>
-            <input id="governorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate">
+            <input id="governorate" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Governorate" required>
+            <p class="text-xs text-rose-500 mt-1 hidden" data-error-for="governorate"></p>
           </div>
         </div>
       </div>
 
       <div class="space-y-3">
-        <button id="saveBtn" class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">Save Information</button>
+        <button id="saveBtn" class="w-full bg-accent text-white rounded-xl py-3 font-bold shadow-lg hover:bg-emerald-600 transition-all">
+          <span id="saveBtnLabel">Save Information</span>
+        </button>
         <button id="cancelOnboarding" type="button" class="w-full border border-rose-200 text-rose-600 rounded-xl py-3 font-semibold hover:bg-rose-50 transition-all">Cancel setup and delete account</button>
       </div>
     </form>
@@ -128,9 +140,14 @@
     const client = window.top?.authClient || window.authClient;
     const form = document.getElementById('infoForm');
     const saveBtn = document.getElementById('saveBtn');
+    const saveBtnLabel = document.getElementById('saveBtnLabel');
     const verifyBanner = document.getElementById('verifyBanner');
+    const verifyMessage = document.getElementById('verifyMessage');
     const resendBtn = document.getElementById('resendVerification');
     const cancelBtn = document.getElementById('cancelOnboarding');
+    const modeTag = document.getElementById('modeTag');
+    const pageTitle = document.getElementById('pageTitle');
+    const pageSubtitle = document.getElementById('pageSubtitle');
 
     const fields = {
       email: document.getElementById('email'),
@@ -171,8 +188,14 @@
 
     const updateVerificationState = () => {
       const user = getFirebaseUser();
+      const isOnboarding = isOnboardingMode();
       const needsVerification = requiresEmailVerification(user);
       if (user && needsVerification && !user.emailVerified) {
+        if (verifyMessage) {
+          verifyMessage.textContent = isOnboarding
+            ? "Please verify your email to complete setup. We'll resend the verification email if needed."
+            : "Please verify your email before saving changes. We'll resend the verification email if needed.";
+        }
         verifyBanner.classList.remove('hidden');
         saveBtn.disabled = true;
         saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
@@ -213,6 +236,24 @@
       return 'students';
     };
 
+    const isOnboardingMode = () => {
+      return Boolean(window.parent?.onboardingRequired);
+    };
+
+    const setModeUI = () => {
+      const isOnboarding = isOnboardingMode();
+      if (modeTag) modeTag.textContent = isOnboarding ? 'Profile Setup' : 'Profile Settings';
+      if (pageTitle) pageTitle.textContent = isOnboarding ? 'Complete Your Profile' : 'Account Information';
+      if (pageSubtitle) {
+        pageSubtitle.textContent = isOnboarding
+          ? 'Please complete your legal information before continuing to use the platform.'
+          : 'Review and update your legal information at any time.';
+      }
+      if (saveBtnLabel) saveBtnLabel.textContent = isOnboarding ? 'Save Information' : 'Save Changes';
+      if (cancelBtn) cancelBtn.style.display = isOnboarding ? 'block' : 'none';
+      document.title = isOnboarding ? 'Complete Profile | Iraq Academy' : 'Profile & Legal Information | Iraq Academy';
+    };
+
     const loadProfile = async () => {
       const session = await client?.auth?.getSession?.();
       const email = session?.data?.session?.user?.email || getFirebaseUser()?.email || '';
@@ -230,9 +271,44 @@
         fields.idNumber.value = profile.idNumber || '';
         fields.birthDate.value = profile.birthDate || '';
       }
+      setModeUI();
+    };
+
+    const requiredFields = [
+      'firstName',
+      'middleName',
+      'lastName',
+      'phone',
+      'birthDate',
+      'idNumber',
+      'address',
+      'city',
+      'governorate'
+    ];
+
+    const setFieldError = (key, message) => {
+      const field = fields[key];
+      const errorEl = document.querySelector(`[data-error-for="${key}"]`);
+      if (!field || !errorEl) return;
+      if (message) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+        field.classList.add('border-rose-300', 'ring-1', 'ring-rose-100');
+        field.setAttribute('aria-invalid', 'true');
+      } else {
+        errorEl.textContent = '';
+        errorEl.classList.add('hidden');
+        field.classList.remove('border-rose-300', 'ring-1', 'ring-rose-100');
+        field.removeAttribute('aria-invalid');
+      }
+    };
+
+    const clearFieldErrors = () => {
+      requiredFields.forEach((key) => setFieldError(key, ''));
     };
 
     const validateRequiredFields = () => {
+      clearFieldErrors();
       const firstName = fields.firstName.value.trim();
       const middleName = fields.middleName.value.trim();
       const lastName = fields.lastName.value.trim();
@@ -242,38 +318,51 @@
       const address = fields.address.value.trim();
       const city = fields.city.value.trim();
       const governorate = fields.governorate.value.trim();
-      if (!firstName || !middleName || !lastName) {
-        showToast('First, middle, and last names are required.', 'error');
-        return false;
+      const invalid = [];
+      if (!firstName) {
+        setFieldError('firstName', 'First name is required.');
+        invalid.push('firstName');
+      }
+      if (!middleName) {
+        setFieldError('middleName', 'Middle name is required.');
+        invalid.push('middleName');
+      }
+      if (!lastName) {
+        setFieldError('lastName', 'Last name is required.');
+        invalid.push('lastName');
       }
       if (!phone) {
-        showToast('Phone number is required.', 'error');
-        return false;
+        setFieldError('phone', 'Phone number is required.');
+        invalid.push('phone');
       }
       if (!birthDate) {
-        showToast('Date of birth is required.', 'error');
-        return false;
+        setFieldError('birthDate', 'Date of birth is required.');
+        invalid.push('birthDate');
       }
       if (!idNumber) {
-        showToast('Government ID number is required.', 'error');
-        return false;
+        setFieldError('idNumber', 'Government ID number is required.');
+        invalid.push('idNumber');
       }
       if (!address) {
-        showToast('Address line is required.', 'error');
-        return false;
+        setFieldError('address', 'Address line is required.');
+        invalid.push('address');
       }
       if (!city) {
-        showToast('City is required.', 'error');
-        return false;
+        setFieldError('city', 'City is required.');
+        invalid.push('city');
       }
       if (!governorate) {
-        showToast('Governorate is required.', 'error');
+        setFieldError('governorate', 'Governorate is required.');
+        invalid.push('governorate');
+      }
+      if (invalid.length) {
+        showToast('Please review the highlighted fields and try again.', 'error');
+        const firstInvalid = fields[invalid[0]];
+        if (firstInvalid?.focus) firstInvalid.focus();
         return false;
       }
       return true;
     };
-
-    let onboardingCompleted = false;
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -282,6 +371,7 @@
         return;
       }
       if (!validateRequiredFields()) return;
+      const onboardingMode = isOnboardingMode();
       const fullName = `${fields.firstName.value.trim()} ${fields.middleName.value.trim()} ${fields.lastName.value.trim()}`;
       await store.saveProfile({
         fullName,
@@ -292,16 +382,15 @@
         idNumber: fields.idNumber.value.trim(),
         birthDate: fields.birthDate.value.trim()
       });
-      onboardingCompleted = true;
-      showToast('Information saved successfully.', 'success');
-      if (window.parent) {
+      showToast(onboardingMode ? 'Information saved successfully.' : 'Changes saved successfully.', 'success');
+      if (onboardingMode && window.parent) {
         window.parent.onboardingRequired = false;
         if (typeof window.parent.checkAuthState === 'function') {
           await window.parent.checkAuthState();
         }
+        const destination = await getRoleDestination();
+        window.parent.navigateTo(destination);
       }
-      const destination = await getRoleDestination();
-      window.parent.navigateTo(destination);
     });
 
     const cleanupOnboarding = async () => {
@@ -337,12 +426,15 @@
       });
     }
 
+    setModeUI();
     if (window.firebaseAuth?.onAuthStateChanged) {
       window.firebaseAuth.onAuthStateChanged(window.firebaseAuth.auth, () => {
+        setModeUI();
         updateVerificationState();
         loadProfile();
       });
     } else {
+      setModeUI();
       updateVerificationState();
       loadProfile();
     }
