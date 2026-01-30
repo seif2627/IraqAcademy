@@ -595,6 +595,8 @@
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex) return;
       if (isCreatingTeacher) return;
+      const confirmed = confirm('Create this teacher profile?');
+      if (!confirmed) return;
       teacherNotice.textContent = '';
       isCreatingTeacher = true;
       setButtonBusy(createTeacherBtn, true, 'Creating...');
@@ -619,6 +621,8 @@
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex || !currentTeacher) return;
       if (isSavingTeacher) return;
+      const confirmed = confirm('Save changes to this teacher profile?');
+      if (!confirmed) return;
       teacherNotice.textContent = '';
       isSavingTeacher = true;
       setButtonBusy(saveTeacherBtn, true, 'Saving...');
@@ -684,6 +688,8 @@
       const convex = window.top?.convexClient || window.convexClient;
       if (!convex || !currentTeacher) return;
       if (isSavingCourse) return;
+      const confirmed = confirm(currentCourseId ? 'Save changes to this course?' : 'Create this course?');
+      if (!confirmed) return;
       courseNotice.textContent = '';
       isSavingCourse = true;
       setButtonBusy(saveCourseBtn, true, 'Saving...');

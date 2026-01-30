@@ -148,6 +148,40 @@
     const createAccountLabel = createAccountBtn ? createAccountBtn.textContent : 'Create Account';
     const saveProfileLabel = saveProfileBtn ? saveProfileBtn.textContent : 'Save Profile';
 
+    const setNotice = (message, tone = 'muted') => {
+      if (!notice) return;
+      notice.textContent = message || '';
+      notice.classList.remove('text-emerald-600', 'text-rose-600', 'text-slate-600');
+      if (!message) {
+        notice.classList.add('text-slate-600');
+        return;
+      }
+      if (tone === 'success') {
+        notice.classList.add('text-emerald-600');
+      } else if (tone === 'error') {
+        notice.classList.add('text-rose-600');
+      } else {
+        notice.classList.add('text-slate-600');
+      }
+    };
+
+    const setProfileNotice = (message, tone = 'muted') => {
+      if (!profileNotice) return;
+      profileNotice.textContent = message || '';
+      profileNotice.classList.remove('text-emerald-600', 'text-rose-600', 'text-slate-600');
+      if (!message) {
+        profileNotice.classList.add('text-slate-600');
+        return;
+      }
+      if (tone === 'success') {
+        profileNotice.classList.add('text-emerald-600');
+      } else if (tone === 'error') {
+        profileNotice.classList.add('text-rose-600');
+      } else {
+        profileNotice.classList.add('text-slate-600');
+      }
+    };
+
     const setAccountSubmitting = (isSubmitting) => {
       if (!createAccountBtn) return;
       createAccountBtn.disabled = isSubmitting;
@@ -189,26 +223,53 @@
 
     const renderAccounts = (users) => {
       if (!users.length) {
-        accountsList.innerHTML = '<div class="text-slate-500 text-sm">No users yet.</div>';
+        accountsList.innerHTML = '';
+        const empty = document.createElement('div');
+        empty.className = 'text-slate-500 text-sm';
+        empty.textContent = 'No users yet.';
+        accountsList.appendChild(empty);
         return;
       }
-      accountsList.innerHTML = users.map((user) => `
-        <div class="border border-slate-100 rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <div class="font-bold text-slate-900">${user.fullName || user.user_metadata?.full_name || '—'}</div>
-            <div class="text-sm text-slate-500">${user.email || user.user_metadata?.email || ''}</div>
-          </div>
-          <div class="flex items-center gap-3">
-            <select class="role-select border border-slate-200 rounded-lg px-3 py-2 text-sm" data-user-id="${user.userId}" data-current-role="${user.role}">
-              <option value="student" ${user.role === 'student' ? 'selected' : ''}>Student</option>
-              <option value="teacher" ${user.role === 'teacher' ? 'selected' : ''}>Teacher</option>
-              <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
-              <option value="owner" ${user.role === 'owner' ? 'selected' : ''}>Owner</option>
-            </select>
-            <button class="edit-profile-btn px-3 py-2 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-user-id="${user.userId}">Edit Profile</button>
-          </div>
-        </div>
-      `).join('');
+      accountsList.innerHTML = '';
+      users.forEach((user) => {
+        const row = document.createElement('div');
+        row.className = 'border border-slate-100 rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap';
+
+        const info = document.createElement('div');
+        const nameEl = document.createElement('div');
+        nameEl.className = 'font-bold text-slate-900';
+        nameEl.textContent = user.fullName || user.user_metadata?.full_name || '-';
+        const emailEl = document.createElement('div');
+        emailEl.className = 'text-sm text-slate-500';
+        emailEl.textContent = user.email || user.user_metadata?.email || '';
+        info.appendChild(nameEl);
+        info.appendChild(emailEl);
+
+        const actions = document.createElement('div');
+        actions.className = 'flex items-center gap-3';
+        const select = document.createElement('select');
+        select.className = 'role-select border border-slate-200 rounded-lg px-3 py-2 text-sm';
+        select.setAttribute('data-user-id', user.userId);
+        select.setAttribute('data-current-role', user.role);
+        ['student', 'teacher', 'admin', 'owner'].forEach((role) => {
+          const option = document.createElement('option');
+          option.value = role;
+          option.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+          if (user.role === role) option.selected = true;
+          select.appendChild(option);
+        });
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-profile-btn px-3 py-2 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors';
+        editBtn.setAttribute('data-user-id', user.userId);
+        editBtn.textContent = 'Edit Profile';
+
+        actions.appendChild(select);
+        actions.appendChild(editBtn);
+        row.appendChild(info);
+        row.appendChild(actions);
+        accountsList.appendChild(row);
+      });
     };
 
     const loadAccounts = async () => {
@@ -233,22 +294,54 @@
     const loadEnrollments = async () => {
       if (!convex || !enrollmentsList) return;
       try {
-        const enrollments = await convex.query('enrollments:listAll', {});
+        const [enrollments, courses] = await Promise.all([
+          convex.query('enrollments:listAll', {}),
+          convex.query('content:getCoursesPublic', { limit: 200 })
+        ]);
+        const userLookup = new Map(
+          cachedUsers.map((user) => [String(user.userId), user])
+        );
+        const courseLookup = new Map(
+          (Array.isArray(courses) ? courses : []).map((course) => [String(course._id), course])
+        );
         if (!enrollments.length) {
-          enrollmentsList.innerHTML = '<div class="text-slate-500">No enrollments yet.</div>';
+          enrollmentsList.innerHTML = '';
+          const empty = document.createElement('div');
+          empty.className = 'text-slate-500';
+          empty.textContent = 'No enrollments yet.';
+          enrollmentsList.appendChild(empty);
           return;
         }
-        enrollmentsList.innerHTML = enrollments.map((enrollment) => `
-          <div class="border border-slate-100 rounded-xl p-3 flex items-center justify-between gap-4">
-            <div>
-              <div class="font-semibold text-slate-900">User: ${enrollment.userId}</div>
-              <div class="text-xs text-slate-500">Course: ${enrollment.courseId}</div>
-            </div>
-            <span class="text-xs text-slate-500">${enrollment.status || 'active'}</span>
-          </div>
-        `).join('');
+        enrollmentsList.innerHTML = '';
+        enrollments.forEach((enrollment) => {
+          const row = document.createElement('div');
+          row.className = 'border border-slate-100 rounded-xl p-3 flex items-center justify-between gap-4';
+          const info = document.createElement('div');
+          const user = userLookup.get(String(enrollment.userId));
+          const course = courseLookup.get(String(enrollment.courseId));
+          const userLabel = user?.fullName || user?.email || 'User';
+          const courseLabel = course?.title || 'Course';
+          const userEl = document.createElement('div');
+          userEl.className = 'font-semibold text-slate-900';
+          userEl.textContent = `User: ${userLabel}`;
+          const courseEl = document.createElement('div');
+          courseEl.className = 'text-xs text-slate-500';
+          courseEl.textContent = `Course: ${courseLabel}`;
+          info.appendChild(userEl);
+          info.appendChild(courseEl);
+          const statusEl = document.createElement('span');
+          statusEl.className = 'text-xs text-slate-500';
+          statusEl.textContent = enrollment.status || 'active';
+          row.appendChild(info);
+          row.appendChild(statusEl);
+          enrollmentsList.appendChild(row);
+        });
       } catch (error) {
-        enrollmentsList.innerHTML = '<div class="text-slate-500">Unable to load enrollments.</div>';
+        enrollmentsList.innerHTML = '';
+        const errorRow = document.createElement('div');
+        errorRow.className = 'text-slate-500';
+        errorRow.textContent = 'Unable to load enrollments.';
+        enrollmentsList.appendChild(errorRow);
       }
     };
 
@@ -302,20 +395,20 @@
         showDenied();
         return;
       }
-      loadAccounts();
-      loadEnrollments();
+      await loadAccounts();
+      await loadEnrollments();
     };
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (isCreatingAccount) return;
-      notice.textContent = '';
+      setNotice('');
       const fullName = nameInput.value.trim();
       const email = emailInput.value.trim();
       const role = roleInput.value;
       const password = passwordInput.value.trim();
       if (!fullName || !email || !password) {
-        notice.textContent = 'Please fill all fields.';
+        setNotice('Please fill all fields.', 'error');
         return;
       }
       isCreatingAccount = true;
@@ -332,13 +425,13 @@
           }
         });
         if (error) {
-          notice.textContent = error.message;
+          setNotice('Unable to create account. Please check the email and try again.', 'error');
           return;
         }
         if (window.top?.iaStore) {
           await window.top.iaStore.syncUser(data?.user);
         }
-        notice.textContent = `Account created. Temporary password: ${password}`;
+        setNotice(`Account created. Temporary password: ${password}`, 'success');
         nameInput.value = '';
         emailInput.value = '';
         generatePassword();
@@ -356,18 +449,20 @@
       const nextRole = select.value;
       const previousRole = select.getAttribute('data-current-role') || 'student';
       if (!userId || !convex) return;
+      if (nextRole === previousRole) return;
       const ownerCount = cachedUsers.filter((user) => user.role === 'owner').length;
       const isSelf = currentSession?.user?.id && userId === currentSession.user.id;
-      notice.textContent = '';
+      setNotice('');
+      let confirmed = false;
 
       if (previousRole === 'owner' && nextRole !== 'owner') {
         if (isSelf) {
-          notice.textContent = 'Owner cannot demote their own account.';
+          setNotice('Owner cannot demote their own account.', 'error');
           select.value = previousRole;
           return;
         }
         if (ownerCount <= 1) {
-          notice.textContent = 'Cannot remove the last owner.';
+          setNotice('Cannot remove the last owner.', 'error');
           select.value = previousRole;
           return;
         }
@@ -376,10 +471,19 @@
           select.value = previousRole;
           return;
         }
+        confirmed = true;
       }
 
       if (nextRole === 'owner' || nextRole === 'admin') {
         const confirmed = confirm('Confirm privileged role change?');
+        if (!confirmed) {
+          select.value = previousRole;
+          return;
+        }
+        confirmed = true;
+      }
+      if (!confirmed && previousRole !== nextRole) {
+        const confirmed = confirm(`Confirm change role to ${nextRole}?`);
         if (!confirmed) {
           select.value = previousRole;
           return;
@@ -391,9 +495,10 @@
         await convex.mutation('users:updateRole', { userId, role: nextRole });
         select.setAttribute('data-current-role', nextRole);
         cachedUsers = cachedUsers.map((user) => user.userId === userId ? { ...user, role: nextRole } : user);
-        notice.textContent = 'Role updated successfully.';
+        setNotice('Role updated successfully.', 'success');
+        await loadAccounts();
       } catch (error) {
-        notice.textContent = 'Unable to update role.';
+        setNotice('Unable to update role.', 'error');
         select.value = previousRole;
       } finally {
         select.disabled = false;
@@ -406,7 +511,7 @@
       const userId = btn.getAttribute('data-user-id');
       if (!userId || !convex) return;
       selectedUserId = userId;
-      profileNotice.textContent = '';
+      setProfileNotice('');
       try {
         const profile = await convex.query('profileAdmin:getProfileByUserId', { userId });
         fillProfileForm(profile);
@@ -425,11 +530,11 @@
 
     saveProfileBtn.addEventListener('click', async () => {
       if (!selectedUserId || !convex) {
-        profileNotice.textContent = 'Select a user first.';
+        setProfileNotice('Select a user first.', 'error');
         return;
       }
       if (isSavingProfile) return;
-      profileNotice.textContent = '';
+      setProfileNotice('');
       isSavingProfile = true;
       setProfileSaving(true);
       try {
@@ -444,9 +549,10 @@
           birthDate: profileBirthDate.value,
           imageUrl: selectedImageUrl || undefined
         });
-        profileNotice.textContent = 'Profile saved successfully.';
+        setProfileNotice('Profile saved successfully.', 'success');
+        await loadAccounts();
       } catch (error) {
-        profileNotice.textContent = 'Unable to save profile.';
+        setProfileNotice('Unable to save profile.', 'error');
       } finally {
         isSavingProfile = false;
         setProfileSaving(false);
