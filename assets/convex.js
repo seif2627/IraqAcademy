@@ -48,6 +48,7 @@ if (!CONVEX_URL) {
 } else {
   ensurePromise("iaAuthReady", "__resolveIaAuthReady");
   ensurePromise("iaConvexReady", "__resolveIaConvexReady");
+  ensurePromise("iaConvexAuthReady", "__resolveIaConvexAuthReady");
 
   const client = new ConvexClient(CONVEX_URL);
   root.__iaConvexClient = client;
@@ -55,7 +56,7 @@ if (!CONVEX_URL) {
   window.convexClient = client;
   resolvePromiseOnce("iaConvexReady", "__resolveIaConvexReady", "__iaConvexReadyResolved");
 
-  const getAuthToken = async () => {
+  const getAuthToken = async (options) => {
     if (root.iaAuthReady) {
       try {
         await root.iaAuthReady;
@@ -64,23 +65,37 @@ if (!CONVEX_URL) {
       }
     }
     const auth = root.firebaseAuth?.auth;
-    if (!auth || !auth.currentUser) return null;
+    const fallbackUser = root.__iaFirebaseUser || null;
+    const user = auth?.currentUser || fallbackUser;
+    if (!user || !user.getIdToken) return null;
     try {
-      return await auth.currentUser.getIdToken();
+      return await user.getIdToken(Boolean(options?.forceRefreshToken));
     } catch (error) {
       return null;
     }
   };
 
   if (typeof client.setAuth === "function") {
-    client.setAuth(getAuthToken, () => {});
+    client.setAuth(getAuthToken, (isAuthenticated) => {
+      if (isAuthenticated) {
+        resolvePromiseOnce("iaConvexAuthReady", "__resolveIaConvexAuthReady", "__iaConvexAuthReadyResolved");
+      }
+    });
   }
 
   const attachAuthListener = () => {
     const fb = root.firebaseAuth;
     if (!fb?.onAuthStateChanged || !fb?.auth) return false;
-    fb.onAuthStateChanged(fb.auth, () => {
+    fb.onAuthStateChanged(fb.auth, (user) => {
+      root.__iaFirebaseUser = user || null;
       resolvePromiseOnce("iaAuthReady", "__resolveIaAuthReady", "__iaAuthReadyResolved");
+      if (typeof client.setAuth === "function") {
+        client.setAuth(getAuthToken, (isAuthenticated) => {
+          if (isAuthenticated) {
+            resolvePromiseOnce("iaConvexAuthReady", "__resolveIaConvexAuthReady", "__iaConvexAuthReadyResolved");
+          }
+        });
+      }
     });
     return true;
   };

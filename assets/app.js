@@ -178,6 +178,16 @@ async function needsOnboarding(session) {
         // ignore auth readiness failures
       }
     }
+    if (window.top?.iaConvexAuthReady) {
+      try {
+        await Promise.race([
+          window.top.iaConvexAuthReady,
+          new Promise((resolve) => setTimeout(resolve, 1500))
+        ]);
+      } catch (error) {
+        // ignore convex auth readiness failures
+      }
+    }
     if (convex) {
       var profile = await convex.query("profiles:get", { userId: session.user.id });
       return !isProfileComplete(profile);

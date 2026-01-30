@@ -50,6 +50,19 @@ const waitForAuthToken = async (timeoutMs = 5000) => {
   return null;
 };
 
+const waitForConvexAuth = async (timeoutMs = 3000) => {
+  const root = window.top || window;
+  if (!root.iaConvexAuthReady) return;
+  try {
+    await Promise.race([
+      root.iaConvexAuthReady,
+      new Promise((resolve) => setTimeout(resolve, timeoutMs))
+    ]);
+  } catch (error) {
+    // ignore auth readiness failures
+  }
+};
+
 const normalizeItems = (items) => {
   if (!Array.isArray(items)) return [];
   const normalized = new Map();
@@ -280,6 +293,11 @@ const syncUser = async (user) => {
   if (!convex) return;
   const token = await waitForAuthToken();
   if (!token) {
+    setTimeout(() => syncUser(user), 500);
+    return;
+  }
+  await waitForConvexAuth();
+  if (convex?.getAuth && !convex.getAuth()) {
     setTimeout(() => syncUser(user), 500);
     return;
   }
