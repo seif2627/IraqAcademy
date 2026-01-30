@@ -3,6 +3,19 @@ const PAYMENT_KEY = "ia_payment";
 const ORDERS_KEY = "ia_orders";
 const PROFILE_KEY = "ia_profile";
 let checkoutInProgress = false;
+const transientProfiles = {};
+const transientPayments = {};
+
+const clearSensitiveLocal = () => {
+  try {
+    localStorage.removeItem(PROFILE_KEY);
+    localStorage.removeItem(PAYMENT_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+};
+
+clearSensitiveLocal();
 
 const safeParse = (value, fallback) => {
   if (value === null || value === undefined || value === "") return fallback;
@@ -160,8 +173,7 @@ const clearCart = async () => {
 };
 
 const getPaymentProfileLocal = async (userId) => {
-  const profiles = readLocal(PAYMENT_KEY, {});
-  return profiles[userId] || null;
+  return transientPayments[userId] || null;
 };
 
 const savePaymentProfile = async (profile) => {
@@ -177,15 +189,11 @@ const savePaymentProfile = async (profile) => {
       await convex.mutation("payments:setProfile", { userId, ...data });
       return data;
     } catch (error) {
-      const profiles = readLocal(PAYMENT_KEY, {});
-      profiles[userId] = data;
-      writeLocal(PAYMENT_KEY, profiles);
+      transientPayments[userId] = data;
       return data;
     }
   }
-  const profiles = readLocal(PAYMENT_KEY, {});
-  profiles[userId] = data;
-  writeLocal(PAYMENT_KEY, profiles);
+  transientPayments[userId] = data;
   return data;
 };
 
@@ -203,8 +211,7 @@ const getPaymentProfile = async () => {
 };
 
 const getProfileLocal = async (userId) => {
-  const profiles = readLocal(PROFILE_KEY, {});
-  return profiles[userId] || null;
+  return transientProfiles[userId] || null;
 };
 
 const saveProfile = async (profile) => {
@@ -224,15 +231,11 @@ const saveProfile = async (profile) => {
       await convex.mutation("profiles:set", { userId, ...data });
       return data;
     } catch (error) {
-      const profiles = readLocal(PROFILE_KEY, {});
-      profiles[userId] = data;
-      writeLocal(PROFILE_KEY, profiles);
+      transientProfiles[userId] = data;
       return data;
     }
   }
-  const profiles = readLocal(PROFILE_KEY, {});
-  profiles[userId] = data;
-  writeLocal(PROFILE_KEY, profiles);
+  transientProfiles[userId] = data;
   return data;
 };
 

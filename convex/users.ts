@@ -2,6 +2,14 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth, requireRole, requireSelf } from "./auth";
 
+const OWNER_EMAIL = "iraqacademy@mesopost.com";
+
+const resolveInitialRole = (email: string) => {
+  const normalized = String(email || "").trim().toLowerCase();
+  if (normalized === OWNER_EMAIL) return "owner";
+  return "student";
+};
+
 export const upsert = mutation({
   args: {
     userId: v.string(),
@@ -30,7 +38,7 @@ export const upsert = mutation({
       await ctx.db.patch(existing._id, {
         email: args.email,
         fullName: args.fullName,
-        role: args.role
+        role: existing.role || resolveInitialRole(args.email)
       });
       return existing._id;
     }
@@ -38,7 +46,7 @@ export const upsert = mutation({
       userId: args.userId,
       email: args.email,
       fullName: args.fullName,
-      role: args.role,
+      role: resolveInitialRole(args.email),
       createdAt: Date.now()
     });
   }
