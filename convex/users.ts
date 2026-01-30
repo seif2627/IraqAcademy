@@ -11,7 +11,15 @@ export const upsert = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity || identity.subject !== args.userId) {
+    const subject = identity?.subject || "";
+    const normalized = subject.includes("|") ? subject.split("|").pop() || subject : subject;
+    if (!identity || (subject !== args.userId && normalized !== args.userId)) {
+      console.error("[users:upsert] Unauthorized", {
+        subject,
+        normalized,
+        argsUserId: args.userId,
+        issuer: identity?.issuer
+      });
       throw new Error("Unauthorized");
     }
     const existing = await ctx.db

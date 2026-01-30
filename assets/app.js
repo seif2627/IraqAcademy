@@ -171,6 +171,13 @@ async function needsOnboarding(session) {
   var convex = window.convexClient || window.top?.convexClient;
   if (!session?.user?.id) return false;
   try {
+    if (window.top?.iaAuthReady) {
+      try {
+        await window.top.iaAuthReady;
+      } catch (error) {
+        // ignore auth readiness failures
+      }
+    }
     if (convex) {
       var profile = await convex.query("profiles:get", { userId: session.user.id });
       return !isProfileComplete(profile);

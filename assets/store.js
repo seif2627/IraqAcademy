@@ -31,6 +31,25 @@ const getUserId = async () => {
 
 const getConvex = () => window.top?.convexClient || window.convexClient || null;
 
+const waitForAuthToken = async (timeoutMs = 5000) => {
+  const root = window.top || window;
+  const auth = root.firebaseAuth?.auth;
+  if (!auth) return null;
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    if (auth.currentUser?.getIdToken) {
+      try {
+        const token = await auth.currentUser.getIdToken();
+        if (token) return token;
+      } catch (error) {
+        // ignore token errors
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, 150));
+  }
+  return null;
+};
+
 const normalizeItems = (items) => {
   if (!Array.isArray(items)) return [];
   const normalized = new Map();
@@ -259,6 +278,11 @@ const syncUser = async (user) => {
   if (!user) return;
   const convex = getConvex();
   if (!convex) return;
+  const token = await waitForAuthToken();
+  if (!token) {
+    setTimeout(() => syncUser(user), 500);
+    return;
+  }
   let role = user.user_metadata?.role || "student";
   const fullName = user.user_metadata?.full_name || "";
   try {
