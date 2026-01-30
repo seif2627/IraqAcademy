@@ -54,13 +54,6 @@
             <label class="block text-sm font-medium text-slate-700 mb-1">Select Teacher</label>
             <select id="teacherSelect" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none"></select>
           </div>
-          <div class="flex items-center gap-4">
-            <img id="teacherImagePreview" src="" alt="Teacher" class="w-20 h-20 rounded-full border border-slate-200 object-cover hidden">
-            <div>
-              <input id="teacherImageInput" type="file" accept="image/*" class="block text-sm text-slate-600">
-              <div class="text-xs text-slate-500 mt-1">Image is cropped automatically.</div>
-            </div>
-          </div>
           <input id="teacherNameInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Teacher Name">
           <input id="teacherSubjectInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" placeholder="Subject">
           <textarea id="teacherBioInput" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none" rows="4" placeholder="Short Bio"></textarea>
@@ -161,8 +154,6 @@
     const manageRole = document.getElementById('teacherManageRole');
     const teacherSelectWrap = document.getElementById('teacherSelectWrap');
     const teacherSelect = document.getElementById('teacherSelect');
-    const teacherImageInput = document.getElementById('teacherImageInput');
-    const teacherImagePreview = document.getElementById('teacherImagePreview');
     const teacherNameInput = document.getElementById('teacherNameInput');
     const teacherSubjectInput = document.getElementById('teacherSubjectInput');
     const teacherBioInput = document.getElementById('teacherBioInput');
@@ -188,7 +179,6 @@
     const enrollmentsList = document.getElementById('enrollmentsList');
 
     let currentTeacher = null;
-    let currentTeacherImage = '';
     let currentCourseId = null;
     let currentRole = 'student';
     let isCreatingTeacher = false;
@@ -322,40 +312,12 @@
 
 
 
-    const cropImage = (file) => new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = new Image();
-        img.onload = () => {
-          const size = 320;
-          const canvas = document.createElement('canvas');
-          canvas.width = size;
-          canvas.height = size;
-          const ctx = canvas.getContext('2d');
-          const min = Math.min(img.width, img.height);
-          const sx = (img.width - min) / 2;
-          const sy = (img.height - min) / 2;
-          ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
-          resolve(canvas.toDataURL('image/jpeg', 0.85));
-        };
-        img.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    });
-
     const fillTeacherForm = (teacher) => {
       currentTeacher = teacher;
       teacherNameInput.value = teacher?.name || '';
       teacherSubjectInput.value = teacher?.subject || '';
       teacherBioInput.value = teacher?.bio || '';
       teacherGenderInput.value = teacher?.gender || '';
-      currentTeacherImage = teacher?.imageUrl || '';
-      if (currentTeacherImage) {
-        teacherImagePreview.src = currentTeacherImage;
-        teacherImagePreview.classList.remove('hidden');
-      } else {
-        teacherImagePreview.classList.add('hidden');
-      }
       deleteTeacherBtn.classList.toggle('hidden', !teacher || !(currentRole === 'admin' || currentRole === 'owner'));
     };
 
@@ -384,11 +346,15 @@
         wrapper.className = 'border border-slate-100 rounded-xl p-3 flex items-center justify-between gap-3 flex-wrap';
         wrapper.innerHTML = `
           <div>
-            <div class="font-bold text-slate-900">${course.title}</div>
-            <div class="text-xs text-slate-500">${course.status || 'Available'}</div>
+            <div class="course-title font-bold text-slate-900"></div>
+            <div class="course-status text-xs text-slate-500"></div>
           </div>
           <button class="edit-course-btn px-3 py-1 rounded-lg border border-slate-200 text-sm hover:border-accent hover:text-accent transition-colors" data-course-id="${course._id}">Edit</button>
         `;
+        const titleEl = wrapper.querySelector('.course-title');
+        const statusEl = wrapper.querySelector('.course-status');
+        if (titleEl) titleEl.textContent = course.title || 'Course';
+        if (statusEl) statusEl.textContent = course.status || 'Available';
         coursesList.appendChild(wrapper);
       });
     };
@@ -422,12 +388,20 @@
         enrollmentsList.textContent = 'No enrollments yet.';
           return;
         }
-        enrollmentsList.innerHTML = enrollments.map((enrollment) => `
-          <div class="flex items-center justify-between border border-slate-100 rounded-xl px-3 py-2">
-            <span class="text-slate-900">${enrollment.userId}</span>
-            <span class="text-xs text-slate-500">${enrollment.status || 'active'}</span>
-          </div>
-        `).join('');
+        enrollmentsList.innerHTML = '';
+        enrollments.forEach((enrollment) => {
+          const row = document.createElement('div');
+          row.className = 'flex items-center justify-between border border-slate-100 rounded-xl px-3 py-2';
+          const userSpan = document.createElement('span');
+          userSpan.className = 'text-slate-900';
+          userSpan.textContent = enrollment.userId;
+          const statusSpan = document.createElement('span');
+          statusSpan.className = 'text-xs text-slate-500';
+          statusSpan.textContent = enrollment.status || 'active';
+          row.appendChild(userSpan);
+          row.appendChild(statusSpan);
+          enrollmentsList.appendChild(row);
+        });
       } catch (error) {
         enrollmentsList.textContent = 'Unable to load enrollments. Please try again.';
       }
@@ -444,11 +418,10 @@
       const client = window.top?.authClient || window.authClient;
 
       if (!convex) {
-        const message = loading.querySelector('p');
-        if (message) {
-          message.textContent = 'We are having trouble loading teachers right now. Please try again.';
+        if (grid) {
+          grid.style.display = 'block';
+          grid.innerHTML = '<div class="text-slate-500 text-sm">We are having trouble loading teachers right now. Please try again.</div>';
         }
-        if (grid) grid.style.display = 'none';
         if (loading) loading.style.display = 'none';
         return;
       }
@@ -472,7 +445,12 @@
 
         grid.innerHTML = '';
         if (!teachers.length) {
-          grid.innerHTML = '<div class="text-slate-500 text-sm">No teachers available yet.</div>';
+          const empty = document.createElement('div');
+          empty.className = 'text-slate-500 text-sm';
+          empty.textContent = searchTerm
+            ? `No teachers match "${searchTerm}".`
+            : 'No teachers available yet.';
+          grid.appendChild(empty);
           grid.style.display = 'block';
         }
 
@@ -481,6 +459,8 @@
           wrapper.className = 'teacher-card bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300';
           const avatarSvg = getTeacherAvatarSvg(teacher.gender);
           const bio = teacher.bio || '';
+          const name = teacher.name || 'Teacher';
+          const subject = teacher.subject || 'Subject';
           wrapper.innerHTML = `
             <div class="relative w-32 h-32 mx-auto mb-6">
               <div class="w-full h-full rounded-full border-4 border-slate-50 bg-white flex items-center justify-center">
@@ -490,13 +470,16 @@
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
               </div>
             </div>
-            <h3 class="text-xl font-bold mb-1">${teacher.name}</h3>
-            <p class="text-accent font-medium text-sm mb-4">${teacher.subject}</p>
-            <p class="text-slate-500 text-sm mb-6 teacher-bio line-clamp-2">${bio}</p>
-            <button class="w-full py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium hover:border-accent hover:text-accent transition-colors">
-              View Profile
-            </button>
+            <h3 class="teacher-name text-xl font-bold mb-1"></h3>
+            <p class="teacher-subject text-accent font-medium text-sm mb-4"></p>
+            <p class="teacher-bio text-slate-500 text-sm mb-0 line-clamp-2"></p>
           `;
+          const nameEl = wrapper.querySelector('.teacher-name');
+          const subjectEl = wrapper.querySelector('.teacher-subject');
+          const bioEl = wrapper.querySelector('.teacher-bio');
+          if (nameEl) nameEl.textContent = name;
+          if (subjectEl) subjectEl.textContent = subject;
+          if (bioEl) bioEl.textContent = bio;
           grid.appendChild(wrapper);
         });
 
@@ -521,7 +504,13 @@
             }
           } else if (currentRole === 'admin' || currentRole === 'owner') {
             teacherSelectWrap.classList.remove('hidden');
-            teacherSelect.innerHTML = teachers.map((teacher) => `<option value="${teacher._id}">${teacher.name}</option>`).join('');
+            teacherSelect.innerHTML = '';
+            teachers.forEach((teacher) => {
+              const option = document.createElement('option');
+              option.value = teacher._id;
+              option.textContent = teacher.name || 'Teacher';
+              teacherSelect.appendChild(option);
+            });
             const selected = teachers[0] || null;
             if (selected) {
               teacherSelect.value = selected._id;
@@ -541,7 +530,12 @@
           const teachers = Array.isArray(fallbackTeachers) ? fallbackTeachers : [];
           grid.innerHTML = '';
           if (!teachers.length) {
-            grid.innerHTML = '<div class="text-slate-500 text-sm">No teachers available yet.</div>';
+            const empty = document.createElement('div');
+            empty.className = 'text-slate-500 text-sm';
+            empty.textContent = getSearchTerm()
+              ? `No teachers match "${getSearchTerm()}".`
+              : 'No teachers available yet.';
+            grid.appendChild(empty);
             grid.style.display = 'block';
           } else {
             teachers.forEach((teacher) => {
@@ -549,6 +543,8 @@
               wrapper.className = 'teacher-card bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300';
               const avatarSvg = getTeacherAvatarSvg(teacher.gender);
               const bio = teacher.bio || '';
+              const name = teacher.name || 'Teacher';
+              const subject = teacher.subject || 'Subject';
               wrapper.innerHTML = `
                 <div class="relative w-32 h-32 mx-auto mb-6">
                   <div class="w-full h-full rounded-full border-4 border-slate-50 bg-white flex items-center justify-center">
@@ -558,13 +554,16 @@
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                   </div>
                 </div>
-                <h3 class="text-xl font-bold mb-1">${teacher.name}</h3>
-                <p class="text-accent font-medium text-sm mb-4">${teacher.subject}</p>
-                <p class="text-slate-500 text-sm mb-6 teacher-bio line-clamp-2">${bio}</p>
-                <button class="w-full py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium hover:border-accent hover:text-accent transition-colors">
-                  View Profile
-                </button>
+                <h3 class="teacher-name text-xl font-bold mb-1"></h3>
+                <p class="teacher-subject text-accent font-medium text-sm mb-4"></p>
+                <p class="teacher-bio text-slate-500 text-sm mb-0 line-clamp-2"></p>
               `;
+              const nameEl = wrapper.querySelector('.teacher-name');
+              const subjectEl = wrapper.querySelector('.teacher-subject');
+              const bioEl = wrapper.querySelector('.teacher-bio');
+              if (nameEl) nameEl.textContent = name;
+              if (subjectEl) subjectEl.textContent = subject;
+              if (bioEl) bioEl.textContent = bio;
               grid.appendChild(wrapper);
             });
             grid.style.display = 'grid';
@@ -579,14 +578,6 @@
         }
       }
     }
-
-    teacherImageInput.addEventListener('change', async (event) => {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      currentTeacherImage = await cropImage(file);
-      teacherImagePreview.src = currentTeacherImage;
-      teacherImagePreview.classList.remove('hidden');
-    });
 
     teacherSelect.addEventListener('change', async () => {
       const convex = window.top?.convexClient || window.convexClient;
@@ -612,8 +603,7 @@
           name: teacherNameInput.value.trim(),
           subject: teacherSubjectInput.value.trim(),
           bio: teacherBioInput.value.trim(),
-          gender: teacherGenderInput.value.trim(),
-          imageUrl: currentTeacherImage || undefined
+          gender: teacherGenderInput.value.trim()
         });
         teacherNotice.textContent = 'Teacher profile created.';
         await loadTeachers();
@@ -638,8 +628,7 @@
           name: teacherNameInput.value.trim(),
           subject: teacherSubjectInput.value.trim(),
           bio: teacherBioInput.value.trim(),
-          gender: teacherGenderInput.value.trim(),
-          imageUrl: currentTeacherImage || undefined
+          gender: teacherGenderInput.value.trim()
         });
         teacherNotice.textContent = 'Changes saved.';
         await loadTeachers();
