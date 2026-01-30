@@ -728,7 +728,12 @@ window.addEventListener('DOMContentLoaded', () => {
       window.firebaseAuth.onAuthStateChanged(window.firebaseAuth.auth, async () => {
         await checkAuthState();
         updateNavAccess();
-        loadIntoFrame(getPageFromUrl());
+        var page = getPageFromUrl();
+        if (window.isAuthenticated && (page === "login" || page === "signup")) {
+          navigateTo(getRoleLandingPage(window.currentUserRole || "student"));
+        } else {
+          loadIntoFrame(page);
+        }
         syncSearchInput();
       });
     }
