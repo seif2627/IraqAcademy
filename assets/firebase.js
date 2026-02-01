@@ -1,5 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, sendPasswordResetEmail, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, sendPasswordResetEmail, deleteUser, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAO5EE_vbC1PKTmLCGpErJZDj3rstEO1Mo",
@@ -13,11 +13,19 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+let secondaryApp = null;
+try {
+  secondaryApp = getApp("secondary");
+} catch (error) {
+  secondaryApp = initializeApp(firebaseConfig, "secondary");
+}
+const secondaryAuth = getAuth(secondaryApp);
 const googleProvider = new GoogleAuthProvider();
 const microsoftProvider = new OAuthProvider("microsoft.com");
 
 window.firebaseAuth = {
   auth,
+  secondaryAuth,
   googleProvider,
   microsoftProvider,
   signInWithPopup,
@@ -27,5 +35,6 @@ window.firebaseAuth = {
   sendPasswordResetEmail,
   deleteUser,
   updateProfile,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 };

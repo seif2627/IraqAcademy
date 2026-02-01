@@ -50,6 +50,7 @@
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Role</label>
             <select id="accountRole" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-accent outline-none">
+              <option value="student">Student</option>
               <option value="admin">Admin</option>
               <option value="teacher">Teacher</option>
             </select>
@@ -116,6 +117,7 @@
   <script src="../assets/store.js"></script>
   <script>
     const client = window.top?.authClient || window.authClient;
+    const firebase = window.top?.firebaseAuth || window.firebaseAuth;
     const convex = window.top?.convexClient || window.convexClient;
     const accountsContent = document.getElementById('accountsContent');
     const accountsDenied = document.getElementById('accountsDenied');
@@ -188,6 +190,17 @@
       if (!createAccountBtn) return;
       createAccountBtn.disabled = isSubmitting;
       createAccountBtn.textContent = isSubmitting ? 'Creating...' : createAccountLabel;
+    };
+
+    const formatCreateAccountError = (message) => {
+      const text = String(message || '').toLowerCase();
+      if (text.includes('email-already-in-use')) return 'Account already exists for this email.';
+      if (text.includes('already exists')) return 'Account already exists for this email.';
+      if (text.includes('invalid-email')) return 'Invalid email format.';
+      if (text.includes('weak-password')) return 'Password is too weak.';
+      if (text.includes('operation-not-allowed')) return 'Account creation is currently unavailable.';
+      if (text.includes('forbidden') || text.includes('unauthorized')) return 'You do not have permission to create accounts.';
+      return 'Account creation failed. Please try again.';
     };
 
     const setProfileSaving = (isSaving) => {
@@ -416,28 +429,39 @@
       isCreatingAccount = true;
       setAccountSubmitting(true);
       try {
-        const { data, error } = await client.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              full_name: fullName,
-              role
-            }
-          }
-        });
-        if (error) {
-          setNotice('Unable to create account. Please check the email and try again.', 'error');
+        if (!firebase?.secondaryAuth || !firebase?.createUserWithEmailAndPassword) {
+          setNotice('Account creation is temporarily unavailable.', 'error');
           return;
         }
-        if (window.top?.iaStore) {
-          await window.top.iaStore.syncUser(data?.user);
+        const credential = await firebase.createUserWithEmailAndPassword(firebase.secondaryAuth, email, password);
+        if (fullName && firebase.updateProfile) {
+          await firebase.updateProfile(credential.user, { displayName: fullName });
+        }
+        if (firebase.sendEmailVerification) {
+          try {
+            await firebase.sendEmailVerification(credential.user);
+          } catch (error) {
+            // non-blocking
+          }
+        }
+        if (convex) {
+          await convex.mutation('users:adminCreate', {
+            userId: credential.user.uid,
+            email,
+            fullName,
+            role
+          });
+        }
+        if (firebase.signOut) {
+          await firebase.signOut(firebase.secondaryAuth);
         }
         setNotice(`Account created. Temporary password: ${password}`, 'success');
         nameInput.value = '';
         emailInput.value = '';
         generatePassword();
         await loadAccounts();
+      } catch (error) {
+        setNotice(formatCreateAccountError(error?.message || error), 'error');
       } finally {
         isCreatingAccount = false;
         setAccountSubmitting(false);

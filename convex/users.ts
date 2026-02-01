@@ -146,6 +146,43 @@ export const listAll = query({
   }
 });
 
+export const adminCreate = mutation({
+  args: {
+    userId: v.string(),
+    email: v.string(),
+    fullName: v.string(),
+    role: v.string()
+  },
+  handler: async (ctx, args) => {
+    const { user: actor } = await requireAuth(ctx);
+    if (!["owner", "admin"].includes(actor.role)) {
+      throw new Error("Forbidden");
+    }
+    const existing = await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+    if (existing) {
+      throw new Error("User already exists");
+    }
+    const role = ["owner", "admin", "teacher", "student"].includes(args.role)
+      ? args.role
+      : resolveInitialRole(args.email);
+    console.warn("[users:adminCreate]", {
+      actorId: actor.userId,
+      targetUserId: args.userId,
+      role
+    });
+    return await ctx.db.insert("users", {
+      userId: args.userId,
+      email: args.email,
+      fullName: args.fullName,
+      role,
+      createdAt: Date.now()
+    });
+  }
+});
+
 export const updateRole = mutation({
   args: { userId: v.string(), role: v.string() },
   handler: async (ctx, args) => {
