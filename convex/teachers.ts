@@ -40,7 +40,7 @@ export const create = mutation({
       throw new Error("Forbidden");
     }
     const now = Date.now();
-    return await ctx.db.insert("teachers", {
+    const id = await ctx.db.insert("teachers", {
       userId,
       name: args.name,
       subject: args.subject,
@@ -50,6 +50,8 @@ export const create = mutation({
       createdAt: now,
       updatedAt: now
     });
+    console.warn("[teachers:create]", { actorId: userId, teacherId: id });
+    return id;
   },
 });
 
@@ -80,6 +82,7 @@ export const update = mutation({
       updatedAt: Date.now()
     };
     await ctx.db.patch(args.id, updates);
+    console.warn("[teachers:update]", { actorId: userId, teacherId: args.id });
     return args.id;
   },
 });
@@ -103,6 +106,7 @@ export const remove = mutation({
       await ctx.db.delete(course._id);
     }
     await ctx.db.delete(args.id);
+    console.warn("[teachers:remove]", { actorId: userId, teacherId: args.id });
     return true;
   },
 });

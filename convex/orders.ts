@@ -123,6 +123,11 @@ export const finalizeStripeSession = internalMutation({
     if (order.paymentStatus === "paid") {
       return order._id;
     }
+    console.warn("[orders:finalizeStripeSession]", {
+      sessionId: args.sessionId,
+      orderId: order._id,
+      status: args.paymentStatus
+    });
     const patch = {
       paymentStatus: args.paymentStatus,
       ...(args.stripePaymentIntentId

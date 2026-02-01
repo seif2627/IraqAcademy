@@ -222,6 +222,10 @@ export const createCheckoutSession = action({
     const payload = await response.json();
     if (!response.ok) {
       const message = payload?.error?.message || "Unable to create checkout session";
+      console.warn("[payments:createCheckoutSession] Stripe error", {
+        status: response.status,
+        message
+      });
       throw new Error(message);
     }
 

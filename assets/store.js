@@ -314,7 +314,7 @@ const syncUser = async (user) => {
           role = existing.role;
         }
       } catch (error) {
-        // ignore role lookup failures
+        console.warn("[syncUser] role lookup failed", { userId: user.id });
       }
     }
     await convex.mutation("users:upsert", {
@@ -324,6 +324,7 @@ const syncUser = async (user) => {
       role
     });
   } catch (error) {
+    console.warn("[syncUser] failed", { userId: user.id });
     return;
   }
 };

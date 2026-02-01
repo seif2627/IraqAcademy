@@ -172,6 +172,12 @@ export const updateRole = mutation({
         throw new Error("Cannot remove last owner");
       }
     }
+    console.warn("[users:updateRole]", {
+      actorId,
+      targetUserId: existing.userId,
+      fromRole: existing.role,
+      toRole: args.role
+    });
     await ctx.db.patch(existing._id, { role: args.role });
     return existing._id;
   }

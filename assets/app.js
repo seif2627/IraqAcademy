@@ -94,6 +94,35 @@ var pageLoader = document.getElementById("pageLoader");
 var loaderTimer = null;
 var searchInput = document.querySelector(".nav-search-input");
 var searchIcon = document.querySelector(".nav-search-icon");
+var __iaClientLoggingReady = false;
+
+function initClientErrorLogging() {
+  if (__iaClientLoggingReady) return;
+  __iaClientLoggingReady = true;
+  window.addEventListener("error", function (event) {
+    try {
+      console.error("[client:error]", {
+        message: event.message,
+        source: event.filename,
+        line: event.lineno,
+        column: event.colno,
+        page: location.pathname
+      });
+    } catch (error) {
+      // ignore logging failures
+    }
+  });
+  window.addEventListener("unhandledrejection", function (event) {
+    try {
+      console.error("[client:unhandledrejection]", {
+        reason: String(event.reason || "unknown"),
+        page: location.pathname
+      });
+    } catch (error) {
+      // ignore logging failures
+    }
+  });
+}
 
 function showPageLoader() {
   if (!pageLoader) return;
@@ -702,6 +731,7 @@ window.addEventListener("popstate", function () {
 // Initialize
 window.addEventListener('DOMContentLoaded', () => {
     updateUI();
+    initClientErrorLogging();
     if (frame) {
       frame.style.visibility = 'hidden';
     }

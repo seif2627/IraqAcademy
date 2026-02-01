@@ -22,13 +22,19 @@ export const enroll = mutation({
     if (existing) {
       return existing._id;
     }
-    return await ctx.db.insert("enrollments", {
+    const id = await ctx.db.insert("enrollments", {
       userId: args.userId,
       courseId: args.courseId,
       teacherId: course.teacherId,
       status: args.status ?? "active",
       createdAt: Date.now()
     });
+    console.warn("[enrollments:enroll]", {
+      actorId: args.userId,
+      courseId: args.courseId,
+      enrollmentId: id
+    });
+    return id;
   }
 });
 
